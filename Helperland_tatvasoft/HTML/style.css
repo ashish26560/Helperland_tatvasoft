@@ -1,0 +1,431 @@
+*{
+    font-family: Roboto;
+}
+
+.main{
+    background-image: url("assets/Landing-Page-background-image.png") ;
+    /* width: 1560px; */
+    /* height: 930px; */
+    margin: 0px;
+    padding: 0px;
+}
+
+/* adding margin padding to navbar */
+.main .navbar{
+    padding: 0px;
+    padding-top: 10px;
+    margin-left: 17px;
+    margin-right: 6px;
+}
+
+/* logo margin padding removal */
+.main .navbar-brand{
+    margin: 0px;
+    padding: 0px;
+}
+
+/* navlink property reset */
+.main .nav-link{
+    color: #fff!important;
+    margin-right: 12px;
+    margin-left: 10px;
+}
+
+
+/* button property reset */
+.main .navbar .btn{
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 11px;
+    height: 40px; 
+    border-radius: 20px;
+    border: solid 1px white;
+    background: initial;
+}
+
+
+/* hover effect */
+.mynav a:hover{
+    color: black!important;
+}
+.mynav button:hover{
+    color: black!important;
+    border: solid 1px black;
+}
+
+.jumbotron{
+    margin: 0px;
+    padding: 0px;
+    margin-top: 190px;
+    margin-left: 58px;
+        background: initial;
+        font-family: Roboto; 
+        color: #fff;
+    
+} 
+.jumbotron .row{
+    padding-top: 157px;
+    padding-left: 312px;
+    padding-right: 304px;
+}
+.jumbotron .btn{
+    color: #fff;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    margin-right: 11px;
+    height: 54px;
+    font-size: 18px; 
+    border-radius: 27px;
+    border: solid 1px white;
+    background-color: #006072
+}
+
+.jumbotron .display-4{
+    padding-bottom: 8px;
+    font-size: 50px;
+    
+}
+.jumbotron .lead{
+    font-size: 16px;
+}
+
+.Rounded-Rectangle-6-copy-5 {
+    width: 225px;
+    height: 54px;
+    margin: 16px 7px 157px 0;
+    padding: 18px 33px 22px 31px;
+    border-radius: 27px;
+    border: solid 1px var(--white);
+    background-color: #006072;
+  }
+
+.why-helperland .display-4{
+    margin-bottom: 84.5px;
+    margin-top: 87px;
+    color: #4f4f4f;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.why-helperland h2{
+    font-weight: bold;
+    
+    color: #4f4f4f;
+    padding-left: 10px;
+    padding-bottom: 31px;
+}
+.why-helperland p{
+    
+    padding-left: 42px;
+    padding-right: 42px;
+    color: #565656;
+    text-align: center;
+    font-size: 17px;
+}
+.why-helperland .rounded-circle{
+    
+    padding-bottom: 38.5px;
+}
+.why-helperland .row{
+    
+    padding-bottom: 156px;
+}
+.our-blog{
+    background-image: url("assets/blog-left-bg.png") ,url("assets/blog-right-bg.png");
+    background-position: left, right;
+    background-repeat: no-repeat;
+}
+/* .blog{
+    background-image: url("assets/blog-right-bg.png");
+    background-repeat: no-repeat;
+    background-position: right;
+} */
+.our-blog h2{
+    font-weight: bold;
+    color: #565656;
+}
+.our-blog .display-4{
+    padding-bottom: 66px;
+    font-weight: bold;
+    color: #565656;
+
+}
+
+.our-blog .col-md-7 {
+    width: 376px;
+}
+
+.our-blog .card-title{
+    margin: 0px;
+    font-weight: bold;
+}
+.our-blog .date{
+    margin: 0px;
+}
+.our-blog .card-deck .link{
+font-size: 18px;
+color: #4F4F4F;
+text-align: left;
+height: 21px;
+/* border: 0px;
+padding: 0px; */
+}
+.what-our-customer-say .rounded-circle{
+height: 70px;
+width: 70px;
+margin-top: 43px;
+margin-left: 38px;
+margin-bottom: 5px
+}
+
+.what-our-customer-say .card-title{
+    padding-top: 55.1px;
+    color: #4F4F4F;
+    
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+.what-our-customer-say .card{
+    border-left: 4px solid #517dcf;
+}
+.what-our-customer-say .display-4{
+    padding-top: 57.01px;
+    padding-bottom: 56.99px;
+    color: #4F4F4F;
+}
+.what-our-customer-say .card-body .card-text{
+    margin-left: 18px;
+    color: #4F4F4F;
+}
+.what-our-customer-say .card-deck{
+    
+    margin-left: 201px;
+    margin-right: 201px;
+}
+
+/* .what-our-customer-say .container-fluid{
+    margin: 0px;
+    padding: 0px;
+} */
+
+.what-our-customer-say h5{
+    padding-bottom: 16px;
+    padding-top: 49.67px;
+    font-weight: bold;
+    color: #353548;
+}
+.get-our-newsletter h5{
+    font-size: 18px;
+    padding-bottom: 16px;
+    padding-top: 49.67px;
+    font-weight: bold;
+    color: #353548;
+}
+.what-our-customer-say .email{
+    background: #F4F5F8;
+    border: 1px solid #565656;
+    border-radius: 20px;
+    width: 233px;
+    height: 40px;
+    TEXT-ALIGN: LEFT;
+}
+.what-our-customer-say .btn{
+background: #FF7B6D 0% 0% no-repeat padding-box;
+border-radius: 20px;
+width: 88px;
+height: 40px;
+color: #FFFFFF;
+margin-left: 11px;
+}
+.get-our-newsletter .btn{
+background: #FF7B6D 0% 0% no-repeat padding-box;
+border-radius: 20px;
+width: 88px;
+height: 40px;
+color: #FFFFFF;
+margin-left: 11px;
+}
+
+.footer .one{
+    /* height: 131.01px;  */
+    
+    background-color: #111111;
+}
+.faq-footer .one{
+    /* height: 131.01px;  */
+    
+    background-color: #111111;
+}
+.footer .two{
+    /* height: 63.99px;  */
+    background-color: #292929;
+}
+.faq-footer .two{
+    /* height: 63.99px;  */
+    background-color: #111111;
+}
+.footer .navbar-brand{
+    margin-left: 99px;
+    margin-top: 12px;
+
+}
+.faq-footer .navbar-brand{
+    margin-left: 99px;
+    margin-top: 12px;
+
+}
+.footer .socialmedia{
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+.faq-footer .socialmedia{
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.footer .nav-link{
+    color: #fff;
+}
+
+.faq-footer .nav-link{
+    color: #fff;
+}
+.footer .two p{
+    padding-top: 23.49px;
+    text-align: center;
+    color: #F1F1F1;
+}
+
+.faq-footer .two p{
+    padding-top: 23.49px;
+    text-align: center;
+   color: #9BA0A3;
+}
+
+.footer .two .btn{
+    /* padding-top: 12px; */
+    width: 99px;
+    height: 40px;
+    background: #EED507 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+}
+.header .navbar{
+    background-color: #646464;
+    margin: 0px;
+    padding: 0;
+    padding-top: 6px;
+    padding-bottom: 4px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.header .btn{
+    background: #29626D 0% 0% no-repeat padding-box;
+    border: 1px solid #FFFFFF80;
+    border-radius: 20px;
+    font-size: 17px;
+    font-family: Roboto;
+    color: #FFFFFF;
+    padding-left: 19.325px;
+    padding-right: 19.325px;
+    margin-right: 5px;
+    margin-left: 5px
+}
+.header .nav-link{
+    color: #FFFFFF!important;
+    margin-left: 14px;
+    margin-right: 22px;
+}
+/* .header .container-fluid .row{
+    height: 370px;
+    background-image: url("assets/faq-banner.png") ;
+} */
+@media only screen and (max-width: 1401px) {
+    .arrow {
+      display: none;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container {
+        padding: 0px;
+        max-width: 931px;
+     }
+  }
+
+  @media (max-width: 997px) {
+    .card-deck {
+        -webkit-box-orient: vertical;
+        flex-direction: column;
+     }
+  }
+  /* @media (min-width: 1400px) {
+    .faq .para {
+       max-width: 498px;
+     }
+  } */
+  .accordion strong{
+      padding-left: 15px;
+      color: #646464;;
+  }
+  
+  .accordion-container{
+      margin-top: 16px;
+  }
+  .accordion-item{
+      border: 0px;
+  }
+  .accordion-body{
+    padding-left: 46px;
+    padding-right: 46px;
+    font-size: 16px;
+    color: #646464;
+    font-family: roboto;
+  }
+  .accordion-header .button{
+    font-size: 16px;
+    border: 0;
+    background: white;
+  }
+  .header .accordion-item{
+    border: 0px;
+  }
+  .get-our-newsletter .email{
+    background: #F4F5F8;
+    border: 1px solid #565656;
+    border-radius: 20px;
+    width: 233px;
+    height: 40px;
+    TEXT-ALIGN: LEFT;
+}
+.faq-image .img-fluid{
+    padding: 0px;
+}
+
+.faq h5{
+    /* text-align: center; */
+    font-size: 35.95px;
+    color: #4F4F4F;
+    font-weight: bold;
+    padding-top: 32px;
+}
+
+.faq-content .btn{
+    border-radius: 0px;
+}
+.faq-content .customer-btn{
+    border: 0px;
+    /* height: 66px; */
+    font-size: 24px;
+    background-color: #1d7a8c;
+}
+.faq-content .service-btn{
+    border: 0px;
+    /* height: 66px; */
+    font-size: 24px;
+    background-color: #f6f6f6;
+    color: #646464;
+   
+}
