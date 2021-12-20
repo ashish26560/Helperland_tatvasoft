@@ -551,6 +551,14 @@ margin-left: 11px;
       margin: 0px auto;
       position: relative;
   }
+  #contact-section2 .row4 .service-card-img{
+      height: 108px;
+      width: 108px;
+      /* border: 1px solid #B0C9CE;
+      border-radius: 50%; */
+      margin: 0px auto;
+      position: relative;
+  }
   
   #price-section2 .row4 .service-card-img img{
     position: absolute;
@@ -826,4 +834,37 @@ margin-left: 11px;
   }
   
   /*-------------- price page --------------*/
+
+
+  /* contact us page */
+  .touch-with-us{
+  text-align: center;
+    font-size: 28px;
+    font-style: bold;
+    font-weight: 700;
+    color: #4F4F4F;
+    padding-top: 80px;
+    
+    border-top: 1px solid #CCCCCC;
+  }
+
+  .touch-with-us .row2 .row{
+    margin-top: 15px;
+  }
   
+  .touch-with-us .submitbtn{
+
+    background: #1D7A8C;
+    color: #FFFFFF;
+    padding-left: 50px;
+    PADDING-RIGHT: 50PX;
+    BORDER-RADIUS: 23PX;
+    FONT-SIZE: 23PX;
+    margin-bottom: 80px;
+  }
+  .gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    height: 400px;
+    width: 100%;
+  }
