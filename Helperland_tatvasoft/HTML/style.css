@@ -1,5 +1,5 @@
 *{
-    font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
 }
 
 .main{
@@ -976,4 +976,125 @@ margin-left: 11px;
   font-weight: 700;
   color: #4f4f4f;
   margin-bottom: 0px;
+}
+
+#upcoming-services .notification{
+  color: white;
+  border-left: solid;
+  border-right: solid;
+}
+
+#upcoming-services-section2 {
+  color: #F9F9F9;
+}
+#upcoming-services-section2 .row{
+  text-align: center;
+  color: #4F4F4F;
+  
+  font-size: 30px;
+  margin-top: 38px;
+  margin-bottom: 28px;
+  
+}
+
+
+
+#upcoming-services-section3 .col1{
+  max-width: 262px;
+  margin-left: 15px;
+  background-color: #1D7A8C;
+  padding: 0px;
+}
+#upcoming-services-section3 {
+  padding-bottom: 30px;
+}
+#upcoming-services-section3 .col2{
+  max-width: 875px;
+}
+#upcoming-services-section3 .col2 .end{
+  text-align: end;
+}
+#upcoming-services-section3 .col2 .end .pagination{
+  display: inline-block;
+}
+#upcoming-services-section3 .col2 .end .pagination a{
+  color: black;
+  float: left;
+  padding: 4px 12px;
+  margin: 0px 5px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  border-radius: 360px;
+}
+
+#upcoming-services-section3 .col2 .end .pagination a.active{
+    background-color: #1D7A8C;
+    color: white;
+}
+#upcoming-services-section3 .row1{
+  justify-content: center;
+}
+#upcoming-services-section3 .nav-tabs{
+  background-color: #1D7A8C;
+}
+#upcoming-services-section3 .nav-tabs .active{
+  
+  border-top-left-radius: 0px; 
+  border-top-right-radius: 0px;
+  background-color: #146371;
+}
+#upcoming-services-section3 .nav-link{
+  color: #FFFFFF;
+}
+#upcoming-services-section3 .nav-item{
+  
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+#upcoming-services-section3 .table{
+  
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6
+}
+#upcoming-services-section3 .table-success{
+  color: #646464;
+}
+#upcoming-services-section3 .table-success th{
+  background: #f9f9f9
+}
+
+#upcoming-services-section3 .date {
+  list-style-image: url('assets/calendar2.png');
+}
+#upcoming-services-section3 .time {
+  list-style-image: url('assets/layer-14.png');
+}
+#upcoming-services-section3 .name {
+  list-style-type: none;
+}
+#upcoming-services-section3 .address {
+  list-style-image: url('assets/layer-15.png');
+}
+#upcoming-services-section3 .customerdetails {
+  padding-left: 26px;
+  margin-bottom: 0px;
+}
+#upcoming-services-section3 .servicedate {
+  padding-left: 22px;
+  margin-bottom: 0px;
+}
+#upcoming-services-section3 .serviceid {
+  
+  vertical-align: middle;
+}
+#upcoming-services-section3 .distance {
+  vertical-align: middle;
+}
+#upcoming-services-section3 .actions {
+  vertical-align: middle;
+}
+#upcoming-services-section3 .actions .btn{
+    border-radius: 17px;
+    background: #FF6B6B;
+    color: #FFFFFF;
 }
