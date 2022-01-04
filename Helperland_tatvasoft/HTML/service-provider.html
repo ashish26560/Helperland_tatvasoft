@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>service provider</title>
     <!-- CSS only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -21,59 +23,114 @@
 
 <body>
 
-    <section class="header" id="service-provider">
+    <div class="wrapper " id="service-provider">
 
-        <nav class="navbar navbar-expand-lg navbar-light mynav">
-            <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Price & services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Warranty</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact </a>
-                    </li>
+        <nav id="sidebar">
+            <div class="container-fluid">
+                <div class="row row1">
+                    Warm Welcome,
+                    Sandeep.
+                </div>
+                <div class="row row2">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link " data-bs-toggle="tab" href="#dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests">New Service Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#upcomingservices">Upcoming
+                                Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory">Service History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#myratings">My Ratings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer">Block Customer</a>
+                        </li>
+                    </ul>
 
-                    <li class="nav-item notification">
+                </div>
+                <div class="row row3">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Price & services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Warranty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact </a>
+                        </li>
+                    </ul>
 
-                        <a class="nav-link" href="#"><img src="assets/icon-notification.png" alt=""> </a>
-                    </li>
-                    <li class="nav-item " ">
-                        
-                        <a class=" nav-link" style="margin-right: 0px;" href="#"><img src="assets/admin-user.png"
-                            alt=""> <img src="assets/admin-small-arrow.png" alt=""></a>
-                    </li>
-                    <!-- <li class="nav-item">
+                </div>
+                <div class="row4">
 
-                        <a class="nav-link" href="#"><img src="assets/admin-small-arrow.png" alt=""> </a>
-                    </li> -->
-
-                    <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <img src="image/flag.png" alt="Language">
-            </a> -->
-                    <!-- change the dropdown size(media query) -->
-                    <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">English</a>
-                <a class="dropdown-item" href="#">Hindi</a>
-                <a class="dropdown-item" href="#">Gujrati</a>
+                    <img class="socialmedia" src="assets/facebook-mobile-menu.png" alt="">
+                    <img class="socialmedia" src="assets/instagram-mobile-menu.png" alt="">
+                </div>
             </div>
-        </li> -->
-                </ul>
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
             </div>
         </nav>
-    </section>
+
+        <div id="content">
+            <section class="header">
+
+                <nav class="navbar navbar-expand-lg navbar-light mynav">
+                    <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
+
+                    <button class="navbar-toggler" id="sidebarCollapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Price & services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Warranty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact </a>
+                            </li>
+
+                            <li class="nav-item notification">
+
+                                <a class="nav-link" href="#"><img src="assets/icon-notification.png" alt=""> </a>
+                            </li>
+                            <li class="nav-item " ">
+                                
+                                <a class=" nav-link" style="margin-right: 0px;" href="#"><img
+                                    src="assets/admin-user.png" alt=""> <img src="assets/admin-small-arrow.png"
+                                    alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </section>
+        </div>
+
+        <div class="overlay"></div>
+
+    </div>
+
 
     <section class="container-fluid" id="service-provider-section2">
         <div class="row">
@@ -87,13 +144,13 @@
             <div class="col col1">
                 <ul class="nav nav-tabs flex-column" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#dashboard">Dashboard</a>
+                        <a class="nav-link " data-bs-toggle="tab" href="#dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests">New Service Requests</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#upcomingservices">Upcoming Services</a>
+                        <a class="nav-link active" data-bs-toggle="tab" href="#upcomingservices">Upcoming Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
@@ -116,27 +173,118 @@
                         <table class="table">
                             <thead class="table-success">
                                 <tr>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
+                                    <th>Service ID</th>
+                                    <th>Service date </th>
+                                    <th>Customer details</th>
+                                    <th>Distance</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
+                                    <td class="serviceid">32346</td>
+                                    <td>
+                                        <ul class="servicedate">
+                                            <li class="date">09/04/2018</li>
+                                            <li class="time">12:00-18:00</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        David Bough
+                                        <ul class="customerdetails">
+                                            <li class="address">Musterstrabe 5,12345 bonn</li>
+                                        </ul>
+                                    </td>
+                                    <td class="distance">15km</td>
+                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Mary</td>
-                                    <td>Moe</td>
-                                    <td>mary@example.com</td>
+                                    <td class="serviceid">32346</td>
+                                    <td>
+                                        <ul class="servicedate">
+                                            <li class="date">09/04/2018</li>
+                                            <li class="time">12:00-18:00</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        David Bough
+                                        <ul class="customerdetails">
+                                            <li class="address">Musterstrabe 5,12345 bonn</li>
+                                        </ul>
+                                    </td>
+                                    <td class="distance">15km</td>
+                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
                                 </tr>
                                 <tr>
-                                    <td>July</td>
-                                    <td>Dooley</td>
-                                    <td>july@example.com</td>
+                                    <td class="serviceid">32346</td>
+                                    <td>
+                                        <ul class="servicedate">
+                                            <li class="date">09/04/2018</li>
+                                            <li class="time">12:00-18:00</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        David Bough
+                                        <ul class="customerdetails">
+                                            <li class="address">Musterstrabe 5,12345 bonn</li>
+                                        </ul>
+                                    </td>
+                                    <td class="distance">15km</td>
+                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
                                 </tr>
+                                <tr>
+                                    <td class="serviceid">32346</td>
+                                    <td>
+                                        <ul class="servicedate">
+                                            <li class="date">09/04/2018</li>
+                                            <li class="time">12:00-18:00</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        David Bough
+                                        <ul class="customerdetails">
+                                            <li class="address">Musterstrabe 5,12345 bonn</li>
+                                        </ul>
+                                    </td>
+                                    <td class="distance">15km</td>
+                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="serviceid">32346</td>
+                                    <td>
+                                        <ul class="servicedate">
+                                            <li class="date">09/04/2018</li>
+                                            <li class="time">12:00-18:00</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        David Bough
+                                        <ul class="customerdetails">
+                                            <li class="address">Musterstrabe 5,12345 bonn</li>
+                                        </ul>
+                                    </td>
+                                    <td class="distance">15km</td>
+                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="serviceid">32346</td>
+                                    <td>
+                                        <ul class="servicedate">
+                                            <li class="date">09/04/2018</li>
+                                            <li class="time">12:00-18:00</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        David Bough
+                                        <ul class="customerdetails">
+                                            <li class="address">Musterstrabe 5,12345 bonn</li>
+                                        </ul>
+                                    </td>
+                                    <td class="distance">15km</td>
+                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
+                                </tr>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -188,7 +336,7 @@
                                             <li class="time">12:00-18:00</li>
                                         </ul>
                                     </td>
-                                    <td>   
+                                    <td>
                                         David Bough
                                         <ul class="customerdetails">
                                             <li class="address">Musterstrabe 5,12345 bonn</li>
@@ -307,7 +455,7 @@
                                             <li class="time">12:00-18:00</li>
                                         </ul>
                                     </td>
-                                    <td>   
+                                    <td>
                                         David Bough
                                         <ul class="customerdetails">
                                             <li class="address">Musterstrabe 5,12345 bonn</li>
@@ -356,14 +504,23 @@
                         </table>
                     </div>
                 </div>
-                <div class="end">
+                <div class="row bottom">
 
-                    <div class="pagination">
-                        <a href="#"><img src="assets/first-page.png" alt=""></a>
-                        <a href="#"><img src="assets/keyboard-right-arrow-button-copy.png" alt=""></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#"><img src="assets/keyboard-left-arrow-button-copy.png" alt=""></a>
-                        <a href="#"><img src="assets/last-page.png" alt=""></a>
+                    <div class="col-auto">
+                        <p>show
+                            <input type="number" id="quantity" name="quantity" min="1" max="5">
+                             Entries total record: 1
+                        </p>
+                    </div>
+                    <div class="end col-auto">
+
+                        <div class="pagination">
+                            <a href="#"><img src="assets/first-page.png" alt=""></a>
+                            <a href="#"><img src="assets/keyboard-right-arrow-button-copy.png" alt=""></a>
+                            <a href="#" class="active">1</a>
+                            <a href="#"><img src="assets/keyboard-left-arrow-button-copy.png" alt=""></a>
+                            <a href="#"><img src="assets/last-page.png" alt=""></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -412,13 +569,9 @@
 
         <div class="two container-fluid  justify-content-center">
             <div class="row text-center">
-                <!-- <div class="col-11"> -->
                 <p>©2018 Helperland. All rights reserved. Terms and Conditions | <a class="link" href="#">Privacy
                         policy.</a></p>
-                <!-- </div> -->
-                <!-- <div class="col" style="padding-top: 12px;">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div> -->
+
             </div>
         </div>
 
@@ -439,6 +592,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#dismiss, .overlay').on('click', function () {
+                // hide sidebar
+                $('#sidebar').removeClass('active');
+                // hide overlay
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                // open sidebar
+                $('#sidebar').addClass('active');
+                // fade in the overlay
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
 
 </body>
 
