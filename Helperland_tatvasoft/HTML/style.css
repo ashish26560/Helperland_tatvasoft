@@ -1160,7 +1160,7 @@ margin-left: 11px;
   top: 10px;
   right: 10px;
 }
-#service-provider-section3 .col2 .bottom{
+#service-provider-section3 .bottom{
   justify-content: space-between;
 
 }
@@ -1184,3 +1184,348 @@ margin-left: 11px;
 
 
 /* service provider  */
+
+
+
+/* customer  */
+
+#customer .notification{
+  color: white;
+  border-left: solid;
+  border-right: solid;
+}
+
+#customer-section2 {
+  background: #F9F9F9;
+  padding-top: 38px;
+  padding-bottom: 28px;
+}
+#customer-section2 .row{
+  text-align: center;
+  color: #4F4F4F;
+  
+  font-size: 30px;
+  
+}
+
+#customer-section3 .col1{
+  max-width: 262px;
+  margin-left: 15px;
+  background-color: #1D7A8C;
+  padding: 0px;
+}
+#customer-section3 {
+  padding-bottom: 30px;
+}
+#customer-section3 .col2{
+  max-width: 875px;
+}
+#customer-section3 .col2 .end{
+  text-align: end;
+}
+#customer-section3 .pagination{
+  display: inline-block;
+}
+#customer-section3 .bottom{
+  justify-content: space-between;
+
+}
+#customer-section3 .pagination a{
+  color: black;
+  float: left;
+  padding: 4px 12px;
+  margin: 0px 5px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  border-radius: 360px;
+}
+
+#customer-section3 .pagination a.active{
+    background-color: #1D7A8C;
+    color: white;
+}
+#customer-section3 .row1{
+  justify-content: center;
+}
+#customer-section3 .nav-tabs{
+  background-color: #1D7A8C;
+}
+#customer-section3 .nav-tabs .active{
+  
+  border-top-left-radius: 0px; 
+  border-top-right-radius: 0px;
+  background-color: #146371;
+}
+#customer-section3 .nav-link{
+  color: #FFFFFF;
+}
+#customer-section3 .nav-item{
+  
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+#customer-section3 .table{
+  
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6
+}
+#customer-section3 .table-success{
+  color: #646464;
+}
+#customer-section3 .table-success th{
+  background: #f9f9f9
+}
+
+#customer-section3 .date {
+  list-style-image: url('assets/calendar2.png');
+}
+#customer-section3 .time {
+  list-style-image: url('assets/layer-14.png');
+}
+#customer-section3 .name {
+  list-style-type: none;
+}
+/* #customer-section3 .address {
+  list-style-image: url('assets/layer-15.png');
+} */
+/* #customer-section3 .customerdetails {
+  padding-left: 26px;
+  margin-bottom: 0px;
+} */
+#customer-section3 .servicedate {
+  padding-left: 22px;
+  margin-bottom: 0px;
+}
+#customer-section3 .serviceid {
+  
+  vertical-align: middle;
+}
+#customer-section3  .titletext {
+  font-size: 22px;
+    line-height: 36px;
+    font-weight: 700;
+    margin: 0;
+  justify-content: space-between;
+  vertical-align: middle;
+  color: #646464;
+}
+#customer-section3 .col2 .cap-customer-history{
+  border-radius: 50%;
+  border: 1px black solid;
+  padding: 10px 7px;
+}
+
+.cap-2{
+  padding-right: 3px;
+}
+.cap-3{
+  padding-left: 3px;
+}
+
+  
+#customer-section3 .exportbtn .btn{
+background: #1d7a8c;
+border: none!important;
+
+border-radius: 16px;
+  padding: 6px 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color:#fff;
+  padding: 6px 10px;
+  font-size: 14px;
+  margin-bottom: 10px;}
+
+#customer-section3 .table tbody {
+  border-top: 0px solid currentColor;
+
+}
+#customer-section3 .payment {
+  vertical-align: middle;
+  
+  color: #1d7a8c;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+}
+#customer-section3 .status{
+  vertical-align: middle;
+}
+#customer-section3 .statustext{
+  background: #FF6B6B;
+  color: white;
+  padding-left: 5px;
+  margin-top: 16px;
+  text-align: center;
+}
+#customer-section3 .ratesp {
+  vertical-align: middle;
+}
+#customer-section3 .ratesp .btn{
+    border-radius: 17px;
+    background: #6DA9B5;
+    color: #FFFFFF;
+    
+    width: 80px;
+}
+ 
+#customer {
+  display: block;
+}
+
+#sidebar .row1{
+  padding: 8px 16px;
+} 
+#sidebar .row3{
+  padding: 8px 16px;
+} 
+#sidebar .row4{
+  text-align: center;
+  padding: 8px 16px;
+} 
+
+#sidebar {
+  background-color: white;
+  margin-right: -250px;
+  min-width: 250px;
+  max-width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  /* top layer */
+  z-index: 9999;
+}
+#sidebar.active{
+  margin-right: -250px;
+
+}
+
+#customer .overlay {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+
+#customer .overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+
+#customer #dismiss {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+#customer-section3 .col2 .bottom{
+  justify-content: space-between;
+
+}
+@media (max-width: 767px) {
+  #customer-section3 .col2 .table th{
+    display: none;
+  }
+
+}
+@media (min-width:992px) {
+  #customer-section3 .col3 {
+    display: none;
+  }
+}
+@media (max-width: 992px) {
+  #sidebar {
+    margin-right:-250px;
+  }
+  #sidebar.active {
+    margin-right: 0px;
+  }
+  #customer-section3 .col1 {
+    display: none;
+  }
+  #customer-section3 .col2 {
+    display: none;
+  }
+  #customer-section3 .col3 {
+    display: block;
+  }
+  
+}
+
+#customer-section3 .col3 .container-fluid .frow{
+  padding-left: 15px;
+  padding-bottom: 15px;
+  
+}
+#customer-section3 .col3 .container-fluid .row1{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e1e1e1;
+}
+#customer-section3 .col3 .container-fluid .customerdet{
+  border-top: 1px solid #e1e1e1;
+  
+  padding-bottom: 15px;
+  padding-top: 15px;
+  
+}
+#customer-section3 .col3 .container-fluid{
+  margin-bottom: 15px;
+  display: block;
+  padding: 15px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 25%);
+}
+
+#footer {
+  background: #111111;
+  color: #ffffff;
+}
+
+.foot-text {
+  
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* privacy-policy section */
+
+ .privacy-policy {
+  text-align: center;
+  background: #111111;
+  color: #9BA0A3;
+} 
+
+.privacy-policy a {
+  color: #6eabef;
+}
+.privacy-policy  p {
+  padding-top: 20px;
+}
+.privacy-policy p {
+  font-size: 14px;
+  font-weight: 400;
+} 
+/* #privacy-policy .btn {
+  width: 99px;
+  background-color: #eed507;
+  border-radius: 20px;
+  margin: 12px 0px;
+  
+} */
+/* #privacy-policy .btn p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4f4f4f;
+} */
+/* customer  */
