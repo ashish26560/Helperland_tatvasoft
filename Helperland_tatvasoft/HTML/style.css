@@ -1065,6 +1065,10 @@ margin-left: 11px;
   background: #f9f9f9
 }
 
+
+#service-provider-section3 .address {
+  list-style-image: url('assets/layer-15.png');
+}
 #service-provider-section3 .date {
   list-style-image: url('assets/calendar2.png');
 }
@@ -1073,9 +1077,6 @@ margin-left: 11px;
 }
 #service-provider-section3 .name {
   list-style-type: none;
-}
-#service-provider-section3 .address {
-  list-style-image: url('assets/layer-15.png');
 }
 #service-provider-section3 .customerdetails {
   padding-left: 26px;
@@ -1223,6 +1224,7 @@ margin-left: 11px;
 #customer-section3 .col2 .end{
   text-align: end;
 }
+
 #customer-section3 .pagination{
   display: inline-block;
 }
@@ -1245,6 +1247,7 @@ margin-left: 11px;
     background-color: #1D7A8C;
     color: white;
 }
+
 #customer-section3 .row1{
   justify-content: center;
 }
@@ -1529,3 +1532,199 @@ border-radius: 16px;
   color: #4f4f4f;
 } */
 /* customer  */
+
+
+/* admin */
+
+#admin .admin-header{
+  justify-content: space-between;
+  background: #1FB6FF;
+  padding: 12px 6px;
+}
+#admin .admin-header .name{
+  color: #FFFFFF;
+  font-size: 16px;
+  padding-right: 18px;
+}
+#admin .admin-header .name img{
+  padding-right: 7px;
+}
+
+#admin-section2 {
+  background: #F4F4F4;
+  color: #646464;
+}
+#admin-section2 .row1 .nav-link{
+    padding: 10px 16px;
+
+}
+#admin-section2 .row1 {
+  padding-left: 15px;
+  background: #F4F4F4;
+}
+#admin-section2 .row1 .col1{
+  padding-right: 0px;
+  padding-left: 0px;
+  color: #646464!important;
+  width: 19.98%;
+  background-color: #FFFFFF;
+}
+#admin-section2 .row1 .col1 a{
+  color: #646464!important;
+
+}
+#admin-section2 .row1 .col1 a.active{
+  color: #1FB6FF!important;
+  border-bottom: 1px solid #e1e1e1;
+
+}
+#admin-section2 .row1 .col2{
+  width: 80.02%;
+}
+
+#admin-section2 .row1 .col2 .table tbody{
+border: 1px solid #e1e1e1;
+}
+#admin-section2 .row1 .col2 .table{
+  background: #FFFFFF;
+  color: #646464;
+  border: 1px solid #e1e1e1;
+}
+
+#admin-section2 .col1 li{
+  border-bottom: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+  border-left: 1px solid #e1e1e1;
+}
+
+#admin-section2 .col2 .titletext {
+
+  padding-top: 29px;
+  padding-bottom: 15px;
+}
+#admin-section2 .col2 .titletext .text{
+  padding-left: 20px;
+  color: #646464;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+#admin-section2 .date {
+  list-style-image: url('assets/calendar2.png');
+}
+#admin-section2 .time {
+  list-style-image: url('assets/layer-14.png');
+}
+#admin-section2 .address {
+  list-style-image: url('assets/layer-15.png');
+}
+
+#admin-section2 .col2 .serviceid {
+  vertical-align: middle;
+}
+#admin-section2 .col2 .status {
+  vertical-align: middle;
+}
+#admin-section2 .col2 .amount {
+  vertical-align: middle;
+}
+#admin-section2 .col2 .actions {
+  vertical-align: middle;
+}
+#admin-section2 .col2 .actions img{
+  border-radius: 360px;
+  background: #0000001A;
+  padding: 10px 18px;
+}
+#admin-section2 .col2 .status .new{
+  color: #FFFFFF;
+  padding: 5px 5px;
+  background: #F2BB37;
+}
+#admin-section2 .col2 .status .cancelled{
+  color: #FFFFFF;
+  padding: 5px 5px;
+  background: #FF6B6B;
+}
+
+#admin-section2 .col2 .form{
+  padding-bottom: 20px;
+  background: #FFFFFF;
+  margin-bottom: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+  justify-content: space-between;
+  border: 1px solid #e1e1e1;
+
+}
+#admin-section2 .col2 .form .col-auto{
+  padding-top: 20px;
+
+}
+#admin-section2 .col2 .form button{
+  background: #1FB6FF;
+  padding: 6px 15px;
+  border: 0px;
+  border-radius: 4px;
+  color: white;
+}
+#admin-section2 .col2 .form button.search{
+  color: white;
+  background: #1FB6FF;
+
+}
+#admin-section2 .col2 .form button.clear{
+  color: #646464;
+  background: #FFFFFF;
+  border: 1px solid #DEDDDD;
+}
+#admin-section2 .col2 .form button{
+  padding: 6px 15px;
+  border: 0px;
+  border-radius: 4px;
+}
+#admin-section2 .col2 .form .serviceid{
+  max-width: 145px;
+}
+#admin-section2 .col2 .form .date{
+  max-width: 130px;
+}
+ .col2 .form-select{
+  color: #A0A0A0;
+}
+
+#admin-section2 .pagination{
+    display: inline-block;
+  }
+  #admin-section2 .bottom{
+    justify-content: space-between;
+  
+  }
+  #admin-section2 .pagination a{
+    color: black;
+    float: left;
+    padding: 4px 12px;
+    margin: 0px 5px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    border-radius: 0pxpx;
+  }
+  
+  #admin-section2 .pagination a.active{
+      background-color: #1D7A8C;
+      color: white;
+  }
+
+  #admin-section2 #usermanagement .userstatus .active{
+    background: #67B644;
+    color: #FFFFFF;
+    padding: 5px 11px;
+    font-size: 13px;
+  }
+  #admin-section2 #usermanagement .userstatus .inactive{
+    background: #FF6B6B;
+    color: #FFFFFF;
+    padding: 5px 7px;
+    font-size: 13px;
+  }
