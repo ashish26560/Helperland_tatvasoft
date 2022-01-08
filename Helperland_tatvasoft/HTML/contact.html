@@ -8,10 +8,10 @@
     <title>contact us</title>
     <!-- CSS only -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-    rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -25,8 +25,8 @@
 </head>
 
 <body>
-
-    <section class="header">
+    <!-- header part -->
+    <section id="header">
 
         <nav class="navbar navbar-expand-lg navbar-light mynav">
             <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
@@ -75,16 +75,19 @@
             </div>
         </nav>
     </section>
+    <!-- header part over -->
 
-    <div class="faq-image container-fluid">
+    <!-- banner -->
+    <div id="bannerimage" class=" container-fluid">
 
         <div class="row">
             <img src="assets/group-16_2.png" class="img-fluid" alt="">
         </div>
     </div>
+    <!-- banner over -->
 
-    <!-- section 2 -->
-    <section class="container-fluid" id="price-section2">
+    <!-- 3 cards used the same css in price page also for extra services -->
+    <section class="container-fluid" id="commonsection2">
 
         <div class="row text-center row1">
             <p class="title m-0 p-0">Contact us</p>
@@ -95,15 +98,13 @@
             <img class="px-0" id="seprator" src="assets/separator.png" alt="">
             <div class="line"></div>
         </div>
-
-
-
+        <!-- 3 cards -->
         <div class="container row4 px-0">
 
 
             <div class="row mx-0 text-center subrow3">
 
-                <div class="col py-2">
+                <div class="col-12 col-md-auto py-2">
                     <div class="services-card">
 
                         <div class="service-card-img">
@@ -116,7 +117,7 @@
 
                     </div>
                 </div>
-                <div class="col py-2">
+                <div class="col-12 col-md-auto py-2">
                     <div class="services-card">
 
                         <div class="service-card-img">
@@ -129,7 +130,7 @@
 
                     </div>
                 </div>
-                <div class="col py-2">
+                <div class="col-12 col-md-auto py-2">
                     <div class="services-card">
 
                         <div class="service-card-img">
@@ -145,55 +146,62 @@
             </div>
 
         </div>
-
+        <!-- 3 cards over -->
     </section>
+    <!-- 3-cards section over -->
 
-    <!-- section 2 -->
-    <div class="container touch-with-us">
-        <div class="row row1">
-            <div class="col">
-                <p>Get in touch with us</p>
-            </div>
-        </div>
-        <div class="row row2">
-            <div class="col">
+    <!-- touch with us and detail filling -->
+    <div class="container forborder">
+        <div class="container-fluid touch-with-us">
 
-                <input class="form-control" type="text" name="" id="" placeholder="First name">
-            </div>
-            <div class="col">
-
-                <input class="form-control" type="text" name="" id="" placeholder="Last name">
-            </div>
-            <div class="row row3"></div>
-            <div class="col">
-
-                <input class="form-control" type="tel" name="" id="" placeholder="Last name">
-            </div>
-            <div class="col">
-
-                <input class="form-control" type="email" name="" id="" placeholder="Email address">
-            </div>
-            <div class="row row4"></div>
-            <div class="col">
-
-                <input class="form-control" type="tel" name="" id="" placeholder="Subject">
-            </div>
-            <div class="row row5"></div>
-            <div class="col">
-
-                <input class="form-control" style="height: 146px;" type="tel" name="" id="" placeholder="message">
-            </div>
-            <div class="row">
-
-                <div class="col ">
-                    <button class="btn submitbtn" type="submit">Submit</button>
+            <div class="row row1">
+                <div class="col">
+                    <p>Get in touch with us</p>
                 </div>
             </div>
-            
-            
+            <div class="row row2">
+                <div class="col">
+
+                    <input class="form-control" type="text" name="" id="" placeholder="First name">
+                </div>
+                <div class="col">
+
+                    <input class="form-control" type="text" name="" id="" placeholder="Last name">
+                </div>
+                <div class="row row3"></div>
+                <div class="col">
+
+                    <input class="form-control" type="tel" name="" id="" placeholder="Last name">
+                </div>
+                <div class="col">
+
+                    <input class="form-control" type="email" name="" id="" placeholder="Email address">
+                </div>
+                <div class="row row4"></div>
+                <div class="col">
+
+                    <input class="form-control" type="tel" name="" id="" placeholder="Subject">
+                </div>
+                <div class="row row5"></div>
+                <div class="col">
+
+                    <input class="form-control" style="height: 146px;" type="tel" name="" id="" placeholder="message">
+                </div>
+                <div class="row">
+
+                    <div class="col ">
+                        <button class="btn submitbtn" type="submit">Submit</button>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
-    <div class="row">
+    <!-- touch with us over -->
+
+    <!-- map part -->
+    <div class="row" id="map">
         <div class="col-12">
             <div class="mapouter">
                 <div class="gmap_canvas"><iframe width="100%" height="400" id="gmap_canvas"
@@ -205,9 +213,10 @@
             </div>
         </div>
     </div>
+    <!-- map part over -->
 
-    <!-- section 3 -->
-    <section class="container-fluid" id="price-section5">
+    <!-- get news letter  -->
+    <section class="container-fluid" id="getnewssection">
 
         <div class="row" id="row1">
 
@@ -248,7 +257,9 @@
         </div>
 
     </section>
+    <!-- get news letter over -->
 
+    <!-- footer -->
     <section class="container-fluid" id="footer">
         <div class="row align-self-center">
             <div class="col-md-2 col-sm-4 text-center text-sm-end ">
@@ -274,15 +285,16 @@
             </div>
         </div>
         <div class="row align-self-center privacy-policy">
-    
-    
+
+
             <p>©2018 Helperland. All rights reserved. Terms and Conditions | <a class="link" href="#">Privacy
                     policy.</a>
-    
-    
+
+
         </div>
-    
+
     </section>
+    <!-- footer over -->
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
