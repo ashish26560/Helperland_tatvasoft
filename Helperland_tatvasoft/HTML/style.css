@@ -12,18 +12,18 @@
 
 
 /* adding margin padding to navbar */
-#homepage .navbar{
+#mainheader .navbar{
     padding: 10px 16px;
 }
 
 /* logo margin padding removal */
-#homepage .navbar-brand{
+#mainheader .navbar-brand{
     margin: 0px;
     padding: 0px;
 }
 
 /* navlink property reset */
-#homepage .nav-link{
+#mainheader .nav-link{
     color: #fff!important;
     margin-right: 12px;
     margin-left: 10px;
@@ -31,7 +31,7 @@
 
 
 /* button property reset */
-#homepage .navbar .btn{
+#mainheader .navbar .btn{
     color: #fff;
     padding-left: 20px;
     padding-right: 20px;
@@ -266,7 +266,7 @@ color: #FFFFFF;
 margin-left: 11px;
 }
 
-.header .navbar{
+#header .navbar{
     background-color: #646464;
     margin: 0px;
     padding: 0;
@@ -275,8 +275,8 @@ margin-left: 11px;
     padding-right: 15px;
     padding-left: 15px;
 }
-.header .btn{
-    background: #29626D 0% 0% no-repeat padding-box;
+#header .btn{
+    background: #29626D;
     border: 1px solid #FFFFFF80;
     border-radius: 20px;
     font-size: 17px;
@@ -287,7 +287,7 @@ margin-left: 11px;
     margin-right: 5px;
     margin-left: 5px
 }
-.header .nav-link{
+#header .nav-link{
     color: #FFFFFF!important;
     margin-left: 14px;
     margin-right: 22px;
