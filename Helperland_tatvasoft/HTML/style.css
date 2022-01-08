@@ -2,7 +2,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.main{
+#homepage{
     background-image: url("assets/Landing-Page-background-image.png") ;
     /* width: 1560px; */
     /* height: 930px; */
@@ -12,21 +12,18 @@
 
 
 /* adding margin padding to navbar */
-.main .navbar{
-    padding: 0px;
-    padding-top: 10px;
-    margin-left: 17px;
-    margin-right: 6px;
+#homepage .navbar{
+    padding: 10px 16px;
 }
 
 /* logo margin padding removal */
-.main .navbar-brand{
+#homepage .navbar-brand{
     margin: 0px;
     padding: 0px;
 }
 
 /* navlink property reset */
-.main .nav-link{
+#homepage .nav-link{
     color: #fff!important;
     margin-right: 12px;
     margin-left: 10px;
@@ -34,7 +31,7 @@
 
 
 /* button property reset */
-.main .navbar .btn{
+#homepage .navbar .btn{
     color: #fff;
     padding-left: 20px;
     padding-right: 20px;
@@ -54,43 +51,63 @@
     color: black!important;
     border: solid 1px black;
 }
+#homepage .content{
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 170px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
 
-.jumbotron{
-    margin: 0px;
-    padding: 0px;
-    margin-top: 190px;
-    margin-left: 58px;
-        background: initial;
-        font-family: Roboto; 
-        color: #fff;
-    
+#homepage .content .row{
+  color: #FFFFFF;
+}
+#homepage .content .text h1{
+  font-size: 50px;
+  margin-bottom: 16px;
+}
+#homepage .content .subtext{
+  font-size: 16px;
 } 
-.jumbotron .row{
-    padding-top: 157px;
-    padding-left: 312px;
-    padding-right: 304px;
+#homepage .content .bookcleaner{
+  padding-bottom: 152px;
+  justify-content: space-evenly;
 }
-.jumbotron .btn{
-    color: #fff;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-top: 10px;
-    margin-right: 11px;
-    height: 54px;
-    font-size: 18px; 
-    border-radius: 27px;
-    border: solid 1px white;
-    background-color: #006072
+#homepage .content .bookcleaner .btn{
+  padding: 13px 30px;
+  border: 1px solid #FFFFFF;
+  border-radius: 27px;
+  background: #29626D;
+}
+#homepage .content .bookcleaner .text{
+  color: #FFFFFF;
+}
+#homepage .content .services{
+  justify-content: space-around;
+}
+#homepage .content .subservice{
+padding-top: 5px;
+}
+#homepage .content .subservice{
+padding-top: 5px;
+}
+#homepage .content .subservice h5{
+padding-top: 40px;
+}
+#homepage .content .subservice .last{
+padding-top: 30px;
+}
+#homepage .content .services .center{
+  text-align: center;
 }
 
-.jumbotron .display-4{
-    padding-bottom: 8px;
-    font-size: 50px;
-    
+#homepage .content .downarrow{
+  text-align: center;
+  padding-top: 34px;
+  padding-bottom: 33px;
 }
-.jumbotron .lead{
-    font-size: 16px;
-}
+
+
 
 .Rounded-Rectangle-6-copy-5 {
     width: 225px;
@@ -249,71 +266,6 @@ color: #FFFFFF;
 margin-left: 11px;
 }
 
-.footer .one{
-    /* height: 131.01px;  */
-    
-    background-color: #111111;
-}
-.faq-footer .one{
-    /* height: 131.01px;  */
-    
-    background-color: #111111;
-}
-.footer .two{
-    /* height: 63.99px;  */
-    background-color: #292929;
-}
-.faq-footer .two{
-    /* height: 63.99px;  */
-    background-color: #111111;
-}
-.footer .navbar-brand{
-    margin-left: 99px;
-    margin-top: 12px;
-
-}
-.faq-footer .navbar-brand{
-    margin-left: 99px;
-    margin-top: 12px;
-
-}
-.footer .socialmedia{
-    margin-right: 10px;
-    margin-left: 10px;
-
-}
-.faq-footer .socialmedia{
-    margin-right: 10px;
-    margin-left: 10px;
-
-}
-
-.footer .nav-link{
-    color: #fff;
-}
-
-.faq-footer .nav-link{
-    color: #fff;
-}
-.footer .two p{
-    padding-top: 23.49px;
-    text-align: center;
-    color: #F1F1F1;
-}
-
-.faq-footer .two p{
-    padding-top: 23.49px;
-    text-align: center;
-   color: #9BA0A3;
-}
-
-.footer .two .btn{
-    /* padding-top: 12px; */
-    width: 99px;
-    height: 40px;
-    background: #EED507 0% 0% no-repeat padding-box;
-    border-radius: 20px;
-}
 .header .navbar{
     background-color: #646464;
     margin: 0px;
@@ -344,17 +296,17 @@ margin-left: 11px;
     height: 370px;
     background-image: url("assets/faq-banner.png") ;
 } */
-@media only screen and (max-width: 1401px) {
+@media only screen and (max-width: 1273px) {
     .arrow {
       display: none;
     }
   }
-  @media (min-width: 1200px) {
+  /* @media (min-width: 1200px) {
     .container {
         padding: 0px;
         max-width: 931px;
      }
-  }
+  } */
 
   @media (max-width: 997px) {
     .card-deck {
@@ -1504,6 +1456,7 @@ border-radius: 16px;
 /* privacy-policy section */
 
  .privacy-policy {
+  justify-content: center;
   text-align: center;
   background: #111111;
   color: #9BA0A3;
