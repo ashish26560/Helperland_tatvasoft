@@ -167,7 +167,9 @@ padding-top: 30px;
   font-weight: bold;
   color: #565656;
 }
-.our-blog .display-4{
+.our-blog .text{
+  font-size: 40px;
+  text-align: center;
   padding-bottom: 66px;
   font-weight: bold;
   color: #565656;
@@ -209,9 +211,14 @@ padding-top: 30px;
   margin-bottom: 0px;
 }
 .what-our-customer-say .card{
+  margin-bottom: 30px;
   border-left: 4px solid #517dcf;
 }
-.what-our-customer-say .display-4{
+.what-our-customer-say .text{
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+
   padding-top: 57.01px;
   padding-bottom: 56.99px;
   color: #4F4F4F;
@@ -220,11 +227,11 @@ padding-top: 30px;
   margin-left: 18px;
   color: #4F4F4F;
 }
-.what-our-customer-say .card-deck{
+/* .what-our-customer-say .card-deck{
     
   margin-left: 201px;
   margin-right: 201px;
-}
+} */
 
 /* .what-our-customer-say .container-fluid{
     margin: 0px;
