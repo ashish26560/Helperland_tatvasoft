@@ -360,32 +360,69 @@ margin-left: 11px;
     padding: 0px;
 }
 
-.faq h5{
-    /* text-align: center; */
-    font-size: 35.95px;
-    color: #4F4F4F;
-    font-weight: bold;
-    padding-top: 32px;
+
+
+#faq-content .row2{
+  text-align: center;
+
+}
+#faq-content .row1{
+  color: #646464;
+  padding-top: 34px;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 34px;
+}
+#faq-content .row1 p{
+  margin-bottom: 0px;
+ 
 }
 
-.faq-content .btn{
-    border-radius: 0px;
+#faq-content .row2 a.active{
+  background: #1d7a8c;
+  font-size: 24px;
+  border-radius: 0;
+    padding: 19px 15px;
+  /* background: #f6f6f6; */
+  color: #fff!important;
+  /* border: none!important; */
+  border-bottom: 5px solid #1d7a8c ;
+
+  /* transition: all .3s ease; */
 }
-.faq-content .customer-btn{
-    border: 0px;
-    /* height: 66px; */
-    font-size: 24px;
-    background-color: #1d7a8c;
+#faq-content .row2 a{
+  /* background: #1d7a8c; */
+font-size: 24px;
+border-radius: 0;
+padding: 19px 15px;
+background: #f6f6f6;
+color: #646464!important;
+/* border: none!important; */
+border-bottom: 5px solid #1d7a8c ;
+transition: all .3s ease;
 }
-.faq-content .service-btn{
-    border: 0px;
-    /* height: 66px; */
-    font-size: 24px;
-    background-color: #f6f6f6;
-    color: #646464;
-   
+#faq-content .row2 .col-6{
+
+    padding-right: 0px; 
+    padding-left: 0px;
 }
 
+/* @media only screen and (max-width: 426px) {
+  #faq-content .row2 a{
+    font-size: 12px;
+  }
+  #faq-content .row2 a.active{
+    font-size: 12px;
+  }
+} */
+@media only screen and (max-width: 768px) {
+  #faq-content .row2 a{
+    font-size: 14px;
+  }
+  #faq-content .row2 a.active{
+    font-size: 14px;
+  }
+}
 
 /* price page css */
 
