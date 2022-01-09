@@ -769,6 +769,9 @@ transition: all .3s ease;
   #getnewssection #sub-row2{
     margin-top: 16px;
   }
+  #getnewssection .sub-row1{
+  justify-content: center;  
+}
   
   #getnewssection .btn {
     font-family: "Roboto", sans-serif;
