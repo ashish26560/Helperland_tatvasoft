@@ -8,10 +8,10 @@
     <title>Prices</title>
     <!-- CSS only -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-    rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -26,55 +26,139 @@
 
 <body>
 
-    <section id="header">
+    <!-- wrapper start contains sidebar, content -->
+    <div class="wrapper " id="main-sidebar">
 
-        <nav class="navbar navbar-expand-lg navbar-light mynav">
-            <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <!-- can also use a tag with nav-link class  -->
-                        <button type="button" class="btn">Book now</button>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn">Prices &amp; services</button>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Warranty</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact </a>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn">Login</button>
-                    </li>
+        <!-- sidebar containing 3 rows for name header tabs and sidetabs -->
 
-                    <li class="nav-item">
-                        <button type="button" class="btn">Become a helper</button>
-                    </li>
-                    <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <img src="image/flag.png" alt="Language">
-            </a> -->
-                    <!-- change the dropdown size(media query) -->
-                    <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">English</a>
-                <a class="dropdown-item" href="#">Hindi</a>
-                <a class="dropdown-item" href="#">Gujrati</a>
+        <nav id="sidebar">
+            <div class="container-fluid">
+                <!-- <div class="row row1">
+                    Warm Welcome,
+                    Sandeep.
+                </div> -->
+                <!-- <div class="row row2">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#dashboard-sid">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests-sid">New Service
+                                Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices-sid">Upcoming Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule-sid">Service Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory-sid">Service History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#myratings-sid">My Ratings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer-sid">Block Customer</a>
+                        </li>
+                    </ul>
+
+                </div> -->
+                <div class="row row3">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Book now</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Price & services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Warranty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Register </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Become helper </a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="row4">
+
+                    <img class="socialmedia" src="assets/facebook-mobile-menu.png" alt="">
+                    <img class="socialmedia" src="assets/instagram-mobile-menu.png" alt="">
+                </div>
             </div>
-        </li> -->
-                </ul>
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
             </div>
         </nav>
-    </section>
+        <!-- sidebar over -->
+
+        <!-- it contains header -->
+        <div id="content">
+            <section id="header">
+
+                <nav class="navbar navbar-expand-lg navbar-light mynav">
+                    <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
+                    <button class="navbar-toggler" id="sidebarCollapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <!-- can also use a tag with nav-link class  -->
+                                <button type="button" class="btn">Book now</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn">Prices &amp; services</button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Warranty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact </a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn">Login</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button" class="btn">Become a helper</button>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src="image/flag.png" alt="Language">
+                    </a> -->
+                            <!-- change the dropdown size(media query) -->
+                            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">English</a>
+                        <a class="dropdown-item" href="#">Hindi</a>
+                        <a class="dropdown-item" href="#">Gujrati</a>
+                    </div>
+                </li> -->
+                        </ul>
+                    </div>
+                </nav>
+            </section>
+        </div>
+        <!-- content over -->
+
+        <div class="overlay"></div>
+
+    </div>
+    <!-- wrapper over -->
 
     <div class="faq-image container-fluid">
 
@@ -138,7 +222,7 @@
 
             <div class="row mx-0 text-center subrow3">
 
-                <div class="col-12 col-lg-auto col-md-6 py-2">
+                <div class="col-12 col-lg-auto col--6 py-2">
                     <div class="services-card">
 
                         <div class="service-card-img">
@@ -458,15 +542,17 @@
         </div>
 
         <div class="row row3 justify-content-center">
-            
+
             <div class="col col-fix">
                 <div class="row">
                     <div class="bold-text ms-auto  al-end">Experienced and vetted professionals</div>
-                    <div class="normal-text ms-auto al-end div1">dominate the industry in scale and scope with an adaptable, extensive network that consistently delivers exceptional results.</div>
+                    <div class="normal-text ms-auto al-end div1">dominate the industry in scale and scope with an
+                        adaptable, extensive network that consistently delivers exceptional results.</div>
                 </div>
                 <div class="row m-top-14">
                     <div class="bold-text ms-auto  al-end">Dedicated customer service</div>
-                    <div class="normal-text ms-auto al-end div2">to our customers and are guided in all we do by their needs. The team is always happy to support you and offer all the information. you need.</div>
+                    <div class="normal-text ms-auto al-end div2">to our customers and are guided in all we do by their
+                        needs. The team is always happy to support you and offer all the information. you need.</div>
                 </div>
 
             </div>
@@ -479,11 +565,13 @@
 
                 <div class="row">
                     <div class="bold-text me-auto  ">Every cleaning is insured</div>
-                    <div class="normal-text me-auto div1">and seek to provide exceptional service and engage in proactive behavior. We‘d be happy to clean your homes.</div>
+                    <div class="normal-text me-auto div1">and seek to provide exceptional service and engage in
+                        proactive behavior. We‘d be happy to clean your homes.</div>
                 </div>
                 <div class="row m-top-14">
                     <div class="bold-text me-auto  ">Secure online payment</div>
-                    <div class="normal-text me-auto div2">Payment is processed securely online. Customers pay safely online and manage the booking.</div>
+                    <div class="normal-text me-auto div2">Payment is processed securely online. Customers pay safely
+                        online and manage the booking.</div>
                 </div>
 
             </div>
@@ -496,8 +584,8 @@
 
 
 
-     <!-- get news letter  -->
-     <section class="container-fluid" id="getnewssection">
+    <!-- get news letter  -->
+    <section class="container-fluid" id="getnewssection">
 
         <div class="row" id="row1">
 
@@ -565,14 +653,14 @@
             </div>
         </div>
         <div class="row align-self-center privacy-policy">
-    
-    
+
+
             <p>©2018 Helperland. All rights reserved. Terms and Conditions | <a class="link" href="#">Privacy
                     policy.</a>
-    
-    
+
+
         </div>
-    
+
     </section>
 
 
@@ -589,7 +677,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
+    <!--for sidebar overlay  -->
+    <script src="js/overlay.js"></script>
 </body>
 
 </html>

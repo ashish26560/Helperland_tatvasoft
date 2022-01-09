@@ -26,57 +26,141 @@
 
 <body>
 
-    <!-- header part -->
-    <section id="header">
+    <!-- wrapper start contains sidebar, content -->
+    <div class="wrapper " id="main-sidebar">
 
-        <nav class="navbar navbar-expand-lg navbar-light mynav">
-            <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <!-- can also use a tag with nav-link class  -->
-                        <button type="button" class="btn">Book now</button>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn">Prices &amp; services</button>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Warranty</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact </a>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn">Login</button>
-                    </li>
+        <!-- sidebar containing 3 rows for name header tabs and sidetabs -->
 
-                    <li class="nav-item">
-                        <button type="button" class="btn">Become a helper</button>
-                    </li>
-                    <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <img src="image/flag.png" alt="Language">
-            </a> -->
-                    <!-- change the dropdown size(media query) -->
-                    <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">English</a>
-                <a class="dropdown-item" href="#">Hindi</a>
-                <a class="dropdown-item" href="#">Gujrati</a>
+        <nav id="sidebar">
+            <div class="container-fluid">
+                <!-- <div class="row row1">
+                    Warm Welcome,
+                    Sandeep.
+                </div> -->
+                <!-- <div class="row row2">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#dashboard-sid">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests-sid">New Service
+                                Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices-sid">Upcoming Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule-sid">Service Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory-sid">Service History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#myratings-sid">My Ratings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer-sid">Block Customer</a>
+                        </li>
+                    </ul>
+
+                </div> -->
+                <div class="row row3">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Book now</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Price & services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Warranty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Register </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Become helper </a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="row4">
+
+                    <img class="socialmedia" src="assets/facebook-mobile-menu.png" alt="">
+                    <img class="socialmedia" src="assets/instagram-mobile-menu.png" alt="">
+                </div>
             </div>
-        </li> -->
-                </ul>
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
             </div>
         </nav>
-    </section>
-    <!-- header part over -->
+        <!-- sidebar over -->
+
+        <!-- it contains header -->
+        <div id="content">
+            <section id="header">
+
+                <nav class="navbar navbar-expand-lg navbar-light mynav">
+                    <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
+                    <button class="navbar-toggler" id="sidebarCollapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <!-- can also use a tag with nav-link class  -->
+                                <button type="button" class="btn">Book now</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn">Prices &amp; services</button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Warranty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact </a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn">Login</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button" class="btn">Become a helper</button>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src="image/flag.png" alt="Language">
+                    </a> -->
+                            <!-- change the dropdown size(media query) -->
+                            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">English</a>
+                        <a class="dropdown-item" href="#">Hindi</a>
+                        <a class="dropdown-item" href="#">Gujrati</a>
+                    </div>
+                </li> -->
+                        </ul>
+                    </div>
+                </nav>
+            </section>
+        </div>
+        <!-- content over -->
+
+        <div class="overlay"></div>
+
+    </div>
+    <!-- wrapper over -->
+
+    
 
     <!-- banner image -->
     <div id="bannerimage" class=" container-fluid">
@@ -798,7 +882,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
+    <!--for sidebar overlay  -->
+    <script src="js/overlay.js"></script>
 </body>
 
 </html>
