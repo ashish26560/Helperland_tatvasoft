@@ -983,7 +983,7 @@ transition: all .3s ease;
 
 /* service provider  */
 
-#service-provider .notification{
+#main-sidebar .notification{
   color: white;
   border-left: solid;
   border-right: solid;
@@ -1103,7 +1103,7 @@ transition: all .3s ease;
     color: #FFFFFF;
 }
  
-#service-provider {
+#main-sidebar {
   display: block;
 }
 
@@ -1135,7 +1135,7 @@ transition: all .3s ease;
 
 }
 
-#service-provider .overlay {
+#main-sidebar .overlay {
   display: none;
   position: fixed;
   width: 100vw;
@@ -1149,13 +1149,13 @@ transition: all .3s ease;
 }
 
 
-#service-provider .overlay.active {
+#main-sidebar .overlay.active {
   display: block;
   opacity: 1;
 }
 
 
-#service-provider #dismiss {
+#main-sidebar #dismiss {
   width: 35px;
   height: 35px;
   position: absolute;
