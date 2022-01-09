@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-    rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -25,8 +25,10 @@
 </head>
 
 <body>
-
+    <!-- wrapper start contains sidebar, content -->
     <div class="wrapper " id="service-provider">
+        
+        <!-- sidebar containing 3 rows for name header tabs and sidetabs -->
 
         <nav id="sidebar">
             <div class="container-fluid">
@@ -37,26 +39,26 @@
                 <div class="row row2">
                     <ul class="nav nav-tabs flex-column" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link " data-bs-toggle="tab" href="#dashboard">Dashboard</a>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#dashboard-sid">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests">New Service Requests</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests-sid">New Service
+                                Requests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#upcomingservices">Upcoming
-                                Services</a>
+                            <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices-sid">Upcoming Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule-sid">Service Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory">Service History</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory-sid">Service History</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#myratings">My Ratings</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#myratings-sid">My Ratings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer">Block Customer</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer-sid">Block Customer</a>
                         </li>
                     </ul>
 
@@ -88,9 +90,11 @@
                 <i class="fas fa-arrow-left"></i>
             </div>
         </nav>
+        <!-- sidebar over -->
 
+        <!-- it contains header -->
         <div id="content">
-            <section class="header">
+            <section id="header">
 
                 <nav class="navbar navbar-expand-lg navbar-light mynav">
                     <a class="navbar-brand" href="#"><img src="assets/logo-small.png" alt="Helperland"></a>
@@ -129,31 +133,36 @@
                 </nav>
             </section>
         </div>
+        <!-- content over -->
 
         <div class="overlay"></div>
 
     </div>
+    <!-- wrapper over -->
 
-
+    <!-- section2 start contains  -->
     <section class="container-fluid" id="service-provider-section2">
         <div class="row">
             <p>Welcome, Sandip!</p>
         </div>
 
     </section>
+    <!-- section2 over -->
 
+    <!-- section3 start contains nav-tabs-->
     <section class="container-fluid " id="service-provider-section3">
+        <!-- col1 contains navtabs col2 contains content and col3 contains content for small screen -->
         <div class="row row1">
             <div class="col col1">
                 <ul class="nav nav-tabs flex-column" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link " data-bs-toggle="tab" href="#dashboard">Dashboard</a>
+                        <a class="nav-link active " data-bs-toggle="tab" href="#dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests">New Service Requests</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#upcomingservices">Upcoming Services</a>
+                        <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices">Upcoming Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
@@ -527,12 +536,195 @@
                     </div>
                 </div>
             </div>
+            <div class="col col3">
+                <div class="tab-content">
+
+                    <div id="dashboard-sid" class="container tab-pane active">
+                        <div class="row titletext">
+                            <div class="col-auto">
+
+                                Dashboard
+                            </div>
+                            <div class="col-auto exportbtn">
+
+
+                                <a class="btn" href="#">export</a>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+
+
+                            <div class="row frow">
+                                32346
+                            </div>
+                            <div class="row row1">
+                                <ul class="servicedate">
+                                    <li class="date">09/04/2018</li>
+                                    <li class="time">12:00-18:00</li>
+                                </ul>
+                            </div>
+                            <div class="row row1 ">
+                                <p>
+
+                                    David Bough
+                                </p>
+                                <ul class="customerdetails">
+                                    <li class="address">Musterstrabe 5,12345 bonn</li>
+                                </ul>
+                            </div>
+                            <div class="row row1">
+                                <p mx-0 px-0>
+
+                                    15km
+                                </p>
+                            </div>
+                            <div class="row row1 actions">
+                                <a class="btn" href="#">cancel</a>
+                            </div>
+
+                        </div>
+                        <div class="row bottom">
+
+                            <div class="col-auto">
+                                <p>show
+                                    <input type="number" id="quantity" name="quantity" min="1" max="5">
+                                    Entries total record: 1
+                                </p>
+                            </div>
+                            <div class="end col-auto">
+
+                                <div class="pagination">
+                                    <a href="#"><img src="assets/first-page.png" alt=""></a>
+                                    <a href="#"><img src="assets/keyboard-right-arrow-button-copy.png" alt=""></a>
+                                    <a href="#" class="active">1</a>
+                                    <a href="#"><img src="assets/keyboard-left-arrow-button-copy.png" alt=""></a>
+                                    <a href="#"><img src="assets/last-page.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="upcomingservices-sid" class="container tab-pane fade">
+                        <div class="row titletext">
+                            <div class="col-auto">
+
+                                Upcoming services
+                            </div>
+                            <div class="col-auto exportbtn">
+
+
+                                <a class="btn" href="#">export</a>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+
+
+                            <div class="row frow">
+                                32346
+                            </div>
+                            <div class="row row1">
+                                <ul class="servicedate">
+                                    <li class="date">09/04/2018</li>
+                                    <li class="time">12:00-18:00</li>
+                                </ul>
+                            </div>
+                            <div class="row row1 ">
+                                <p>
+
+                                    David Bough
+                                </p>
+                                <ul class="customerdetails">
+                                    <li class="address">Musterstrabe 5,12345 bonn</li>
+                                </ul>
+                            </div>
+                            <div class="row row1">
+                                <p mx-0 px-0>
+
+                                    15km
+                                </p>
+                            </div>
+                            <div class="row row1 actions">
+                                <a class="btn" href="#">cancel</a>
+                            </div>
+
+                        </div>
+                        <div class="container-fluid">
+
+
+                            <div class="row frow">
+                                32346
+                            </div>
+                            <div class="row row1">
+                                <ul class="servicedate">
+                                    <li class="date">09/04/2018</li>
+                                    <li class="time">12:00-18:00</li>
+                                </ul>
+                            </div>
+                            <div class="row row1 ">
+                                <p>
+
+                                    David Bough
+                                </p>
+                                <ul class="customerdetails">
+                                    <li class="address">Musterstrabe 5,12345 bonn</li>
+                                </ul>
+                            </div>
+                            <div class="row row1">
+                                <p mx-0 px-0>
+
+                                    15km
+                                </p>
+                            </div>
+                            <div class="row row1 actions">
+                                <a class="btn" href="#">cancel</a>
+                            </div>
+
+                        </div>
+
+                        <div class="row bottom">
+
+                            <div class="col-auto">
+                                <p>show
+                                    <input type="number" id="quantity" name="quantity" min="1" max="5">
+                                    Entries total record: 1
+                                </p>
+                            </div>
+                            <div class="end col-auto">
+
+                                <div class="pagination">
+                                    <a href="#"><img src="assets/first-page.png" alt=""></a>
+                                    <a href="#"><img src="assets/keyboard-right-arrow-button-copy.png" alt=""></a>
+                                    <a href="#" class="active">1</a>
+                                    <a href="#"><img src="assets/keyboard-left-arrow-button-copy.png" alt=""></a>
+                                    <a href="#"><img src="assets/last-page.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id="newservicerequests-sid" class="container tab-pane fade">
+
+                        <div class="row">
+                            jhgjhg
+                        </div>
+                        <div class="row">
+                            ljhojh
+                        </div>
+                        <div class="row">
+                            fhfyh
+                        </div>
+                    </div> -->
+                </div>
+
+
+            </div>
         </div>
 
 
     </section>
+    <!-- section3 over -->
 
-
+    <!-- footer -->
     <section class="container-fluid" id="footer">
         <div class="row align-self-center">
             <div class="col-md-2 col-sm-4 text-center text-sm-end ">
@@ -558,15 +750,17 @@
             </div>
         </div>
         <div class="row align-self-center privacy-policy">
-    
-    
+
+
             <p>©2018 Helperland. All rights reserved. Terms and Conditions | <a class="link" href="#">Privacy
                     policy.</a>
-    
-    
+
+
         </div>
-    
+
     </section>
+
+    <!-- footer over -->
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
