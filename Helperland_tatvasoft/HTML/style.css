@@ -1,6 +1,5 @@
 *{
   font-family: 'Roboto', sans-serif;
-  color: #565656;;
 }
 body{
   min-width: 320px
@@ -227,6 +226,10 @@ padding-top: 30px;
 }
 .what-our-customer-say .card-body .card-text{
   margin-left: 18px;
+  color: #4F4F4F;
+}
+.what-our-customer-say  .card-text{
+
   color: #4F4F4F;
 }
 /* .what-our-customer-say .card-deck{
