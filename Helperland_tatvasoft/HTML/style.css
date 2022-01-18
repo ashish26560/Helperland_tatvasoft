@@ -1813,3 +1813,60 @@ border: 1px solid #e1e1e1;
     padding: 5px 7px;
     font-size: 13px;
   }
+
+
+  /* bool-service */
+
+  /* #book-service .sub-row1 .set-service{
+
+    list-style-image: url('assets/setup-service.png');
+
+  }
+  #book-service .sub-row1 .schedule-plan{
+
+    list-style-image: url('assets/setup-service.png');
+
+  }
+  #book-service .sub-row1 .your-details{
+
+    list-style-image: url('assets/setup-service.png');
+
+  }
+  #book-service .sub-row1 .make-payment{
+
+    list-style-image: url('assets/setup-service.png');
+
+  } */
+
+  #book-service .sub-row1 {
+    background-color: #F3F3F3;
+  }
+  #book-service .sub-row1 .nav-tabs {
+    padding-right: 0px;
+    }
+  #book-service .sub-row1 .nav-item{
+    padding: 0px;
+  }
+  #book-service .sub-row1 a.active{
+    background-color: #1D7A8C;
+    color: #FFFFFF;
+  }
+  #book-service .sub-row1 .active .grey {
+    display: none; 
+  }
+  #book-service .sub-row1 .active .white {
+    display: inline; 
+  }
+  #book-service .sub-row1 img{
+    
+    padding-right: 6px;
+    line-height: 2px;
+  }
+  #book-service .sub-row1 a{
+    color: #646464;
+    border: 0px;
+    border-radius: 0px;
+  }
+  #book-service .sub-row1 .white{
+    display: none;
+  }
