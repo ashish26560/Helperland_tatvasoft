@@ -23,6 +23,9 @@ namespace Helperland.Controllers
         public IActionResult Faq()
         {
             return View();
+        }public IActionResult Createaccount()
+        {
+            return View();
         }
     }
 }
