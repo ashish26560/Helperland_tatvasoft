@@ -79,6 +79,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Register </a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Become helper </a>
@@ -124,7 +125,106 @@
                                 <a class="nav-link" asp-area="" asp-controller="PublicPages" asp-action="Contact">Contact </a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" >Login</a>
+                                <a class="btn" data-toggle="modal" data-target="#login-popup">Login</a>
+                                <div class="modal fade popup" id="login-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                                     aria-hidden="true">
+                                    <div class="vertical-align-helper">
+
+                                        <div class="modal-dialog ">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+
+                                                    <h5 class="modal-title" id="exampleModalLabel">log in</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <img src="~/assets/close.png" alt="">
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group ">
+                                                            <input type="email" class=" form-control" id="exampleInputEmail1"
+                                                                   aria-describedby="emailHelp" placeholder="Email">
+                                                            <!-- <span > -->
+                                                            <img src="~/assets/email.png" alt="">
+                                                            <!-- </span> -->
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                                                   placeholder="Password">
+                                                            <img src="~/assets/lock.png" alt="">
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                                        </div>
+                                                        <button type="Login" class="btn  ">login</button>
+                                                        <div class="text-center">
+                                                            <a class="setPointer forgotLink" data-toggle="modal" data-dismiss="modal" data-target="#forget-popup">
+                                                                Forgot Password?
+                                                            </a>
+
+                                                        </div>
+
+                                                        <div class="text-center">
+                                                            Don't have an account yet?
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount">
+                                                                Create Account
+                                                            </a>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade popup" id="forget-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                                     aria-hidden="true">
+                                    <div class="vertical-align-helper">
+
+                                        <div class="modal-dialog ">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+
+                                                    <h5 class="modal-title" id="exampleModalLabel">Forget Password</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <img src="~/assets/close.png" alt="">
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group ">
+                                                            <input type="email" class=" form-control" id="exampleInputEmail1"
+                                                                   aria-describedby="emailHelp" placeholder="Email Address">
+
+
+                                                            <img src="~/assets/email.png" alt="">
+
+                                                        </div>
+
+
+
+                                                        <button type="Send" class="btn">Send</button>
+                                                        <div class="text-center">
+                                                            <a class="setPointer forgotLink" data-dismiss="modal" data-toggle="modal" data-target="#login-popup">
+                                                                login now
+                                                            </a>
+                                                        </div>
+
+
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </li>
 
                             <li class="nav-item">
@@ -158,49 +258,7 @@
         @RenderBody()
     </div>
 
-    <!-- get news letter  -->
-    <section class="container-fluid" id="getnewssection">
-
-        <div class="row" id="row1">
-
-            <div class=" col-6 col-sm-2 col-md-1 order-2 order-sm-1">
-                <div class="foma-container">
-                    <a href="#pirce-header">
-                        <img class="img-fluid foma-5" src="~/assets/forma-1.png" alt="">
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-10 col-sm-8 order-1 order-sm-2">
-                <div class="container-fluid mx-0 px-0">
-
-                    <div class="row mx-0 px-0 text-center sub-row1">
-                        <p class="title mb-1">GET OUR NEWSLETTER</p>
-                    </div>
-
-                    <div class="row justify-content-center" id="sub-row2">
-
-                        <div class="col-sm-auto p-0 newletter-input">
-                            <input class="form-control" type="email" name="" id="" placeholder="YOUR EMAIL">
-                        </div>
-
-                        <div class="col-sm-1 py-2 py-sm-0 newletter-input">
-                            <button class="btn" type="submit">Submit</button>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-2 col-md-1 order-2 order-sm-3 text-center mb-2 mb-sm-0">
-                <img class="img-fluid" src="~/assets/layer-598.png"  alt="">
-            </div>
-
-        </div>
-
-    </section>
-    <!-- get news letter over -->
+s
 
     <section class="container-fluid" id="footer">
         <div class="row align-self-center">
