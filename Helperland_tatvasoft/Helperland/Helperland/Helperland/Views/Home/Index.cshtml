@@ -33,17 +33,18 @@
         <section id="mainheader">
 
             <nav class="navbar navbar-expand-lg navbar-light mynav">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" ><img src="assets/logo-large.png" alt="Helperland"></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" ><img src="~/assets/logo-large.png" alt="Helperland"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+                    <ul class=" navbar-nav">
+                        <li class="nav-item ">
                             <!-- can also use a tag with nav-link class  -->
                             <!-- <button type="button" class="btn">Book a cleaner</button> -->
-                            <a class="btn" href="#">Book a cleaner</a>
+                        <li class="nav-item">
+                            <a class="btn head" href="#">Book a cleaner</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link publiclink"  asp-area="" asp-controller="PublicPages" asp-action="Price">Prices</a>
@@ -58,23 +59,111 @@
                             <a class="nav-link publiclink" asp-area="" asp-controller="PublicPages" asp-action="Contact">Contact us</a>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="btn" style="padding-left: 28px; padding-right: 28px;">Login</button>
+                            <button type="button" class="btn head btn-primary" data-toggle="modal" data-target="#login-popup">Login</button>
+
+                            <div class="modal fade popup" id="login-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                                 aria-hidden="true">
+                                <div class="vertical-align-helper">
+
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                                <h5 class="modal-title" id="exampleModalLabel">log in</h5>
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <img src="~/assets/close.png" alt="">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group ">
+                                                        <input type="email" class=" form-control" id="exampleInputEmail1"
+                                                               aria-describedby="emailHelp" placeholder="Email">
+                                                        <!-- <span > -->
+                                                        <img src="~/assets/email.png" alt="">
+                                                        <!-- </span> -->
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                                               placeholder="Password">
+                                                        <img src="~/assets/lock.png" alt="">
+                                                    </div>
+
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                                    </div>
+                                                    <button type="Login" class="btn  ">login</button>
+                                                    <div class="text-center">
+                                                        <a class="setPointer forgotLink" data-toggle="modal"  data-dismiss="modal" data-target="#forget-popup">
+                                                            Forgot Password?
+                                                        </a>
+
+                                                    </div>
+
+                                                    <div class="text-center">
+                                                        Don't have an account yet?
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount" >
+                                                            Create Account
+                                                        </a>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade popup" id="forget-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                                 aria-hidden="true">
+                                <div class="vertical-align-helper">
+
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                                <h5 class="modal-title" id="exampleModalLabel">Forget Password</h5>
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <img src="assets/close.png" alt="">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group ">
+                                                        <input type="email" class=" form-control" id="exampleInputEmail1"
+                                                               aria-describedby="emailHelp" placeholder="Email Address">
+
+
+                                                        <img src="~/assets/email.png" alt="">
+
+                                                    </div>
+
+
+
+                                                    <button type="Send" class="btn">Send</button>
+                                                    <div class="text-center">
+                                                        <a class="setPointer forgotLink" data-dismiss="modal" data-toggle="modal" data-target="#login-popup">
+                                                            login now
+                                                        </a>
+                                                    </div>
+
+
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <button type="button" class="btn">Become a helper</button>
+                        <li class="nav-item ">
+                            <button type="button" class=" head btn">Become a helper</button>
                         </li>
-                        <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <img src="assets/ic-flag.png" alt="Language">
-                        </a>
-                        <!-- change the dropdown size(media query) -->
-                        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="#">English</a>
-                          <a class="dropdown-item" href="#">Hindi</a>
-                          <a class="dropdown-item" href="#">Gujrati</a>
-                        </div> -->
-                        <!-- </li>  -->
+                       
                     </ul>
                 </div>
             </nav>
@@ -89,18 +178,18 @@
                 </div>
                 <div class="row">
                     <p class="subtext">
-                        <img src="assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                        <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
                     </p>
 
                 </div>
                 <div class="row">
                     <p class="subtext">
-                        <img src="assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                        <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
                     </p>
                 </div>
                 <div class="row">
                     <p class="subtext">
-                        <img src="assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                        <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
                     </p>
                 </div>
                 <div class="row bookcleaner">
@@ -110,7 +199,7 @@
                 </div>
                 <div class="row services">
                     <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="assets/step-1.png" style="width: 52px;
+                        <img src="~/assets/step-1.png" style="width: 52px;
           height: 55px;" alt="arrow">
                         <h5>
                             Enter your postalcode
@@ -118,12 +207,12 @@
 
                     </div>
                     <div class="subservice col-lg-auto arrow">
-                        <img src="assets/step-arrow-1.png" style="width: 85px;
+                        <img src="~/assets/step-arrow-1.png" style="width: 85px;
             height: 23px;" alt="arrow">
 
                     </div>
                     <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="assets/step-2.png" style="width: 50px;
+                        <img src="~/assets/step-2.png" style="width: 50px;
             height: 50px;" alt="arrow">
                         <h5>
                             select your plan
@@ -131,11 +220,11 @@
 
                     </div>
                     <div class="subservice col-lg-auto arrow">
-                        <img src="assets/step-arrow-1-copy.png" style="width: 85px;
+                        <img src="~/assets/step-arrow-1-copy.png" style="width: 85px;
           height: 23px;" alt="arrow">
                     </div>
                     <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="assets/step-3.png" style="width: 54px;
+                        <img src="~/assets/step-3.png" style="width: 54px;
           height: 54px;" alt="arrow">
                         <h5>
                             Pay securly online
@@ -143,12 +232,12 @@
 
                     </div>
                     <div class="subservice col-lg-auto arrow">
-                        <img src="assets/step-arrow-1.png" style="width: 85px;
+                        <img src="~/assets/step-arrow-1.png" style="width: 85px;
             height: 23px;" alt="arrow">
 
                     </div>
                     <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="assets/step-4.png" style="width: 62px;
+                        <img src="~/assets/step-4.png" style="width: 62px;
           height: 63px;" alt="arrow">
                         <h5 class="last">
                             enjoy amazing service
@@ -157,7 +246,7 @@
                     </div>
                 </div>
                 <div class="row-auto downarrow">
-                    <a href="#"><img src="assets/group-18_5.png" alt=""></a>
+                    <a href="#"><img src="~/assets/group-18_5.png" alt=""></a>
                 </div>
 
             </div>
@@ -173,7 +262,7 @@
             <h6 class="display-4 text-center">Why Helperland</h6>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-12 text-center">
-                    <img class="rounded-circle img-fluid" src="assets/group-21.png" alt="Generic placeholder image" >
+                    <img class="rounded-circle img-fluid" src="~/assets/group-21.png" alt="Generic placeholder image" >
                     <h2>Experience & vetted professionals</h2>
                     <p>
                         dominate the industry in scale and scope with an adaptable, extensive network that consistently
@@ -182,7 +271,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 col-12 text-center">
-                    <img class="rounded-circle img-fluid" src="assets/group-23.png" alt="Generic placeholder image" >
+                    <img class="rounded-circle img-fluid" src="~/assets/group-23.png" alt="Generic placeholder image" >
                     <h2 style="padding-bottom: 70px;">Secure online payment</h2>
                     <p>
                         Payment is processed securely online. Customers pay safely online and
@@ -190,7 +279,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 col-12 text-center">
-                    <img class="rounded-circle img-fluid" src="assets/group-24.png" alt="Generic placeholder image" >
+                    <img class="rounded-circle img-fluid" src="~/assets/group-24.png" alt="Generic placeholder image" >
                     <h2>Dedicated customer service</h2>
                     <p>
                         to our customers and are guided in all we do by their needs. The team is always happy to support you
@@ -238,7 +327,7 @@
 
                 <div class="col-md-5 justify-content-end">
                     <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500"
-                         style="width:403px; height: 336px;" src="assets/group-36.png" data-holder-rendered="true">
+                         style="width:403px; height: 336px;" src="~/assets/group-36.png" data-holder-rendered="true">
                 </div>
             </div>
 
@@ -248,7 +337,7 @@
 
             <div class="card-deck">
                 <div class="card">
-                    <img class="card-img-top" src="assets/group-28.png" alt="Card image cap">
+                    <img class="card-img-top" src="~/assets/group-28.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: bold;">Lorem ipsum dolor sit amet.</h5>
 
@@ -257,11 +346,11 @@
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime accusamus
                             aspernatur laudantium ipsum!
                         </p>
-                        <a class="link card-text" href="#">Read more <img src="assets/shape-2.png" alt=""></a>
+                        <a class="link card-text" href="#">Read more <img src="~/assets/shape-2.png" alt=""></a>
                     </div>
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="assets/group-29.png" alt="Card image cap">
+                    <img class="card-img-top" src="~/assets/group-29.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
 
@@ -270,11 +359,11 @@
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime accusamus
                             aspernatur laudantium ipsum!
                         </p>
-                        <a class="link card-text" href="#">Read more <img src="assets/shape-2.png" alt=""></a>
+                        <a class="link card-text" href="#">Read more <img src="~/assets/shape-2.png" alt=""></a>
                     </div>
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="assets/group-30.png" alt="Card image cap">
+                    <img class="card-img-top" src="~/assets/group-30.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
                         <p class="card-text date"><small class="text-muted">january 28,2019</small></p>
@@ -282,7 +371,7 @@
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime accusamus
                             aspernatur laudantium ipsum!
                         </p>
-                        <a class="link card-text" href="#">Read more <img src="assets/shape-2.png" alt=""></a>
+                        <a class="link card-text" href="#">Read more <img src="~/assets/shape-2.png" alt=""></a>
 
                     </div>
                 </div>
@@ -310,7 +399,7 @@
 
 
                             <div class="col-auto">
-                                <img class="rounded-circle" src="assets/group-31.png" alt="Card image cap">
+                                <img class="rounded-circle" src="~/assets/group-31.png" alt="Card image cap">
                             </div>
                             <div class="col-auto">
 
@@ -329,7 +418,7 @@
                                 Nullam et metus congue, auctor augue sit amet,
                                 consectetur tortor.
                             </p>
-                            <a class="link card-text" href="#">Read more <img src="assets/shape-2.png" alt=""></a>
+                            <a class="link card-text" href="#">Read more <img src="~/assets/shape-2.png" alt=""></a>
                         </div>
                     </div>
                     <div class="card ">
@@ -338,7 +427,7 @@
 
 
                             <div class="col-auto">
-                                <img class="rounded-circle" src="assets/group-31.png" alt="Card image cap">
+                                <img class="rounded-circle" src="~/assets/group-31.png" alt="Card image cap">
                             </div>
                             <div class="col-auto">
 
@@ -357,7 +446,7 @@
                                 Nullam et metus congue, auctor augue sit amet,
                                 consectetur tortor.
                             </p>
-                            <a class="link card-text" href="#">Read more <img src="assets/shape-2.png" alt=""></a>
+                            <a class="link card-text" href="#">Read more <img src="~/assets/shape-2.png" alt=""></a>
                         </div>
                     </div>
                     <div class="card ">
@@ -366,7 +455,7 @@
 
 
                             <div class="col-auto">
-                                <img class="rounded-circle" src="assets/group-31.png" alt="Card image cap">
+                                <img class="rounded-circle" src="~/assets/group-31.png" alt="Card image cap">
                             </div>
                             <div class="col-auto">
 
@@ -385,7 +474,7 @@
                                 Nullam et metus congue, auctor augue sit amet,
                                 consectetur tortor.
                             </p>
-                            <a class="link card-text" href="#">Read more <img src="assets/shape-2.png" alt=""></a>
+                            <a class="link card-text" href="#">Read more <img src="~/assets/shape-2.png" alt=""></a>
                         </div>
                     </div>
 
@@ -403,7 +492,7 @@
             <div class=" col-6 col-sm-2 col-md-1 order-2 order-sm-1">
                 <div class="foma-container">
                     <a href="#pirce-header">
-                        <img class="img-fluid foma-5" src="assets/forma-1.png" alt="">
+                        <img class="img-fluid foma-5" src="~/assets/forma-1.png" alt="">
                     </a>
                 </div>
             </div>
@@ -431,7 +520,7 @@
             </div>
 
             <div class="col-6 col-sm-2 col-md-1 order-2 order-sm-3 text-center mb-2 mb-sm-0">
-                <img class="img-fluid" src="assets/layer-598.png"  alt="">
+                <img class="img-fluid" src="~/assets/layer-598.png"  alt="">
             </div>
 
         </div>
@@ -442,7 +531,7 @@
     <section class="container-fluid" id="footer">
         <div class="row align-self-center">
             <div class="col-md-2 col-sm-4 text-center text-sm-end ">
-                <img class="img-fluid my-3" src="assets/footer-logo.png" height="92" width=120 alt="" srcset="">
+                <img class="img-fluid my-3" src="~/assets/footer-logo.png" height="92" width=120 alt="" srcset="">
             </div>
             <div class="col-md-8 col-sm-4">
                 <div class="container my-1 my-md-5">
@@ -457,8 +546,8 @@
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 text-center mb-2 mb-sm-0">
-                <img class="img-fluid my-1 my-sm-5" src="assets/ic-facebook.png" height="20" width="10" alt="" srcset="">
-                <img class="img-fluid my-1 my-sm-5 mx-3" src="assets/ic-instagram.png" height="20" width="20" alt="" srcset="">
+                <img class="img-fluid my-1 my-sm-5" src="~/assets/ic-facebook.png" height="20" width="10" alt="" srcset="">
+                <img class="img-fluid my-1 my-sm-5 mx-3" src="~/assets/ic-instagram.png" height="20" width="20" alt="" srcset="">
             </div>
         </div>
         <div class="row align-self-center privacy-policy">
