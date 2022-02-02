@@ -1,8 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model Helperland.Models.User
+
 @{
-    
+
 }
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@
         <section id="mainheader">
 
             <nav class="navbar navbar-expand-lg navbar-light mynav">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" ><img src="~/assets/logo-large.png" alt="Helperland"></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/assets/logo-large.png" alt="Helperland"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -47,7 +49,7 @@
                             <a class="btn head" href="#">Book a cleaner</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link publiclink"  asp-area="" asp-controller="PublicPages" asp-action="Price">Prices</a>
+                            <a class="nav-link publiclink" asp-area="" asp-controller="PublicPages" asp-action="Price">Prices</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link publiclink" href="#">Our garauntee</a>
@@ -75,27 +77,29 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form method="post">
                                                     <div class="form-group ">
-                                                        <input type="email" class=" form-control" id="exampleInputEmail1"
+                                                        <input type="email" asp-for="Email" class=" form-control" id="exampleInputEmail1"
                                                                aria-describedby="emailHelp" placeholder="Email">
-                                                        <!-- <span > -->
+                                                        
                                                         <img src="~/assets/email.png" alt="">
-                                                        <!-- </span> -->
+                                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                                        
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                                        <input type="password" asp-for="Password"  class="form-control" id="exampleInputPassword1"
                                                                placeholder="Password">
                                                         <img src="~/assets/lock.png" alt="">
+                                                        <span asp-validation-for="Password" class="text-danger"></span>
                                                     </div>
 
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                                         <label class="form-check-label" for="exampleCheck1">Remember me</label>
                                                     </div>
-                                                    <button type="Login" class="btn  ">login</button>
+                                                    <button type="submit" class="btn  ">login</button>
                                                     <div class="text-center">
-                                                        <a class="setPointer forgotLink" data-toggle="modal"  data-dismiss="modal" data-target="#forget-popup">
+                                                        <a class="setPointer forgotLink" data-toggle="modal" data-dismiss="modal" data-target="#forget-popup">
                                                             Forgot Password?
                                                         </a>
 
@@ -105,7 +109,7 @@
                                                         Don't have an account yet?
                                                     </div>
                                                     <div class="text-center">
-                                                        <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount" >
+                                                        <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount">
                                                             Create Account
                                                         </a>
                                                     </div>
@@ -161,9 +165,9 @@
                             </div>
                         </li>
                         <li class="nav-item ">
-                            <button type="button" class=" head btn">Become a helper</button>
+                            <a type="button" class=" head btn" asp-controller="Home" asp-action="Becomeprovider">Become a helper</a>
                         </li>
-                       
+
                     </ul>
                 </div>
             </nav>
@@ -262,7 +266,7 @@
             <h6 class="display-4 text-center">Why Helperland</h6>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-12 text-center">
-                    <img class="rounded-circle img-fluid" src="~/assets/group-21.png" alt="Generic placeholder image" >
+                    <img class="rounded-circle img-fluid" src="~/assets/group-21.png" alt="Generic placeholder image">
                     <h2>Experience & vetted professionals</h2>
                     <p>
                         dominate the industry in scale and scope with an adaptable, extensive network that consistently
@@ -271,7 +275,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 col-12 text-center">
-                    <img class="rounded-circle img-fluid" src="~/assets/group-23.png" alt="Generic placeholder image" >
+                    <img class="rounded-circle img-fluid" src="~/assets/group-23.png" alt="Generic placeholder image">
                     <h2 style="padding-bottom: 70px;">Secure online payment</h2>
                     <p>
                         Payment is processed securely online. Customers pay safely online and
@@ -279,7 +283,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 col-12 text-center">
-                    <img class="rounded-circle img-fluid" src="~/assets/group-24.png" alt="Generic placeholder image" >
+                    <img class="rounded-circle img-fluid" src="~/assets/group-24.png" alt="Generic placeholder image">
                     <h2>Dedicated customer service</h2>
                     <p>
                         to our customers and are guided in all we do by their needs. The team is always happy to support you
@@ -481,7 +485,7 @@
                 </div>
 
             </div>
-            </div>
+        </div>
     </section>
     <!-- section 4 over -->
     <!-- section 5 get news letter -->
@@ -520,7 +524,7 @@
             </div>
 
             <div class="col-6 col-sm-2 col-md-1 order-2 order-sm-3 text-center mb-2 mb-sm-0">
-                <img class="img-fluid" src="~/assets/layer-598.png"  alt="">
+                <img class="img-fluid" src="~/assets/layer-598.png" alt="">
             </div>
 
         </div>
