@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -19,10 +20,28 @@ namespace Helperland.Models
         }
 
         public int UserId { get; set; }
+
+        [Required(ErrorMessage = "Please enter First name")]
+        [StringLength(100)]
         public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Please enter Last name")]
+        [StringLength(100)]
         public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Please enter email address")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Please enter password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        //[Required(ErrorMessage = "Please enter confirm password")]
+        //[Display(Name = "Confirm Password")]
+        //[Compare("Password", ErrorMessage = "Password and confirm password does not match")]
+        //public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Please enter Mobile number")]
         public string Mobile { get; set; }
         public int UserTypeId { get; set; }
         public int? Gender { get; set; }
