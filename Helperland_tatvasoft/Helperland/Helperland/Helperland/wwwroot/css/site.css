@@ -187,12 +187,12 @@ body {
 }
 
 .our-blog {
-    background-image: url("assets/blog-left-bg.png"),url("assets/blog-right-bg.png");
+    background-image: url("/assets/blog-left-bg.png"),url("/assets/blog-right-bg.png");
     background-position: left, right;
     background-repeat: no-repeat;
 }
     /* .blog{
-    background-image: url("assets/blog-right-bg.png");
+    background-image: url("/assets/blog-right-bg.png");
     background-repeat: no-repeat;
     background-position: right;
 } */
@@ -366,7 +366,7 @@ body {
 }
 /* .header .container-fluid .row{
     height: 370px;
-    background-image: url("assets/faq-banner.png") ;
+    background-image: url("/assets/faq-banner.png") ;
 } */
 @media only screen and (max-width: 1273px) {
     .arrow {
@@ -912,10 +912,13 @@ body {
     border-top: 1px solid #CCCCCC;
 }
 
-.touch-with-us {
-    text-align: center;
+.touch-with-us .row1 .col {
     font-size: 28px;
     font-weight: 700;
+}
+
+.touch-with-us {
+    
     color: #4F4F4F;
     padding-top: 80px;
     max-width: 620px;
@@ -946,7 +949,7 @@ body {
 /* become-a-provider */
 
 #become-a-provider {
-    background-image: url("assets/become-a-pro-banner.png");
+    background-image: url("/assets/become-a-pro-banner.png");
     /* width: 1560px; */
     /* height: 930px; */
     margin: 0px;
@@ -971,10 +974,10 @@ body {
 
 
 
-    #register-form .formgroup {
+  /*  #register-form .form-group {
         margin-bottom: 15px;
     }
-
+*/
     #register-form .subrow2 {
         width: 100%;
         margin-left: 35px;
@@ -1008,7 +1011,7 @@ body {
     }
 
 #become-a-provider-section2 .how-it-works {
-    background-image: url("assets/blog-left-bg.png"),url("assets/blog-right-bg.png");
+    background-image: url("/assets/blog-left-bg.png"),url("/assets/blog-right-bg.png");
     background-position: left, right;
     background-repeat: no-repeat;
 }
@@ -1146,15 +1149,15 @@ body {
 
 
     #service-provider-section3 .address {
-        list-style-image: url('assets/layer-15.png');
+        list-style-image: url('/assets/layer-15.png');
     }
 
     #service-provider-section3 .date {
-        list-style-image: url('assets/calendar2.png');
+        list-style-image: url('/assets/calendar2.png');
     }
 
     #service-provider-section3 .time {
-        list-style-image: url('assets/layer-14.png');
+        list-style-image: url('/assets/layer-14.png');
     }
 
     #service-provider-section3 .name {
@@ -1386,18 +1389,18 @@ body {
         }
 
     #customer-section3 .date {
-        list-style-image: url('assets/calendar2.png');
+        list-style-image: url('/assets/calendar2.png');
     }
 
     #customer-section3 .time {
-        list-style-image: url('assets/layer-14.png');
+        list-style-image: url('/assets/layer-14.png');
     }
 
     #customer-section3 .name {
         list-style-type: none;
     }
     /* #customer-section3 .address {
-  list-style-image: url('assets/layer-15.png');
+  list-style-image: url('/assets/layer-15.png');
 } */
     /* #customer-section3 .customerdetails {
   padding-left: 26px;
@@ -1809,15 +1812,15 @@ body {
         }
 
     #admin-section2 .date {
-        list-style-image: url('assets/calendar2.png');
+        list-style-image: url('/assets/calendar2.png');
     }
 
     #admin-section2 .time {
-        list-style-image: url('assets/layer-14.png');
+        list-style-image: url('/assets/layer-14.png');
     }
 
     #admin-section2 .address {
-        list-style-image: url('assets/layer-15.png');
+        list-style-image: url('/assets/layer-15.png');
     }
 
     #admin-section2 .col2 .serviceid {
@@ -1947,22 +1950,22 @@ body {
 
 /* #book-service .sub-row1 .set-service{
 
-    list-style-image: url('assets/setup-service.png');
+    list-style-image: url('/assets/setup-service.png');
 
   }
   #book-service .sub-row1 .schedule-plan{
 
-    list-style-image: url('assets/setup-service.png');
+    list-style-image: url('/assets/setup-service.png');
 
   }
   #book-service .sub-row1 .your-details{
 
-    list-style-image: url('assets/setup-service.png');
+    list-style-image: url('/assets/setup-service.png');
 
   }
   #book-service .sub-row1 .make-payment{
 
-    list-style-image: url('assets/setup-service.png');
+    list-style-image: url('/assets/setup-service.png');
 
   } */
 
