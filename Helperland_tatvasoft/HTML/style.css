@@ -2130,3 +2130,42 @@ color: #4f4f4f;
   max-width: 615px;
   margin: 35px auto 90px auto;
 }
+
+
+#forgetpassword label{
+  color: #646464;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+
+#forgetpassword form{
+  margin: 15px;
+  padding: 10px;
+}
+#forgetpassword .row1{
+  justify-content: center;
+  margin-top: 100px;
+ 
+  
+
+}
+#forgetpassword .col1{
+  max-width: 360px;
+  box-shadow: #1FB6FF;
+  border: 2px solid black;
+
+  
+
+}
+#forgetpassword .save-button{
+  background: #1d7a8c!important;
+    border-color: #fff!important;
+    color: #fff;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 15px 30px;
+    width: 100%;
+    border-radius: 40px;
+}
