@@ -63,6 +63,8 @@ namespace Helperland.Models
         public string BankTokenId { get; set; }
         public string TaxNo { get; set; }
 
+        public string ResetPasswordCode { get; set; }
+
         public virtual ICollection<FavoriteAndBlocked> FavoriteAndBlockedTargetUsers { get; set; }
         public virtual ICollection<FavoriteAndBlocked> FavoriteAndBlockedUsers { get; set; }
         public virtual ICollection<Rating> RatingRatingFromNavigations { get; set; }
@@ -70,5 +72,6 @@ namespace Helperland.Models
         public virtual ICollection<ServiceRequest> ServiceRequestServiceProviders { get; set; }
         public virtual ICollection<ServiceRequest> ServiceRequestUsers { get; set; }
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
+        
     }
 }
