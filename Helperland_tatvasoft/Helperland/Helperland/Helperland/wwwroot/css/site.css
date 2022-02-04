@@ -2133,3 +2133,39 @@ body {
     max-width: 615px;
     margin: 35px auto 90px auto;
 }
+
+
+#resetpassword label {
+    color: #646464;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+
+#resetpassword form {
+    margin: 15px;
+    padding: 10px;
+}
+
+#resetpassword .row1 {
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#resetpassword .col1 {
+    max-width: 360px;
+    box-shadow: 4px 5px 5px 5px whitesmoke;
+    border: 2px solid white;
+}
+
+#resetpassword .save-button {
+    background: #1d7a8c !important;
+    border-color: #fff !important;
+    color: #fff;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 15px 30px;
+    width: 100%;
+    border-radius: 40px;
+}
