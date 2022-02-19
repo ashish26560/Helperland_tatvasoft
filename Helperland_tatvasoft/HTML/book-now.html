@@ -185,28 +185,28 @@
 
     <div class="container" id="book-service">
         <div class="row row1">
-            <div class="col-auto col1">
+            <div class="col col1">
                 <div class="row sub-row1">
                     <ul class=" nav nav-tabs " role="tablist">
 
-                        <li class="col-auto nav-item set-service">
+                        <li class="col-auto-3 nav-item set-service">
                             <a class="nav-link active " data-bs-toggle="tab" href="#setservice"> <img
                                     src="assets/setup-service.png" class="grey" alt=""><img
                                     src="assets/setup-service-white.png" class="white" alt=""> set up servie</a>
                         </li>
 
-                        <li class="col-auto nav-item schedule-plan">
+                        <li class="col-auto-3 nav-item schedule-plan">
                             <a class="nav-link " data-bs-toggle="tab" href="#scheduleplan"> <img
                                     src="assets/schedule.png" class="grey" alt=""><img src="assets/schedule-white.png"
                                     class="white" alt="">Schedule & plan</a>
                         </li>
-                        <li class="col-auto nav-item your-details">
+                        <li class="col-auto-3 nav-item your-details">
                             <a class="nav-link" data-bs-toggle="tab" href="#yourdetails"> <img src="assets/details.png"
                                     class="grey" alt=""><img src="assets/details-white.png" class="white" alt="">Your
                                 details</a>
                         </li>
 
-                        <li class="col-auto nav-item make-payment">
+                        <li class="col-auto-3 nav-item make-payment">
                             <a class="nav-link " data-bs-toggle="tab" href="#makepayment"> <img src="assets/payment.png"
                                     class="grey" alt=""><img src="assets/payment-white.png" class="white" alt="">make
                                 payment</a>
@@ -215,14 +215,587 @@
                     </ul>
 
                 </div>
+                <div class="row sub-row2">
+                    <div class="tab-content">
+                        <div id="setservice" class="container tab-pane active">
+                            <form>
+                                <div class=" row zip ">
+                                    <span class="title">Enter your Postal Code</span>
+                                    <div class="col-sm-7 col-md-5">
+                                        <!-- <input  formcontrolname="ServiceId" type="hidden" value="1" class="ng-untouched ng-pristine ng-valid"> -->
+                                        <input class="form-control " name="PostalCode" type="text"
+                                            placeholder="Postal code">
 
-            </div>
-            <div class="col-auto col2">
-                <div class="row-auto">
-                    <p>payment summery</p>
+                                    </div>
+
+                                    <div class=" col-sm-5 form-group">
+
+                                        <button class="btn btn-primary" type="submit"> Check Availability</button>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <div id="scheduleplan" class="container tab-pane ">
+                            <form action="">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="title">When do you need the cleaner?</span>
+                                        <div class="form-group calculator-date-time">
+                                            <div class="input-wrapper">
+                                                <img alt="Calendar" src="assets/calendar (1).png">
+                                                <input class="form-control date" id="txtServiceStartDate"
+                                                    name="ServiceStartDate" placeholder="DD/MM/YYYY" type="text"
+                                                    data-large-mode="true" data-format="d/m/Y">
+                                            </div>
+                                            <select class="form-control servicetime" formcontrolname="ServiceTime">
+                                                <option value="8">8:00</option>
+                                                <option value="8.5">8:30</option>
+                                                <option value="9">9:00</option>
+                                                <option value="9.5">9:30</option>
+                                                <option value="10">10:00</option>
+                                                <option value="10.5">10:30</option>
+                                                <option value="11">11:00</option>
+                                                <option value="11.5">11:30</option>
+                                                <option value="12">12:00</option>
+                                                <option value="12.5">12:30</option>
+                                                <option value="13">13:00</option>
+                                                <option value="13.5">13:30</option>
+                                                <option value="14">14:00</option>
+                                                <option value="14.5">14:30</option>
+                                                <option value="15">15:00</option>
+                                                <option value="15.5">15:30</option>
+                                                <option value="16">16:00</option>
+                                                <option value="16.5">16:30</option>
+                                                <option value="17">17:00</option>
+                                                <option value="17.5">17:30</option>
+                                                <option value="18">18:00</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="title">How long do you need
+                                            your cleaner to stay?</span>
+                                        <select class="form-control cleaner-hours " formcontrolname="ServiceHours">
+                                            <option value="3">3.0 Hrs</option>
+                                            <option value="3.5">3.5 Hrs</option>
+                                            <option value="4">4.0 Hrs</option>
+                                            <option value="4.5">4.5 Hrs</option>
+                                            <option value="5">5.0 Hrs</option>
+                                            <option value="5.5">5.5 Hrs</option>
+                                            <option value="6">6.0 Hrs</option>
+                                            <option value="6.5">6.5 Hrs</option>
+                                            <option value="7">7.0 Hrs</option>
+                                            <option value="7.5">7.5 Hrs</option>
+                                            <option value="8">8.0 Hrs</option>
+                                            <option value="8.5">8.5 Hrs</option>
+                                            <option value="9">9.0 Hrs</option>
+                                            <option value="9.5">9.5 Hrs</option>
+                                            <option value="10">10.0 Hrs</option>
+                                            <option value="10.5">10.5 Hrs</option>
+                                            <option value="11">11.0 Hrs</option>
+                                            <option value="11.5">11.5 Hrs</option>
+                                            <option value="12">12.0 Hrs</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr class="hr">
+                                <div class="row ">
+                                    <span class="title">Extra Services</span>
+                                    <div class="row extra-services">
+                                        <div class="col-2 ">
+                                            <label>
+                                                <input type="checkbox" class="check">
+                                                <div class="img-container">
+
+                                                    <div class="img-wrapper">
+                                                        <img src="assets/3.png">
+                                                    </div>
+                                                </div>
+                                                <span>Inside cabinets</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label>
+                                                <input type="checkbox" class="check">
+                                                <div class="img-container">
+
+                                                    <div class="img-wrapper">
+                                                        <img src="assets/5.png">
+                                                    </div>
+                                                </div>
+                                                <span>Inside fridge</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label>
+                                                <input type="checkbox" class="check">
+                                                <div class="img-container">
+
+                                                    <div class="img-wrapper">
+                                                        <img src="assets/4.png">
+                                                    </div>
+                                                </div>
+                                                <span>Inside oven</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label>
+                                                <input type="checkbox" class="check">
+                                                <div class="img-container">
+
+                                                    <div class="img-wrapper">
+                                                        <img src="assets/2.png">
+                                                    </div>
+                                                </div>
+                                                <span>Laundry wash &amp; dry</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label>
+                                                <input type="checkbox" class="check">
+                                                <div class="img-container">
+
+                                                    <div class="img-wrapper">
+                                                        <img src="assets/1.png">
+                                                    </div>
+                                                </div>
+                                                <span>Interior windows</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr class="hr">
+                                <div class="row ">
+                                    <span class="title">Comments</span>
+                                    <div class="form-group">
+                                        <textarea class="form-control " maxlength="500" rows="3"
+                                            placeholder="Comments"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row ">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input formcontrolname="HasPets" type="checkbox"
+                                                class="ng-untouched ng-pristine ng-valid">
+                                            <span>
+                                                <!-- <img  alt="Checked" src="assets/images/checkbox-check.png"> -->
+                                                I have pets at home
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <hr class="hr">
+                                <div class="row ">
+                                    <div class="text-right">
+
+                                        <button class="btn continuebtn btn-primary btn-lg"
+                                            type="submit">Continue</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                        <div id="yourdetails" class="container tab-pane ">
+                            <form>
+                                <span class="title">Enter your contact details, so we can serve you
+                                    in better way!</span>
+                                <div class="scenario2">
+                                    <ul class="address-picker ng-untouched ng-pristine ng-valid"
+                                        formarrayname="Address">
+                                    </ul>
+                                    <div id="add-address" class="collapse">
+                                        <form novalidate="" class="ng-untouched ng-pristine ng-invalid">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Street
+                                                            name</label>
+                                                        <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                            formcontrolname="StreetName" name="StreetName" type="text"
+                                                            placeholder="Street name" data-placeholder="Street name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">House
+                                                            number</label>
+                                                        <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                            formcontrolname="HouseNo" name="HouseNo" type="text"
+                                                            placeholder="House number" data-placeholder="House number">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Postal
+                                                            code</label>
+                                                        <input class="form-control ng-untouched ng-pristine ng-valid"
+                                                            formcontrolname="PostalCode" name="PostalCode" readonly=""
+                                                            type="text" placeholder="Postal code"
+                                                            data-placeholder="Postal code">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">City</label>
+                                                        <select class="form-control ng-untouched ng-pristine ng-valid"
+                                                            formcontrolname="City">
+                                                            <option value="Bonn">Bonn</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Phone
+                                                            number</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">+49</span>
+                                                            <input class="form-control phone-number"
+                                                                formcontrolname="Mobile" name="Mobile" type="text"
+                                                                placeholder="Phone number"
+                                                                data-placeholder="Phone number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input class="btn btn-primary save" type="button" disabled="" value="Save">
+                                            <button class="btn btn-primary cancel " data-toggle="collapse" type="button"
+                                                aria-expanded="false" data-target="#add-address">Cancel</button>
+                                        </form>
+                                    </div>
+                                    <button class="btn btn-primary add-addressbtn" data-toggle="collapse" type="button"
+                                        aria-expanded="false" data-target="#add-address">Add New Address</button>
+                                    <div class="checkbox invoice-checkbox">
+                                        <label>
+                                            <input formcontrolname="IsInvoiceAddress" type="checkbox"
+                                                data-toggle="collapse" aria-expanded="false"
+                                                data-target=".invoice-address-form">
+                                            <input formcontrolname="InvoiceAddressId" id="hdnInvoiceAddressId"
+                                                type="hidden" value="0" class="ng-untouched ng-pristine ng-valid">
+                                            <span>
+                                                <img alt="Checked" src="assets/checkbox-check.png">
+                                                Send invoice on this address</span>
+                                        </label>
+                                    </div>
+                                    <div class="invoice-address-form collapse">
+                                        <form novalidate="" class="ng-untouched ng-pristine ng-invalid">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Street
+                                                            name</label>
+                                                        <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                            formcontrolname="StreetName" name="StreetName" type="text"
+                                                            placeholder="Street name" data-placeholder="Street name">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">House
+                                                            number</label>
+                                                        <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                            formcontrolname="HouseNo" name="HouseNo" type="text"
+                                                            placeholder="House number" data-placeholder="House number">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Postal
+                                                            code</label>
+                                                        <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                                            formcontrolname="PostalCode" name="PostalCode" type="text"
+                                                            placeholder="Postal code" data-placeholder="Postal code">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">City</label>
+                                                        <select class="form-control ng-untouched ng-pristine ng-invalid"
+                                                            formcontrolname="City">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input class="btn btn-primary save" type="button" disabled="" value="Save">
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                                <hr class="hr">
+                                <div class="text-right">
+
+                                    <button class="btn btn-primary  continuebtn" type="submit">Continue</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="makepayment" class="container tab-pane ">
+                            <form>
+
+                                <span class="title">Pay securely with Helperland payment gateway!</span>
+                                <div class="promo-code">
+                                    <form novalidate="" class="ng-untouched ng-pristine ng-invalid">
+                                        <span>Promo code (optional)</span>
+                                        <div class="row">
+                                            <div class="col-xs-7 col-sm-6 col-md-4 promo">
+                                                <input class="form-control" formcontrolname="PromoCode" name="PromoCode"
+                                                    type="text" placeholder="Promo code (optional)"
+                                                    data-placeholder="Promo code (optional)">
+                                            </div>
+                                            <div class="col-xs-5 col-sm-3 col-md-2 applybtn">
+                                                <button class="btn btn-primary " id="btnApply" type="submit"
+                                                    disabled="">Apply</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <hr class="hr">
+                                <div class="field input--focus StripeElement StripeElement--empty" ref="card">
+                                    <div class="__PrivateStripeElement"
+                                        style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
+                                        <iframe name="__privateStripeFrame9515" frameborder="0" allowtransparency="true"
+                                            scrolling="no" allow="payment *"
+                                            src="https://js.stripe.com/v3/elements-inner-card-a7dfef515a6efdb78c4c930ce8d289f0.html#locale=en&amp;wait=false&amp;mids[guid]=1025fd4f-1820-47d1-b5b9-6b887aa4136f436137&amp;mids[muid]=59fc8d3e-915b-4e43-ba58-908902252b3decea20&amp;mids[sid]=496bedd7-9977-41ce-ba21-7552a1e87161c0abce&amp;hidePostalCode=true&amp;style[base][iconColor]=%23666EE8&amp;style[base][color]=%2331325F&amp;style[base][lineHeight]=36px&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23c5c5c5&amp;rtl=false&amp;componentName=card&amp;keyMode=test&amp;apiKey=pk_test_CbN2mTsadzVC1WpDPDgcDWbG&amp;referrer=https%3A%2F%2Fweb1.anasource.com%2Ftrainee2021%2Fbook-service&amp;controllerId=__privateStripeController9511"
+                                            title="Secure card payment input frame"
+                                            style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; transform: translate(0px) !important; color-scheme: normal !important; height: 36px;"></iframe><input
+                                            class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" "
+                                            autocomplete="false" maxlength="1"
+                                            style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: -1px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div style="margin-top: 10px;font-size: 10px;float: right">
+                                            <span style="float: right">Accepted cards:</span> <br>
+                                            <span>
+                                                <!-- <img  height="30px" src="assets/1.png">
+                                        <img  height="30px" src="assets/2.png">
+                                        <img  height="30px" src="assets/3.png">
+                                      </span> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <hr class="hr">
+                                <div class="checkbox small">
+                                    <label>
+                                        <input formcontrolname="TnCAgree" type="checkbox"
+                                            class="ng-untouched ng-pristine ng-valid">
+                                        <span>
+                                            <img alt="Checked" src="assets/checkbox-check.png">
+                                            I accepted
+                                            <a data-toggle="modal" href="#termsAndConditions"
+                                                title="terms and conditions">terms and conditions</a>,
+                                            the
+                                            <a data-tog="" gle="modal" href="#CancellationPolicyModal"
+                                                title="cancellation policy">cancellation policy</a>
+                                            and the
+                                            <a data-toggle="modal" href="#privacy-policy-modal"
+                                                title="privacy policy">privacy policy</a>.
+                                            I confirm that Helperland starts to execute the contract before the expiry
+                                            of the withdrawal period and I lose my right of withdrawal as a consumer
+                                            with full performance of the contract.
+                                        </span>
+                                    </label>
+
+                                </div>
+                                <hr class="hr">
+                                <div class="text-right">
+                                    <input class="btn btn-primary btn-lg continuebtn" type="submit"
+                                        value="Complete Booking">
+
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                    </div>
+
 
                 </div>
 
+            </div>
+            <div class="col col2 payment-summery-model">
+                <div class="payment-summery">
+
+
+                    <div class="row-auto heading">
+                        <h6>
+
+                            payment summery
+                        </h6>
+
+                    </div>
+                    <div class="content">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Duration</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Basic</td>
+                                    <td>0 Hrs</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <hr class="hr">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b>Total Service Time</b>
+                                    </td>
+                                    <td>
+                                        <b>3 Hrs</b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="content">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Per cleaning</td>
+                                    <td>
+                                        <b>0,00&nbsp;€</b>
+                                    </td>
+                                </tr>
+                                <!---->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="content total-payment">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Total Payment</td>
+                                    <td>0,00&nbsp;€</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p class="no-sales-tax">According to § 19 UStG no sales tax is
+                                            calculated.</p>
+                                    </td>
+                                </tr>
+                                <tr class="effective-price">
+
+                                    <td>Effective Price</td>
+                                    <td>
+                                        <b>0,00&nbsp;€</b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            <a data-dismiss="modal" data-toggle="modal" href="#moreInfoOn20Modal">
+                                <span>*</span>You will save 20% according to §35a EStG.</a>
+                        </p>
+                    </div>
+                    <div class="footer">
+                        <img alt="Smiley" src="assets/smiley.png">
+                        <a data-dismiss="modal" data-toggle="modal" href="#servicesModal">See what is
+                            always included</a>
+                    </div>
+
+                </div>
+                <div class="payment-faq">
+                    <h3>Questions?</h3>
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="heading0">
+                                <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse0"
+                                    title="What's included in a cleaning?">
+                                    <img alt="Right Arrow" src="assets/right-arrow-dark.png"> What's included in
+                                    a cleaning?
+                                </a>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapse0">
+                                <div class="panel-body">
+                                    Bedroom, Living Room &amp; Common Areas,Bathrooms,Kitchen,Extras
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="heading1">
+                                <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse1"
+                                    title="Which Helperland professional will come to my place?">
+                                    <img alt="Right Arrow" src="assets/right-arrow-dark.png"> Which Helperland
+                                    professional will come to my place?
+                                </a>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapse1">
+                                <div class="panel-body">
+                                    Helperland has a vast network of experienced, top-rated cleaners. Based on the time
+                                    and date of your request, we work to assign the best professional available.Like
+                                    working with a specific pro? Add them to your Pro Team from the mobile app and
+                                    they'll be requested first for all future bookings.You will receive an email with
+                                    details about your professional prior to your appointment.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="heading2">
+                                <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse2"
+                                    title="Can I skip or reschedule bookings?">
+                                    <img alt="Right Arrow" src="assets/right-arrow-dark.png"> Can I skip or
+                                    reschedule bookings?
+                                </a>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapse2">
+                                <div class="panel-body">
+                                    You can reschedule any booking for free at least 24 hours in advance of the
+                                    scheduled start time. If you need to skip a booking within the minimum commitment,
+                                    we’ll credit the value of the booking to your account. You can use this credit on
+                                    future cleanings and other Helperland services.
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="heading3">
+                                <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse3"
+                                    title="test tatva">
+                                    <img alt="Right Arrow" src="assets/right-arrow-dark.png"> test tatva
+                                </a>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapse3">
+                                <div class="panel-body">
+                                    test tatva
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a data-dismiss="modal" routerlink="/faqs" title="For more help" href="/trainee2021/faqs">For more
+                        help</a>
+                </div>
             </div>
         </div>
     </div>
