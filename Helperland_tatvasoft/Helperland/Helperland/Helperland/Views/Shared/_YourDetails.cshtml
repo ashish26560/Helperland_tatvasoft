@@ -1,0 +1,163 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Http;
+
+@model Helperland.Models.UserAddress;
+
+@{
+
+    String ZipCode = Context.Session.GetString("ZipCode");
+}
+
+<span class="title">
+    Enter your contact details, so we can serve you
+    in better way!
+</span>
+<div class="scenario2">
+    <ul class="address-picker " formarrayname="Address">
+    </ul>
+    <div id="add-address" class="collapse">
+        <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="Tab3Click()" data-ajax-url="/PublicPages/YourDetails">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        Street
+                        name
+                    </label>
+                    <input class="form-control "
+                           formcontrolname="StreetName" asp-for="AddressLine1" type="text"
+                           placeholder="Street name" data-placeholder="Street name">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        House
+                        number
+                    </label>
+                    <input class="form-control"
+                           formcontrolname="HouseNo" asp-for="AddressLine2" type="text"
+                           placeholder="House number" data-placeholder="House number">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        Postal
+                        code
+                    </label>
+                    <input class="form-control ng-untouched ng-pristine ng-valid"
+                           formcontrolname="PostalCode" name="PostalCode" asp-for="PostalCode" value="@ZipCode" readonly
+                           type="text" placeholder="Postal code"
+                           data-placeholder="Postal code">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">City</label>
+                    <select class="form-control " asp-for="City"
+                            formcontrolname="City">
+                        <option value="Bonn">Bonn</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        Phone
+                        number
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-addon">+49</span>
+                        <input class="form-control phone-number"
+                               formcontrolname="Mobile" asp-for="Mobile" name="Mobile" type="text"
+                               placeholder="Phone number" data-placeholder="Phone number">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary save" type="submit" value="Save">
+        <button class="btn btn-primary cancel " data-toggle="collapse" type="button"
+                aria-expanded="false" data-target="#add-address">
+            Cancel
+        </button>
+        </form>
+    </div>
+    <button class="btn btn-primary add-addressbtn" data-toggle="collapse" type="button"
+            aria-expanded="false" data-target="#add-address">
+        Add New Address
+    </button>
+    @*<div class="checkbox invoice-checkbox">
+        <label>
+            <input formcontrolname="IsInvoiceAddress" type="checkbox" data-toggle="collapse"
+                   aria-expanded="false" data-target=".invoice-address-form">
+            <input formcontrolname="InvoiceAddressId" id="hdnInvoiceAddressId" type="hidden"
+                   value="0" class="ng-untouched ng-pristine ng-valid">
+            <span>
+                <img alt="Checked" src="~/assets/checkbox-check.png">
+                Send invoice on this address
+            </span>
+        </label>
+    </div>*@
+    @*<div class="invoice-address-form collapse">
+            <form novalidate="" class="ng-untouched ng-pristine ng-invalid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Street
+                                name
+                            </label>
+                            <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                   formcontrolname="StreetName" name="StreetName" type="text"
+                                   placeholder="Street name" data-placeholder="Street name">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">
+                                House
+                                number
+                            </label>
+                            <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                   formcontrolname="HouseNo" name="HouseNo" type="text"
+                                   placeholder="House number" data-placeholder="House number">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Postal
+                                code
+                            </label>
+                            <input class="form-control ng-untouched ng-pristine ng-invalid"
+                                   formcontrolname="PostalCode" name="PostalCode" type="text"
+                                   placeholder="Postal code" data-placeholder="Postal code">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <select class="form-control ng-untouched ng-pristine ng-invalid"
+                                    formcontrolname="City">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input class="btn btn-primary save" type="button" disabled="" value="Save">
+            </form>
+        </div>*@
+
+
+</div>
+<hr class="hr">
+<div class="text-right">
+    <input type="button" id="SendAddress"  class="btn continuebtn btn-primary btn-lg" value="Continue">
+</div>
