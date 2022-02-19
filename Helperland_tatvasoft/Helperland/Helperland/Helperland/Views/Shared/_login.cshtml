@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.User;
+
+<div class="modal fade popup" id="login-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">log in</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if (TempData.ContainsKey("LoginMessage"))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["LoginMessage"]
+                        </div>
+                    }
+                    <form method="post"  asp-controller="Home" asp-action="Login" novalidate>
+
+                        <div class="form-group ">
+
+                            <input type="email" asp-for="Email" class=" form-control" 
+                                   aria-describedby="emailHelp" placeholder="Email">
+
+                            <img src="~/assets/email.png" alt="">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1"
+                                   placeholder="Password">
+                            <img src="~/assets/lock.png" alt="">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        @*<span class="text-danger">@ViewBag.loginMessage</span>*@
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn" Login">login</button>
+                        <div class="text-center">
+                            <a class="setPointer forgotLink" data-toggle="modal" data-dismiss="modal" data-target="#forget-popup">
+                                Forgot Password?
+                            </a>
+
+                        </div>
+
+                        <div class="text-center">
+                            Don't have an account yet?
+                        </div>
+                        <div class="text-center">
+                            <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount">
+                                Create Account
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
