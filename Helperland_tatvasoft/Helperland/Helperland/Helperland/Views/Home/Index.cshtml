@@ -2,9 +2,9 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model Helperland.Models.User
+@using Microsoft.AspNetCore.Http;
 
-@{
-
+@{string var = Context.Session.GetString("IsLoggedIn");
 }
 
 <!DOCTYPE html>
@@ -46,7 +46,15 @@
                             <!-- can also use a tag with nav-link class  -->
                             <!-- <button type="button" class="btn">Book a cleaner</button> -->
                         <li class="nav-item">
-                            <a class="btn head" href="#">Book a cleaner</a>
+                            @if (var == "true")
+                            {
+                            <a class="btn head" asp-controller="PublicPages" asp-action="Book_now">Book a cleaner</a>
+                            }
+                            else
+                            {
+                            <a class="btn head" data-toggle="modal" data-target="#login-popup">Book a cleaner</a>
+
+                            }
                         </li>
                         <li class="nav-item">
                             <a class="nav-link publiclink" asp-area="" asp-controller="PublicPages" asp-action="Price">Prices</a>
@@ -60,207 +68,125 @@
                         <li class="nav-item">
                             <a class="nav-link publiclink" asp-area="" asp-controller="PublicPages" asp-action="Contact">Contact us</a>
                         </li>
-                        <li class="nav-item">
-                            <button type="button" class="btn head btn-primary" data-toggle="modal" data-target="#login-popup">Login</button>
-
-                            <div class="modal fade popup" id="login-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                                 aria-hidden="true">
-                                <div class="vertical-align-helper">
-
-                                    <div class="modal-dialog ">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-
-                                                <h5 class="modal-title" id="exampleModalLabel">log in</h5>
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <img src="~/assets/close.png" alt="">
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post">
-
-                                                    <div class="form-group ">
-
-                                                        <input type="email" asp-for="Email" required class=" form-control" id="exampleInputEmail1"
-                                                               aria-describedby="emailHelp" placeholder="Email">
-
-                                                        <img src="~/assets/email.png" alt="">
-                                                        <span asp-validation-for="Email" class="text-danger"></span>
-
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" asp-for="Password" required class="form-control" id="exampleInputPassword1"
-                                                               placeholder="Password">
-                                                        <img src="~/assets/lock.png" alt="">
-                                                        <span asp-validation-for="Password" class="text-danger"></span>
-                                                    </div>
-
-                                                    <span class="text-danger">@ViewBag.Message</span>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                                                    </div>
-                                                    <button type="submit" class="btn" value="Login">login</button>
-                                                    <div class="text-center">
-                                                        <a class="setPointer forgotLink" data-toggle="modal" data-dismiss="modal" data-target="#forget-popup">
-                                                            Forgot Password?
-                                                        </a>
-
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        Don't have an account yet?
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount">
-                                                            Create Account
-                                                        </a>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade popup" id="forget-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                                 aria-hidden="true">
-                                <div class="vertical-align-helper">
-
-                                    <div class="modal-dialog ">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
 
 
-                                                <h5 class="modal-title" id="exampleModalLabel">Forget Password</h5>
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <img src="assets/close.png" alt="">
-                                                </button>
-                                            </div>
-                                            <form method="post">
-                                                <span class="text-success"> @ViewBag.Message</span>
-                                                <div class="modal-body">
-                                                    <div class="form-group ">
-                                                        <input type="email" asp-for="Email" required class=" form-control" id="exampleInputEmail1"
-                                                               aria-describedby="emailHelp" placeholder="Email Address">
+                        @if (var == "true")
+                        {
+                            <li class="nav-item notification">
 
+                                <a class="nav-link" href="#"><img src="~/assets/icon-notification.png" alt=""> </a>
+                            </li>
+                            <li class="nav-item ">
 
-                                                        <img src="~/assets/email.png" alt="">
+                                <a class=" nav-link" style="margin-right: 0px;" href="#">
+                                    <img src="~/assets/admin-user.png" alt=""> <img src="~/assets/admin-small-arrow.png"
+                                                                                    alt="">
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <button type="button" class="btn head btn-primary" data-toggle="modal" data-target="#login-popup">Login</button>
+                            </li>
+                            <li class="nav-item ">
+                                <a type="button" class=" head btn" asp-controller="Home" asp-action="Becomeprovider">Become a helper</a>
+                            </li>
 
-                                                    </div>
+                        }
 
-
-
-                                                    <button type="submit" class="btn">Send</button>
-                                                    <div class="text-center">
-                                                        <a class="setPointer forgotLink" data-dismiss="modal" data-toggle="modal" data-target="#login-popup">
-                                                            login now
-                                                        </a>
-                                                    </div>
-
-
-
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a type="button" class=" head btn" asp-controller="Home" asp-action="Becomeprovider">Become a helper</a>
-                        </li>
 
                     </ul>
                 </div>
             </nav>
         </section>
-        <!-- header over -->
-        <!-- content start -->
-        <div class="row-auto content">
-            <div class="container-fluid">
-                <div class="row text">
-                    <h1>Lorem ipsum text.</h1>
 
-                </div>
-                <div class="row">
-                    <p class="subtext">
-                        <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
-                    </p>
+        <partial name="_login">
+            <partial name="_ForgetPassword">
+                <!-- header over -->
+                <!-- content start -->
+                <div class="row-auto content">
+                    <div class="container-fluid">
+                        <div class="row text">
+                            <h1>Lorem ipsum text.</h1>
 
-                </div>
-                <div class="row">
-                    <p class="subtext">
-                        <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="subtext">
-                        <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
-                    </p>
-                </div>
-                <div class="row bookcleaner">
-                    <div class="col-auto ">
-                        <a class="btn" href="#">Lets Book a cleaner</a>
-                    </div>
-                </div>
-                <div class="row services">
-                    <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="~/assets/step-1.png" style="width: 52px;
+                        </div>
+                        <div class="row">
+                            <p class="subtext">
+                                <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                            </p>
+
+                        </div>
+                        <div class="row">
+                            <p class="subtext">
+                                <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="subtext">
+                                <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                            </p>
+                        </div>
+                        <div class="row bookcleaner">
+                            <div class="col-auto ">
+                                <a class="btn" href="#">Lets Book a cleaner</a>
+                            </div>
+                        </div>
+                        <div class="row services">
+                            <div class="subservice col-lg-auto center col-md-6 col-12">
+                                <img src="~/assets/step-1.png" style="width: 52px;
           height: 55px;" alt="arrow">
-                        <h5>
-                            Enter your postalcode
-                        </h5>
+                                <h5>
+                                    Enter your postalcode
+                                </h5>
 
-                    </div>
-                    <div class="subservice col-lg-auto arrow">
-                        <img src="~/assets/step-arrow-1.png" style="width: 85px;
+                            </div>
+                            <div class="subservice col-lg-auto arrow">
+                                <img src="~/assets/step-arrow-1.png" style="width: 85px;
             height: 23px;" alt="arrow">
 
-                    </div>
-                    <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="~/assets/step-2.png" style="width: 50px;
+                            </div>
+                            <div class="subservice col-lg-auto center col-md-6 col-12">
+                                <img src="~/assets/step-2.png" style="width: 50px;
             height: 50px;" alt="arrow">
-                        <h5>
-                            select your plan
-                        </h5>
+                                <h5>
+                                    select your plan
+                                </h5>
 
-                    </div>
-                    <div class="subservice col-lg-auto arrow">
-                        <img src="~/assets/step-arrow-1-copy.png" style="width: 85px;
+                            </div>
+                            <div class="subservice col-lg-auto arrow">
+                                <img src="~/assets/step-arrow-1-copy.png" style="width: 85px;
           height: 23px;" alt="arrow">
-                    </div>
-                    <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="~/assets/step-3.png" style="width: 54px;
+                            </div>
+                            <div class="subservice col-lg-auto center col-md-6 col-12">
+                                <img src="~/assets/step-3.png" style="width: 54px;
           height: 54px;" alt="arrow">
-                        <h5>
-                            Pay securly online
-                        </h5>
+                                <h5>
+                                    Pay securly online
+                                </h5>
 
-                    </div>
-                    <div class="subservice col-lg-auto arrow">
-                        <img src="~/assets/step-arrow-1.png" style="width: 85px;
+                            </div>
+                            <div class="subservice col-lg-auto arrow">
+                                <img src="~/assets/step-arrow-1.png" style="width: 85px;
             height: 23px;" alt="arrow">
 
-                    </div>
-                    <div class="subservice col-lg-auto center col-md-6 col-12">
-                        <img src="~/assets/step-4.png" style="width: 62px;
+                            </div>
+                            <div class="subservice col-lg-auto center col-md-6 col-12">
+                                <img src="~/assets/step-4.png" style="width: 62px;
           height: 63px;" alt="arrow">
-                        <h5 class="last">
-                            enjoy amazing service
-                        </h5>
+                                <h5 class="last">
+                                    enjoy amazing service
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="row-auto downarrow">
+                            <a href="#"><img src="~/assets/group-18_5.png" alt=""></a>
+                        </div>
 
                     </div>
                 </div>
-                <div class="row-auto downarrow">
-                    <a href="#"><img src="~/assets/group-18_5.png" alt=""></a>
-                </div>
-
-            </div>
-        </div>
-        <!-- content over -->
+                <!-- content over -->
     </section>
 
 
@@ -573,7 +499,6 @@
 
     </section>
     <!-- footer over -->
-    <!-- for icons -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -584,7 +509,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
+    @if (TempData.ContainsKey("Modal"))
+    {
+        <script>
+            $(document).ready(function () {
+                var temp = '@TempData["Modal"]';
+                $(temp).modal('show');
+            });
+        </script>
+    }
 </body>
 
 
