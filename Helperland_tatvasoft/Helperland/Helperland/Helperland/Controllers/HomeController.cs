@@ -10,119 +10,154 @@ using Helperland.Data;
 using System.Net.Mail;
 using System.Net;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace Helperland.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private readonly HelperlandContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(HelperlandContext context)
         {
-            _logger = logger;
+            _context = context;
         }
+        //public Homecontroller(ilogger<homecontroller> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         public IActionResult Index()
         {
             return View();
-        }  
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ForgetPassword(User user)
+        {
+            string resetCode = Guid.NewGuid().ToString();
+
+            var uriBuilder = new UriBuilder
+            {
+                Scheme = Request.Scheme,
+                Host = Request.Host.Host,
+                Port = Request.Host.Port ?? -1,
+                Path = $"/Home/ResetPassword/{resetCode}"
+            };
+
+            var link = uriBuilder.Uri.AbsoluteUri;
+
+            var getUser = (from s in _context.Users where s.Email == user.Email select s).FirstOrDefault();
+
+            if (getUser != null)
+            {
+                getUser.ResetPasswordCode = resetCode;
+
+                //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
+
+                //ObjHelperlandContext.Configuration.ValidateOnSaveEnabled = false;
+                _context.SaveChanges();
+
+                var subject = "Password Reset Request";
+                var body = "Hi " + getUser.FirstName + ", <br/> You recently requested to reset your password for your account. Click the link below to reset it. " +
+
+                     " <br/><br/><a href='" + link + "'>" + link + "</a> <br/><br/>" +
+                     "If you did not request a password reset, please ignore this email or reply to let us know.<br/><br/> Thank you";
+
+                SendEmail(getUser.Email, body, subject);
+
+                TempData["ForgetPositive"] = "Reset password link has been sent to your email id.";
+                TempData["Modal"] ="#forget-popup";
+
+                return View("Index");
+            }
+            else
+            {
+
+                TempData["ForgetNegative"] = "User doesn't exists.";
+                TempData["Modal"] = "#forget-popup";
+
+                return View("Index");
+            }
+
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(User user)
+        {
+          
+            var p = _context.Users.Where(c => c.Email == user.Email && c.Password == user.Password).FirstOrDefault();
+            if (p != null)
+            {
+                var name = p.FirstName + " " + p.LastName;
+                ViewBag.Name = name;
+                HttpContext.Session.SetString("IsLoggedIn", "true");
+                HttpContext.Session.SetString("Name", name);
+                HttpContext.Session.SetInt32("UserId", p.UserId);
+                if (p.UserTypeId == 1)
+                {
+
+                    HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
+                    return RedirectToAction("Customer", "User");
+                }
+                else if (p.UserTypeId == 2)
+                {
+
+                    HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
+                    return RedirectToAction("Serviceprovider", "User");
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
+            else
+            {
+                //ViewBag.loginMessage = "Email or password entered is invalid";
+
+                TempData["LoginMessage"]= "Email or password entered is invalid";
+                TempData["Modal"] = "#login-popup";
+
+                return View("Index");
+            }
+
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index(User user)
         {
-            
-                using (HelperlandContext ObjHelperlandContext = new HelperlandContext())
-                {
-               
-                    string email = user.Email;
-
-                    var p = ObjHelperlandContext.Users.Where(c => c.Email == email && c.Password == user.Password).ToList();
-
-                    //ModelState.Clear();
-                    if (p.Count == 1)
-                    {
-                        if (p.FirstOrDefault().UserTypeId == 1)
-                        {
-                            return RedirectToAction("Customer", "User");
-                        } 
-                        if (p.FirstOrDefault().UserTypeId == 2)
-                        {
-                            return RedirectToAction("Serviceprovider", "User");
-                        }
-                    }
-                    else 
-                    {
-                    ViewBag.Message = "Email or password entered is invalid";
-
-                    }
-
-                //forget password
-                string resetCode = Guid.NewGuid().ToString();
-                // var verifyUrl = "/Account/ResetPassword/" + resetCode;
-
-                var uriBuilder = new UriBuilder
-                {
-                    Scheme = Request.Scheme,
-                    Host = Request.Host.Host,
-                    Port = Request.Host.Port ?? -1,
-                    Path = $"/Home/ResetPassword/{resetCode}"
-                };
-
-                var link = uriBuilder.Uri.AbsoluteUri;
-
-                //var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-
-                var getUser = (from s in ObjHelperlandContext.Users where s.Email == user.Email select s).FirstOrDefault();
-                if (getUser != null)
-                {
-                    getUser.ResetPasswordCode = resetCode;
-
-                    //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
-
-                   //ObjHelperlandContext.Configuration.ValidateOnSaveEnabled = false;
-                    ObjHelperlandContext.SaveChanges();
-
-                    var subject = "Password Reset Request";
-                    var body = "Hi " + getUser.FirstName + ", <br/> You recently requested to reset your password for your account. Click the link below to reset it. " +
-
-                         " <br/><br/><a href='" + link + "'>" + link + "</a> <br/><br/>" +
-                         "If you did not request a password reset, please ignore this email or reply to let us know.<br/><br/> Thank you";
-
-                    SendEmail(getUser.Email, body, subject);
-
-                    ViewBag.Message = "Reset password link has been sent to your email id.";
-                }
-                else
-                {
-                    ViewBag.Message = "User doesn't exists.";
-                    return View();
-                }
-
-            }
            
-            return View();
+            return View(user);
         }
 
         private void SendEmail(string emailAddress, string body, string subject)
         {
-            using (MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", emailAddress))
+            using MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", emailAddress);
+            mm.Subject = subject;
+            mm.Body = body;
+
+            mm.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient
             {
-                mm.Subject = subject;
-                mm.Body = body;
-
-                mm.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    EnableSsl = true
-                };
-                NetworkCredential NetworkCred = new NetworkCredential("ashish.chauhan93133@gmail.com", "FeelFree@2389");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
-                smtp.Send(mm);
-
-            }
+                Host = "smtp.gmail.com",
+                EnableSsl = true
+            };
+            NetworkCredential NetworkCred = new NetworkCredential("ashish.chauhan93133@gmail.com", "FeelFree@2389");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
         }
 
         public IActionResult ResetPassword(string id)
