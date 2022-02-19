@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<UserAddress>
+
+@{
+    Layout = null;
+}
+
+<ul class="address-picker " formarrayname="Address">
+    @if (Model == null)
+    {
+        <b>no items found</b>
+    }
+    else
+    {
+
+        @foreach (UserAddress userAddress in Model)
+        {
+            <li>
+                <label>
+                    <input formcontrolname="address" name="address" value="@userAddress.AddressId" type="radio">
+                    <span class="address-block">
+                        <b>Address:</b>
+                        @userAddress.AddressLine1
+                        @userAddress.AddressLine2,
+                        @userAddress.City
+                        @userAddress.PostalCode
+
+                    </span>
+                    <span>
+                        <b>Phone number:</b>
+                        @userAddress.Mobile
+                    </span>
+                    <span class="radio-pointer" ></span>
+                </label>
+            </li>
+        }
+    }
+</ul>
