@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session;
+
+@model Helperland.Models.User;
+
+@{
+    string IsLoggedIn = Context.Session.GetString("IsLoggedIn");
+    string UserTypeId = Context.Session.GetString("UserTypeId");
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,6 +18,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
           rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -28,43 +40,53 @@
         <!-- sidebar containing 3 rows for name header tabs and sidetabs -->
 
         <nav id="sidebar">
-            <div class="container-fluid">
-                <!-- <div class="row row1">
-                    Warm Welcome,
-                    Sandeep.
-                </div> -->
-                <!-- <div class="row row2">
-                    <ul class="nav nav-tabs flex-column" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#dashboard-sid">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests-sid">New Service
-                                Requests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices-sid">Upcoming Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule-sid">Service Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory-sid">Service History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#myratings-sid">My Ratings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer-sid">Block Customer</a>
-                        </li>
-                    </ul>
+           
 
-                </div> -->
+            <div class="container-fluid">
+                @if (IsLoggedIn == "true")
+                {
+                    <div class="row row1">
+                        Warm Welcome,
+                        Sandeep.
+                    </div>
+                    <div class="row row2">
+                        <ul class="nav nav-tabs flex-column" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#dashboard-sid">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests-sid">
+                                    New Service
+                                    Requests
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices-sid">Upcoming Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule-sid">Service Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#servicehistory-sid">Service History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#myratings-sid">My Ratings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer-sid">Block Customer</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+
                 <div class="row row3">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Book now</a>
-                        </li>
+                        @if (UserTypeId == "1") {
+                            <li class="nav-item">
+                            <a class="nav-link" asp-controller="PublicPages" asp-action="Book_now">Book now</a>
+                            </li> 
+                        }
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="#">Price & services</a>
                         </li>
@@ -77,13 +99,29 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Register </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Become helper </a>
-                        </li>
+                        @if (IsLoggedIn == "true")
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Logout">
+                                    Logout
+
+                                </a>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Register </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Become helper </a>
+                            </li>
+                        }
+
                     </ul>
 
                 </div>
@@ -109,9 +147,20 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="btn">Book now</a>
-                            </li>
+                            @if (UserTypeId != "2" && IsLoggedIn == "true")
+                            {
+                                <li class="nav-item">
+                                    <a class="btn" asp-controller="PublicPages" asp-action="Book_now">Book now</a>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li>
+                                    <a class="btn " data-toggle="modal" data-target="#login-popup">Book a cleaner</a>
+                                </li>
+                            }
+
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="PublicPages" asp-action="Price">Prices &amp; services</a>
                             </li>
@@ -124,124 +173,50 @@
                             <li class="nav-item ">
                                 <a class="nav-link" asp-area="" asp-controller="PublicPages" asp-action="Contact">Contact </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn" data-toggle="modal" data-target="#login-popup">Login</a>
-                                <div class="modal fade popup" id="login-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                                     aria-hidden="true">
-                                    <div class="vertical-align-helper">
+                            @if (IsLoggedIn == "true")
+                            {
+                                <li class="nav-item notification">
 
-                                        <div class="modal-dialog ">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
+                                    <a class="nav-link" href="#"><img src="~/assets/icon-notification.png" alt=""> </a>
+                                </li>
 
-                                                    <h5 class="modal-title" id="exampleModalLabel">log in</h5>
-                                                    <button type="button" class="close" data-dismiss="modal">
-                                                        <img src="~/assets/close.png" alt="">
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="form-group ">
-                                                            <input type="email" class=" form-control" id="exampleInputEmail1"
-                                                                   aria-describedby="emailHelp" placeholder="Email">
-                                                            <!-- <span > -->
-                                                            <img src="~/assets/email.png" alt="">
-                                                            <!-- </span> -->
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                                                   placeholder="Password">
-                                                            <img src="~/assets/lock.png" alt="">
-                                                        </div>
 
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                                                        </div>
-                                                        <button type="Login" class="btn  ">login</button>
-                                                        <div class="text-center">
-                                                            <a class="setPointer forgotLink" data-toggle="modal" data-dismiss="modal" data-target="#forget-popup">
-                                                                Forgot Password?
-                                                            </a>
+                                <li class="nav-item dropdown ">
 
-                                                        </div>
-
-                                                        <div class="text-center">
-                                                            Don't have an account yet?
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <a class="setPointer forgotLink" asp-area="" asp-controller="PublicPages" asp-action="createaccount">
-                                                                Create Account
-                                                            </a>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-
+                                    <a class=" nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <img src="~/assets/admin-user.png" alt=""> @*<img src="~/assets/down-arrow (1).png" alt="">*@
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <div class="dropdown-item">Welcome,<br/>
+                                                <b>@Context.Session.GetString("Name")</b>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal fade popup" id="forget-popup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                                     aria-hidden="true">
-                                    <div class="vertical-align-helper">
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a class="dropdown-item" href="#">My Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="#">My Setting</a></li>
+                                        <li>
+                                            <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                        <div class="modal-dialog ">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
+                                </li>
 
-                                                    <h5 class="modal-title" id="exampleModalLabel">Forget Password</h5>
-                                                    <button type="button" class="close" data-dismiss="modal">
-                                                        <img src="~/assets/close.png" alt="">
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="form-group ">
-                                                            <input type="email" class=" form-control" id="exampleInputEmail1"
-                                                                   aria-describedby="emailHelp" placeholder="Email Address">
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="btn" data-toggle="modal" data-target="#login-popup">Login</a>
+                                </li>
 
-
-                                                            <img src="~/assets/email.png" alt="">
-
-                                                        </div>
+                                <li class="nav-item">
+                                    <a class="btn" asp-controller="Home" asp-action="Becomeprovider">Become a helper</a>
+                                </li>
+                            }
 
 
-
-                                                        <button type="Send" class="btn">Send</button>
-                                                        <div class="text-center">
-                                                            <a class="setPointer forgotLink" data-dismiss="modal" data-toggle="modal" data-target="#login-popup">
-                                                                login now
-                                                            </a>
-                                                        </div>
-
-
-
-                                                    </form>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="btn" asp-controller="Home" asp-action="Becomeprovider">Become a helper</a>
-                            </li>
-                            <!-- <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img src="image/flag.png" alt="Language">
-                            </a> -->
-                            <!-- change the dropdown size(media query) -->
-                            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">English</a>
-                                    <a class="dropdown-item" href="#">Hindi</a>
-                                    <a class="dropdown-item" href="#">Gujrati</a>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
                 </nav>
@@ -253,68 +228,79 @@
 
     </div>
     <!-- wrapper over -->
+    <partial name="_login">
+        <partial name="_ForgetPassword">
 
-    <div>
-        @RenderBody()
-    </div>
-
-
-
-    <section class="container-fluid" id="footer">
-        <div class="row align-self-center">
-            <div class="col-md-2 col-sm-4 text-center text-sm-end ">
-                <img class="img-fluid my-3" src="~/assets/footer-logo.png" srcset="">
+            <div>
+                @RenderBody()
             </div>
-            <div class="col-md-8 col-sm-4">
-                <div class="container my-1 my-md-5">
-                    <div class="row justify-content-center text-center">
-                        <div class="col-lg-1 "><a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">HOME</a></div>
-                        <div class="col-lg-1 "><a class="nav-link " asp-area="" asp-controller="PublicPages" asp-action="about">ABOUT</a></div>
-                        <div class="col-lg-2 "><a class="nav-link " href="#">TESTIMONIALS</a></div>
-                        <div class="col-lg-1"><a class="nav-link " asp-area="" asp-controller="PublicPages" asp-action="faq">FAQS</a></div>
-                        <div class="col-lg-2"><a class="nav-link " href="#"s>INSURANCE POLICY</a></div>
-                        <div class="col-lg-1 "><a class="nav-link " href="#">IMPRESSUM</a></div>
+
+
+
+            <section class="container-fluid" id="footer">
+                <div class="row align-self-center">
+                    <div class="col-md-2 col-sm-4 text-center text-sm-end ">
+                        <img class="img-fluid my-3" src="~/assets/footer-logo.png" srcset="">
+                    </div>
+                    <div class="col-md-8 col-sm-4">
+                        <div class="container my-1 my-md-5">
+                            <div class="row justify-content-center text-center">
+                                <div class="col-lg-1 "><a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">HOME</a></div>
+                                <div class="col-lg-1 "><a class="nav-link " asp-area="" asp-controller="PublicPages" asp-action="about">ABOUT</a></div>
+                                <div class="col-lg-2 "><a class="nav-link " href="#">TESTIMONIALS</a></div>
+                                <div class="col-lg-1"><a class="nav-link " asp-area="" asp-controller="PublicPages" asp-action="faq">FAQS</a></div>
+                                <div class="col-lg-2"><a class="nav-link " href="#" s>INSURANCE POLICY</a></div>
+                                <div class="col-lg-1 "><a class="nav-link " href="#">IMPRESSUM</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 text-center mb-2 mb-sm-0">
+                        <img class="img-fluid my-1 my-sm-5" src="~/assets/ic-facebook.png" height="20" width="10" alt=""
+                             srcset="">
+                        <img class="img-fluid my-1 my-sm-5 mx-3" src="~/assets/ic-instagram.png" height="20" width="20" alt=""
+                             srcset="">
                     </div>
                 </div>
-            </div>
-            <div class="col-md-2 col-sm-4 text-center mb-2 mb-sm-0">
-                <img class="img-fluid my-1 my-sm-5" src="~/assets/ic-facebook.png" height="20" width="10" alt=""
-                     srcset="">
-                <img class="img-fluid my-1 my-sm-5 mx-3" src="~/assets/ic-instagram.png" height="20" width="20" alt=""
-                     srcset="">
-            </div>
-        </div>
-        <div class="row align-self-center privacy-policy">
+                <div class="row align-self-center privacy-policy">
 
 
-            <p>
-                ©2018 Helperland. All rights reserved. Terms and Conditions | <a class="link" href="#">
-                    Privacy
-                    policy.
-                </a>
+                    <p>
+                        ©2018 Helperland. All rights reserved. Terms and Conditions | <a class="link" href="#">
+                            Privacy
+                            policy.
+                        </a>
 
 
-        </div>
+                </div>
 
-    </section>
+            </section>
+            <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+            <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+
+            <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
+            <!-- JavaScript Bundle with Popper -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                    crossorigin="anonymous"></script>
+            <script src="~/js/site.js"></script>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-
-    <!--for sidebar overlay  -->
-    <script src="~/js/site.js"></script>
+            @if (TempData.ContainsKey("Modal"))
+            {
+                <script>
+            $(document).ready(function () {
+                var temp = '@TempData["Modal"]';
+                $(temp).modal('show');
+            });
+                </script>
+            }
 </body>
 
 </html>
