@@ -11,7 +11,9 @@ namespace Helperland.Controllers
         public IActionResult Customer()
         {
             return View();
-        } public IActionResult Serviceprovider()
+        }
+
+        public IActionResult Serviceprovider()
         {
             return View();
         }
