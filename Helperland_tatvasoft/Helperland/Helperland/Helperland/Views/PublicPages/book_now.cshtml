@@ -1,0 +1,695 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.User;
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "_Layout";
+}
+
+@{
+    String date = DateTime.Now.AddDays(1).ToString("dd/MM/yyyy");
+    date = date.Replace('-', '/');
+}
+
+<!-- seperator and name -->
+<div id="commonsection2">
+    <div class="row text-center row1">
+        <p class="title m-0 p-0">set up cleaning service</p>
+    </div>
+
+    <div class="row row2 justify-content-center">
+        <div class="line"></div>
+        <img class="px-0" id="seprator" src="~/assets/separator.png" alt="">
+        <div class="line"></div>
+    </div>
+</div>
+<!-- seperator and name -->
+<div class="container" id="book-service">
+    <div class="row row1">
+        <div class="col col1">
+            <div class="row sub-row1">
+                <ul class=" nav nav-tabs " role="tablist">
+
+                    <li class="col-auto-3 nav-item set-service">
+                        <a class="nav-link active " data-bs-toggle="tab" onclick="taboneclick()" id="tab1" href="#setservice">
+                            <img src="~/assets/setup-service.png" class="grey" alt=""><img src="~/assets/setup-service-white.png" class="white" alt=""> set up servie
+                        </a>
+                    </li>
+
+                    <li class="col-auto-3 nav-item schedule-plan">
+                        <a class="nav-link disabled " data-bs-toggle="tab" onclick="tabtwoclick()" id="tab2" href="#scheduleplan">
+                            <img src="~/assets/schedule.png" class="grey" alt=""><img src="~/assets/schedule-white.png"
+                                                                                      class="white" alt="">Schedule & plan
+                        </a>
+                    </li>
+                    <li class="col-auto-3 nav-item your-details">
+                        <a class="nav-link disabled" data-bs-toggle="tab" onclick="tabthreeclick()" id="tab3" href="#yourdetails">
+                            <img src="~/assets/details.png" class="grey" alt=""><img src="~/assets/details-white.png"
+                                                                                     class="white" alt="">Your
+                            details
+                        </a>
+                    </li>
+
+                    <li class="col-auto-3 nav-item make-payment">
+                        <a class="nav-link disabled" data-bs-toggle="tab" id="tab4" href="#makepayment">
+                            <img src="~/assets/payment.png" class="grey" alt=""><img src="~/assets/payment-white.png"
+                                                                                     class="white" alt="">make
+                            payment
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <div class="row sub-row2">
+
+                <div class="tab-content">
+                    <div id="setservice" class="container tab-pane active">
+                        <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-failure="Showalert()" data-ajax-success="tabonepass()" data-ajax-url="/PublicPages/CheckPostalCode">
+
+                            <div class="alert alert-danger d-none" id="ziperror" role="alert">
+                                “We are not providing service in this area. We’ll notify you if any helper would start working near your area.”s
+                            </div>
+
+
+                            <div class=" row zip ">
+                                <span class="title">Enter your Postal Code</span>
+                                <div class="col-sm-7 col-md-5">
+                                    <!-- <input  formcontrolname="ServiceId" type="hidden" value="1" class="ng-untouched ng-pristine ng-valid"> -->
+                                    <input class="form-control" asp-for="ZipCode" type="text" placeholder="Postal code">
+
+                                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+
+                                </div>
+
+                                <div class=" col-sm-5 form-group">
+
+                                    <button class="btn btn-primary" type="submit"> Check Availability</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+
+
+                    <div id="scheduleplan" class="container tab-pane ">
+
+                        <partial name="_SchedulePlan">
+                    </div>
+                    <div id="yourdetails" class="container tab-pane ">
+                        <div id="UpdateContentDiv">
+                            @*Div to update content after Ajax Call*@
+
+                        </div>
+                        <partial name="_YourDetails">
+                    </div>
+                    <div id="makepayment" class="container tab-pane ">
+
+                        @if (TempData.ContainsKey("ServiceMessageNeg"))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["ServiceMessageNeg"]
+                            </div>
+
+                        }
+
+                        @if (TempData.ContainsKey("ServiceMessageNeg"))
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["ServiceMessagePos"]
+                            </div>
+                        }
+
+
+                        <span class="title">Pay securely with Helperland payment gateway!</span>
+                        <div class="promo-code">
+
+                            <span>Promo code</span>
+                            <div class="row">
+                                <div class="col-xs-7 col-sm-6 col-md-4 promo">
+                                    <input class="form-control" formcontrolname="PromoCode" name="PromoCode"
+                                           type="text" placeholder="Promo code"
+                                           data-placeholder="Promo code ">
+                                </div>
+                                <div class="col-xs-5 col-sm-3 col-md-2 applybtn">
+                                    <button class="btn btn-primary " id="btnApply" type="submit">
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr class="hr">
+                        @*<div class="field input--focus StripeElement StripeElement--empty" ref="card">*@
+                        @*<div class="__PrivateStripeElement"
+                                style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
+                                <iframe name="__privateStripeFrame9515" frameborder="0" allowtransparency="true"
+                                    scrolling="no" allow="payment *"
+                                    src="https://js.stripe.com/v3/elements-inner-card-a7dfef515a6efdb78c4c930ce8d289f0.html#locale=en&amp;wait=false&amp;mids[guid]=1025fd4f-1820-47d1-b5b9-6b887aa4136f436137&amp;mids[muid]=59fc8d3e-915b-4e43-ba58-908902252b3decea20&amp;mids[sid]=496bedd7-9977-41ce-ba21-7552a1e87161c0abce&amp;hidePostalCode=true&amp;style[base][iconColor]=%23666EE8&amp;style[base][color]=%2331325F&amp;style[base][lineHeight]=36px&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23c5c5c5&amp;rtl=false&amp;componentName=card&amp;keyMode=test&amp;apiKey=pk_test_CbN2mTsadzVC1WpDPDgcDWbG&amp;referrer=https%3A%2F%2Fweb1.anasource.com%2Ftrainee2021%2Fbook-service&amp;controllerId=__privateStripeController9511"
+                                    title="Secure card payment input frame"
+                                    style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; transform: translate(0px) !important; color-scheme: normal !important; height: 36px;"></iframe><input
+                                    class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" "
+                                    autocomplete="false" maxlength="1"
+                                    style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: -1px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
+                            </div>
+                            </div*@>
+                        <!--<div class="row">
+                        <div class="col-sm-12">
+                            <div style="margin-top: 10px;font-size: 10px;float: right">
+                                <span style="float: right">Accepted cards:</span> <br>-->
+                        <!-- <span>
+                        <img  height="30px" src="~/assets/1.png">
+                          <img  height="30px" src="~/assets/2.png">
+                          <img  height="30px" src="~/assets/3.png">
+                        </span> -->
+                        <!--</div>
+                            </div>
+                        </div>-->
+
+
+                        <div class="checkbox small">
+                            <label>
+                                <input formcontrolname="TnCAgree" type="checkbox"
+                                       class="ng-untouched ng-pristine ng-valid">
+                                <span>
+                                    <img alt="Checked" src="~/assets/checkbox-check.png">
+                                    I accepted
+                                    <a data-toggle="modal" href="#termsAndConditions"
+                                       title="terms and conditions">terms and conditions</a>,
+                                    the
+                                    <a data-toggle="modal" href="#CancellationPolicyModal"
+                                       title="cancellation policy">cancellation policy</a>
+                                    and the
+                                    <a data-toggle="modal" href="#privacy-policy-modal"
+                                       title="privacy policy">privacy policy</a>.
+                                    I confirm that Helperland starts to execute the contract before the expiry
+                                    of the withdrawal period and I lose my right of withdrawal as a consumer
+                                    with full performance of the contract.
+                                </span>
+                            </label>
+
+                        </div>
+                        <hr class="hr">
+                        <div class="text-right">
+                            @*<button class="btn btn-primary btn-lg continuebtn" type="submit">
+                                    Complete Booking
+                                </button>*@
+
+                            <a class="btn completebooking continuebtn completebooking btn-primary btn-lg" asp-action="CompleteBooking" asp-controller="PublicPages">Complete Booking</a>
+                            @*<input type="button" class="btn continuebtn btn-primary btn-lg" asp-action="CompleteBooking" asp-controller="PublicPages" value="Complete Booking" />*@
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col col2 payment-summery-model">
+            <div class="payment-summery">
+
+
+                <div class="row-auto heading">
+                    <h6>
+
+                        payment summery
+                    </h6>
+
+                </div>
+                <div class="content">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td id="date">@date</td>
+                                <td id="starttime">08:00</td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basic</td>
+                                <td id="basic-hour">0 Hrs</td>
+                            </tr>
+                            <tr class="d-none" id="extra">
+                                <td class="text-black" style="color: black;">Extras</td>
+                                <td></td>
+                            </tr>
+                            <tr class="d-none" id="extra-service1">
+                                <td>Inside cabinets</td>
+                                <td>30 Min.</td>
+                            </tr>
+                            <tr class="d-none" id="extra-service2">
+                                <td>Inside fridge</td>
+                                <td>30 Min.</td>
+                            </tr>
+                            <tr class="d-none" id="extra-service3">
+                                <td>Inside oven</td>
+                                <td>30 Min.</td>
+                            </tr>
+                            <tr class="d-none" id="extra-service4">
+                                <td>Laundry wash &amp; dry</td>
+                                <td>30 Min.</td>
+                            </tr>
+                            <tr class="d-none" id="extra-service5">
+                                <td>Interior windows</td>
+                                <td>30 Min.</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <hr class="hr">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Total Service Time</b>
+                                </td>
+                                <td>
+                                    <b id="Totaltime">0 hr</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="content">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Per hour cleaning</td>
+                                <td>
+                                    <b id="percleaning">0,00&nbsp;€</b>
+                                </td>
+                            </tr>
+                            <!---->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="content total-payment">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Total Payment</td>
+                                <td id="totalprice">0,00&nbsp;€</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p class="no-sales-tax">
+                                        According to § 19 UStG no sales tax is
+                                        calculated.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="effective-price">
+
+                                <td>Effective Price</td>
+                                <td>
+                                    <b>0,00&nbsp;€</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <a data-dismiss="modal" data-toggle="modal" href="#moreInfoOn20Modal">
+                            <span>*</span>You will save 20% according to §35a EStG.
+                        </a>
+                    </p>
+                </div>
+                <div class="footer">
+                    <img alt="Smiley" src="~/assets/smiley.png">
+                    <a data-dismiss="modal" data-toggle="modal" href="#servicesModal">
+                        See what is
+                        always included
+                    </a>
+                </div>
+
+            </div>
+            <div class="payment-faq">
+                <h3>Questions?</h3>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="heading0">
+                            <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse0"
+                               title="What's included in a cleaning?">
+                                <img alt="Right Arrow" src="~/assets/right-arrow-dark.png"> What's included in
+                                a cleaning?
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapse0">
+                            <div class="panel-body">
+                                Bedroom, Living Room &amp; Common Areas,Bathrooms,Kitchen,Extras
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="heading1">
+                            <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse1"
+                               title="Which Helperland professional will come to my place?">
+                                <img alt="Right Arrow" src="~/assets/right-arrow-dark.png"> Which Helperland
+                                professional will come to my place?
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapse1">
+                            <div class="panel-body">
+                                Helperland has a vast network of experienced, top-rated cleaners. Based on the time
+                                and date of your request, we work to assign the best professional available.Like
+                                working with a specific pro? Add them to your Pro Team from the mobile app and
+                                they'll be requested first for all future bookings.You will receive an email with
+                                details about your professional prior to your appointment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="heading2">
+                            <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse2"
+                               title="Can I skip or reschedule bookings?">
+                                <img alt="Right Arrow" src="~/assets/right-arrow-dark.png"> Can I skip or
+                                reschedule bookings?
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapse2">
+                            <div class="panel-body">
+                                You can reschedule any booking for free at least 24 hours in advance of the
+                                scheduled start time. If you need to skip a booking within the minimum commitment,
+                                we’ll credit the value of the booking to your account. You can use this credit on
+                                future cleanings and other Helperland services.
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="heading3">
+                            <a class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse3"
+                               title="test tatva">
+                                <img alt="Right Arrow" src="~/assets/right-arrow-dark.png"> test tatva
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapse3">
+                            <div class="panel-body">
+                                test tatva
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a data-dismiss="modal" routerlink="/faqs" title="For more help" href="/trainee2021/faqs">
+                    For more
+                    help
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var totaltime = 0;
+    var oldbasicprice = 0;
+    var totalprice = 0;
+    var percleaning = 25;
+    //$('#Tab3Click').on('click', function (e)
+    $(document).ready(function () {
+        $("#servicestartdate").change(function () {
+            var date = $("#servicestartdate").val();
+            var dataArray = date.split("-");
+            var year = dataArray[0];
+            var month = dataArray[1];
+            var day = dataArray[2];
+
+            var newdate = day + "/" + month + "/" + year;
+            //var date = document.getElementById("servicestartdate").val();
+            $("#date").html(newdate);
+
+        });
+        $("#servicestarttime").change(function () {
+            var time = $(this).children("option:selected").text();
+            $("#starttime").html(time);
+
+        });
+        $("#Basichour").change(function () {
+            var newbasichour = $(this).children("option:selected").val();
+
+            newbasichour = parseFloat(newbasichour);
+
+            totaltime = totaltime - oldbasicprice + newbasichour;
+
+            totalprice = totaltime * percleaning;
+
+            $("#basic-hour").html(newbasichour + " hr");
+            $("#Totaltime").html(totaltime + " hr");
+            $("#totalprice").html(totalprice + " €");
+            $("#percleaning").html(percleaning + " €");
+            oldbasicprice = newbasichour;
+            //alert("You have selected the country - " + basichour);
+        });
+    });
+
+    function Showalert() {
+        $("#ziperror").removeClass("d-none");
+    }
+
+    function Addhours() {
+        totaltime = totaltime + 0.5;
+        totalprice = totaltime * percleaning;
+        $("#Totaltime").html(totaltime + " hr");
+        $("#totalprice").html(totalprice + " €");
+
+        $("#percleaning").html(percleaning + " €");
+    }
+    function Subhours() {
+        totaltime = totaltime - 0.5;
+        totalprice = totaltime * percleaning;
+        $("#Totaltime").html(totaltime + " hr");
+        $("#totalprice").html(totalprice + " €");
+
+    }
+    function Extraservice1() {
+        var a = 4;
+        if ($('#ServiceOneCheck').prop('checked')) {
+            $("#extra-service1").removeClass("d-none");
+            $("#extra").removeClass("d-none");
+
+            Addhours();
+
+        }
+        else {
+            $("#extra-service1").addClass("d-none");
+            $("#extra").addClass("d-none");
+            Subhours();
+        }
+    }
+    function Extraservice2() {
+        if ($('#ServiceTwoCheck').prop('checked')) {
+            $("#extra-service2").removeClass("d-none");
+            $("#extra").removeClass("d-none");
+
+            Addhours();
+        }
+        else {
+            $("#extra-service2").addClass("d-none");
+            $("#extra").addClass("d-none");
+            Subhours();
+        }
+    }
+    function Extraservice3() {
+        if ($('#ServiceThreeCheck').prop('checked')) {
+            $("#extra-service3").removeClass("d-none");
+            $("#extra").removeClass("d-none");
+
+            Addhours();
+        }
+        else {
+            $("#extra-service3").addClass("d-none");
+            $("#extra").addClass("d-none");
+            Subhours();
+        }
+    }
+    function Extraservice4() {
+        if ($('#ServiceFourCheck').prop('checked')) {
+            $("#extra-service4").removeClass("d-none");
+            $("#extra").removeClass("d-none");
+
+            Addhours();
+        }
+        else {
+            $("#extra-service4").addClass("d-none");
+            $("#extra").addClass("d-none");
+            Subhours();
+        }
+    }
+    function Extraservice5() {
+        if ($('#ServiceFiveCheck').prop('checked')) {
+            $("#extra-service5").removeClass("d-none");
+            $("#extra").removeClass("d-none");
+
+            Addhours();
+        }
+        else {
+            $("#extra-service5").addClass("d-none");
+            $("#extra").addClass("d-none");
+            Subhours();
+        }
+    }
+    function Tab3Click(){
+
+        $("#UpdateContentDiv").load("@Url.Action("UserAddress", "PublicPages")");
+    }
+    function tabthreeclick() {
+        $("#tab4").removeClass("active");
+        $("#tab3").removeClass("activated");
+        $("#tab3").addClass("active");
+        $("#tab4").addClass("disabled");
+
+    }
+    function tabtwoclick() {
+        $("#tab3").removeClass("active");
+        $("#tab4").removeClass("active");
+        $("#tab3").removeClass("activated");
+        $("tab2").addClass("active");
+        $("#tab4").addClass("disabled");
+        $("#tab3").addClass("disabled");
+
+    }
+
+    function taboneclick() {
+        $("#tab4").removeClass("active");
+        $("#tab3").removeClass("active");
+        $("#tab2").removeClass("active");
+        $("#tab3").removeClass("activated");
+        $("#tab2").removeClass("activated");
+        $("#tab1").addClass("active");
+        $("#tab4").addClass("disabled");
+        $("#tab3").addClass("disabled");
+        $("#tab2").addClass("disabled");
+    }
+    function tabonepass() {
+
+        $("#ziperror").addClass("d-none");
+        $("#tab2").removeClass("disabled" );
+        $("#tab1").removeClass("active");
+        $("#tab1").addClass("activated");
+        $("#setservice").removeClass("active");
+        $("#tab2").addClass("active");
+        $("#scheduleplan").addClass("active");
+
+    }
+    function tabtwopass() {
+
+        $("#tab3").removeClass("disabled" );
+        $("#tab2").removeClass("active");
+        $("#tab2").addClass("activated");
+        $("#scheduleplan").removeClass("active");
+        $("#tab3").addClass("active");
+        $("#yourdetails").addClass("active");
+
+        Tab3Click();
+    }
+
+    //$(function () {
+    //    $("#datepicker").datepicker();
+    //});
+
+    $('#SendAddress').on('click', function ()  {
+       //$("input[type='button']").click(function () {
+            var radioValue = $("input[name='address']:checked").val();
+            console.log("radiobutton");
+            if (radioValue) {
+                /*alert("Your are a - " + radioValue);*/
+
+                $.ajax({
+                    url: "/publicpages/sendaddress",
+                    type: 'POST',
+                    contenttype: 'application/json',
+                    data: { "radioValue": radioValue },
+                    success: function tabthreepass() {
+
+                        $("#tab4").removeClass("disabled");
+                            $("#tab3").removeClass("active");
+                            $("#tab3").addClass("activated");
+                            $("#yourdetails").removeClass("active");
+                            $("#makepayment").addClass("active");
+                            $("#tab4").addClass("active");
+                        },
+                    error: function () {
+                        alert('failed to receive the data');
+                        console.log('failed ');
+                    }
+                });
+            }
+        //});
+    });
+
+</script>
+
+
+@*function Tab3Click() {
+        debugger;
+        document.getElementById("UpdateContentDiv").load('@Url.Action("UserAddress", "PublicPages")');
+        debugger;
+    }*@
+@*@Ajax.ActionLink(
+    "List All Schools", // <-- Text to display
+    "AllSchools",// <-- Action/Method Name
+      "Home",//<!-- Controller Name
+     new AjaxOptions
+     {
+         UpdateTargetId = "UpdateContentDiv", // <-- DOM element ID to update
+         InsertionMode = InsertionMode.Replace, // <-- Replace the content of DOM element
+         HttpMethod = "GET", // <-- HTTP method
+         LoadingElementId = "divLoading", //Id of Loading GIF Image
+         OnBegin = "onAjaxBegin", //OnBegin JS Function
+         OnComplete = "onAjaxComplete" //OnComplete JS Function
+     },
+      new { @class = "btn btn-primary" } //-- Class
+     )*@
+
+@*<script type="text/javascript">
+
+        function CompleteBooking() {
+            debugger;
+
+            var booking = {};
+
+            booking.serviceStartDate = $("#ServiceStartDate").val();
+            booking.serviceHours = $("#ServiceHours").val();
+            booking.extraHours = $("#ExtraHours").val();
+            booking.comments = $("#Comments").val();
+
+            //var booking = {
+            //    ServiceStartDate: serviceStartDate,
+            //    ServiceHours: serviceHours,
+            //    ExtraHours: extraHours,
+            //    Comments: comments
+            //}
+
+            //var data = JSON.stringify({booking});
+            debugger;
+            $.ajax({
+                url: "/PublicPages/RequestService",
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(booking),
+                success: function (result) {
+                    debugger;
+                    alert('Successfully received Data ');
+                    console.log(result);
+                },
+                error: function () {
+                    alert('Failed to receive the Data');
+                    console.log('Failed ');
+                }
+            });
+
+        }
+
+
+
+
+
+    </script>*@
