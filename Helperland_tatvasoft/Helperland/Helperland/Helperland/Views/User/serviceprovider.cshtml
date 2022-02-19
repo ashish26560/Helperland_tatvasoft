@@ -1,150 +1,15 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model Helperland.Models.User;
+@using Microsoft.AspNetCore.Http;
 @{
+    Layout = "_Layout";
 }
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Service provider</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
-    <!-- <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css"> -->
-    <link href="~/css/site.css" rel="stylesheet" />
-
-</head>
-<body>
-    <!-- wrapper start contains sidebar, content -->
-    <div class="wrapper " id="main-sidebar">
-
-        <!-- sidebar containing 3 rows for name header tabs and sidetabs -->
-
-        <nav id="sidebar">
-            <div class="container-fluid">
-                <div class="row row1">
-                    Warm Welcome,
-                    Sandeep.
-                </div>
-                <div class="row row2">
-                    <ul class="nav nav-tabs flex-column" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#dashboard-sid">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#newservicerequests-sid">
-                                New Service
-                                Requests
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " data-bs-toggle="tab" href="#upcomingservices-sid">Upcoming Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule-sid">Service Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#servicehistory-sid">Service History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#myratings-sid">My Ratings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#blockcustomer-sid">Block Customer</a>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="row row3">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Price & services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Warranty</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact </a>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="row4">
-
-                    <img class="socialmedia" src="~/assets/facebook-mobile-menu.png" alt="">
-                    <img class="socialmedia" src="~/assets/instagram-mobile-menu.png" alt="">
-                </div>
-            </div>
-            <div id="dismiss">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-        </nav>
-        <!-- sidebar over -->
-        <!-- it contains header -->
-        <div id="content">
-            <section id="header">
-
-                <nav class="navbar navbar-expand-lg navbar-light mynav">
-                    <a class="navbar-brand" href="#"><img src="~/assets/logo-small.png" alt="Helperland"></a>
-
-                    <button class="navbar-toggler" id="sidebarCollapse" type="button">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Price & services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Warranty</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact </a>
-                            </li>
-
-                            <li class="nav-item notification">
-
-                                <a class="nav-link" href="#"><img src="~/assets/icon-notification.png" alt=""> </a>
-                            </li>
-                            <li class="nav-item " ">
-
-                                <a class=" nav-link" style="margin-right: 0px;" href="#">
-                                    <img src="~/assets/admin-user.png" alt=""> <img src="~/assets/admin-small-arrow.png"
-                                                                                  alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </section>
-        </div>
-        <!-- content over -->
-
-        <div class="overlay"></div>
-
-    </div>
-    <!-- wrapper over -->
     <!-- section2 start contains  -->
     <section class="container-fluid" id="service-provider-section2">
         <div class="row">
-            <p>Welcome, Sandip!</p>
+            <p>Welcome, @Context.Session.GetString("Name")</p>
         </div>
 
     </section>
@@ -765,22 +630,3 @@
     </section>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-
-    <!--for sidebar overlay  -->
-    <script src="~/js/site.js"></script>
-</body>
-
-</html>
