@@ -1,0 +1,165 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Helperland.Models;
+
+@model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+<div class="row titletext">
+    <div class="col-auto">
+
+        Service History
+    </div>
+    <div class="col-auto exportbtn">
+        <a class="btn" href="#">export</a>
+    </div>
+</div>
+<table class="table">
+    <thead class="table-success">
+        <tr>
+            <th>Service ID</th>
+            <th>Service date </th>
+            <th>Service Provider</th>
+            <th>Payment</th>
+            <th>status</th>
+            <th>Rate SP</th>
+        </tr>
+    </thead>
+    @if (Model == null)
+    {
+        <b>no items found</b>
+    }
+    else
+    {
+        @foreach (ServiceRequest serviceRequest in Model.Data)
+        {
+            var serviceDateTime = serviceRequest.ServiceStartDate;
+            var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+            var starttime = serviceDateTime.ToString("t");
+
+            var finishtime = serviceDateTime.AddHours(serviceRequest.ServiceHours).ToString("t");
+
+            <tbody>
+                <tr>
+                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)" class="serviceid">@serviceRequest.ServiceRequestId</td>
+                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)">
+                        <ul class="servicedate">
+                            <li class="date">@startdate</li>
+                            <li class="time">@starttime-@finishtime</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="row cap-1">
+                            <div class="col-auto cap-2">
+                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
+                            </div>
+                            <div class="col-auto cap-3">
+                                @serviceRequest.ServiceProviderName
+                                <br>
+                                @{
+                                    int totalstars = Convert.ToInt32(serviceRequest.ratings);
+                                    int stars = 5 - totalstars;
+                                    for (int i = 1; i <= totalstars; i++)
+                                    {
+                                        <img src="~/assets/yellow-small-star.png" alt="">
+                                    }
+                                    for (int j = 1; j <= stars; j++)
+                                    {
+
+                                        <img src="~/assets/star2.png" alt="">
+                                    }
+                                    @totalstars
+                                }
+                            </div>
+                        </div>
+                    </td>
+                    <td class="payment">@serviceRequest.TotalCost €</td>
+
+                    <td class="status">
+                        @if (serviceRequest.Status == 1)
+                        {
+                            <p class="statustextnew">
+                                New
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 2)
+                        {
+                            <p class="statustextpending">
+                                pending
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 3)
+                        {
+                            <p class="statustextcomp">
+                                completed
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 4)
+                        {
+                            <p class="statustext">
+                                cancelled
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 5)
+                        {
+                            <p class="statustext">
+                                Rescheduled
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 6)
+                        {
+                            <p class="statustext">
+                                Refunded
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 7)
+                        {
+                            <p class="statustext">
+                                Change sP
+                            </p>
+                        }
+                        @if (serviceRequest.Status == 8)
+                        {
+                            <p class="statustext">
+                                Expired
+                            </p>
+                        }
+                    </td>
+                    <td class="ratesp">
+                        @if (serviceRequest.Status == 3)
+                        {
+                            <a class="btn" data-id="@serviceRequest.ServiceRequestId" Onclick="ratesp(this)">Rate SP</a>
+                        }
+                        else
+                        {
+                            <a class="btn disabled" data-id="@serviceRequest.ServiceRequestId" Onclick="ratesp(this)">Rate SP</a>
+                        }
+                    </td>
+                </tr>
+
+
+
+            </tbody>
+        }
+    }
+</table>
+<div class="row bottom">
+
+    <div class="col-auto ">
+        <p>
+            show
+            <input type="number" id="quantity" name="quantity" min="1" max="5">
+            Entries total record: 1
+        </p>
+    </div>
+    <div class="end col-auto">
+
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-paging-pagesize="@Model.PageSize"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="User"
+                  asp-action="ServiceHistory"
+                  cs-ajax-target="#servicehistory"></cs-pager>
+    </div>
+</div>
