@@ -1,0 +1,269 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Helperland.Models;
+
+@model Helperland.Models.ServiceRequest;
+
+@{
+    var serviceDateTime = Model.ServiceStartDate;
+    var startdate = serviceDateTime.ToString("").Replace("-", "/");
+    var starttime = serviceDateTime.ToString("t");
+
+    var finishtime = serviceDateTime.AddHours(Model.ServiceHours).ToString("t");
+
+    var extras = Model.Extra.ToString("D5");
+    var array = extras.ToCharArray();
+    var extraservice = " ";
+
+    if (array[0] == '1')
+    {
+
+        extraservice += "Inside cabinets, ";
+    }
+    if (array[1] == '1')
+    {
+
+        extraservice += "Inside fridge, ";
+    }
+    if (array[2] == '1')
+    {
+        extraservice += "Inside oven, ";
+    }
+    if (array[3] == '1')
+    {
+        extraservice += "Laundry wash & dry, ";
+    }
+    if (array[4] == '1')
+    {
+        extraservice += "Interioir window, ";
+    }
+
+}
+
+<div class="modal fade popup" id="servicedetails" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Service Details</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="date_time" id="date_time">@startdate @starttime - @finishtime</p>
+                    <span class="title-text">
+                        <b>Duration:</b> @Model.ServiceHours
+                    </span>
+                    <hr>
+                    <span class="title-text">
+                        <b>Service Id:</b> @Model.ServiceRequestId
+                    </span>
+
+                    <span class="title-text">
+                        <b>Extras:</b> @extraservice
+                    </span>
+
+                    <!----><div class="content">
+                        <table>
+                            <tbody>
+                                <!---->
+                                <!---->
+                                <tr>
+                                    <td>
+                                        <b>Net Amount:</b>
+                                    </td>
+                                    <td class="title-text text-right">
+                                        <span class="price">
+                                            @Model.TotalCost
+                                        </span>
+                                    </td>
+                                </tr>
+                                <!---->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!---->
+                    <hr>
+                    <!---->
+                    <!---->
+                    <span class="title-text">
+                        <b>Service Address:</b> <span> @Model.ServiceAddress</span>
+
+                    </span>
+                    <!---->
+                    <!---->
+                    <!----><span class="title-text">
+                        <b>Billing Address:</b> Same as cleaning Address
+                    </span>
+
+
+                    <!----><span class="title-text">
+                        <b>Phone:</b> @Model.Mobile
+                    </span>
+                    <!----><span class="title-text">
+                        <b>Email:</b> @Model.Email
+                    </span>
+
+
+                    <!---->
+                    <hr>
+                    <span class="title-text">
+                        <b>Comments</b>@Model.Comments
+                    </span>
+                    <!---->
+                    <!---->
+                    <!----><span class="title-text">
+                        @if (!Model.HasPets)
+                        {
+                            <img alt="Not-Included" src="~/assets/not-included.png">
+                            <span>I don't have pets at home</span>
+                        }
+                        else
+                        {
+                            <img alt="Included" src="~/assets/included.png">
+                            <span>I have pets at home</span>
+                        }
+                    </span>
+
+                    <hr>
+                    @if (Model.Status == 1 || Model.Status == 2 || Model.Status == 5 || Model.Status == 7)
+                    {
+                        <div class="action-buttons">
+                            <a class="btn btn-primary" data-bs-dismiss="modal" data-id="@Model.ServiceRequestId" data-prompt="2" onclick="GetServiceDetails(this)" title="Reschedule">
+                                <img src="~/assets/reschedule-icon-small.png" alt="Reschedule">
+                                <span class="hidden-xs">
+                                    Reschedule
+                                </span>
+                            </a>
+                            <a class="btn btn-danger" data-bs-dismiss="modal" data-id="@Model.ServiceRequestId" data-prompt="3" onclick="GetServiceDetails(this)" style="cursor: pointer" title="Cancel">
+                                <img src="~/assets/close-icon-small.png" alt="Cancel">
+                                <span class="hidden-xs">Cancel</span>
+                            </a>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade popup" id="reschedule" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reschedule Service Request</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+                <form method="post" asp-action="RescheduleService" asp-controller="User">
+                    <div class="modal-body">
+                        <div class="form-group calculator-date-time in-modal">
+                            <label class="control-label">Select New Date &amp; Time</label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-wrapper">
+                                        <img alt="Calendar" src="~/assets/calendar (1).png">
+                                        <input class="form-control date" type="date" id="servicestartdate" asp-for="ServiceStartDate" data-max-year="2032" data-min-year="2012">
+                                        <input class="form-control d-none" readonly value="@Model.ServiceRequestId" asp-for="ServiceRequestId">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-control servicetime" id="servicestarttime" asp-for="StartTime"  formcontrolname="ServiceTime">
+                                        <option value="08:00"selected>8:00</option>
+                                        <option value="08:30">8:30</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="9:30">9:30</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="10:30">10:30</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="11:30">11:30</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="12:30">12:30</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="13:30">13:30</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="14:30">14:30</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="15:30">15:30</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="16:30">16:30</option>
+                                        <option value="17:00">17:00</option>
+                                        <option value="17:30">17:30</option>
+                                        <option value="18:00">18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<a class="btn btn-primary" type="submit">
+                                Update
+                            </a>*@
+
+                        <input type="submit" class="btn btn-primary" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade popup" id="cancel" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reschedule Service Request</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+
+
+                <form method="post" data-ajax="true" data-ajax-success="loadsuccessmodel()" asp-action="CancelService" asp-controller="User">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input class="form-control d-none" readonly value="@Model.ServiceRequestId" asp-for="ServiceRequestId">
+
+                            <label class="control-label">Why you want to cancel the service request?</label>
+
+                            <textarea class="form-control" asp-for="Comments" rows="3"></textarea>
+
+                        </div>
+                        <input type="submit" data-bs-dismiss="modal" class="btn btn-primary" value="Cancel Now">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade popup" id="success" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span>
+                        <img alt="Correct" src="~/assets/correct-white-medium.png">
+                    </span>
+                    <h3>Your service request canceled successfully</h3>
+                    <h4>Cancelled Request Id : @Model.ServiceRequestId</h4>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" type="button">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
