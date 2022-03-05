@@ -6,6 +6,9 @@
 
 @{
     Layout = null;
+
+    string zipcode = null;
+    zipcode = ViewBag.zipcode;
 }
 
 <ul class="address-picker " formarrayname="Address">
@@ -33,9 +36,10 @@
                         <b>Phone number:</b>
                         @userAddress.Mobile
                     </span>
-                    <span class="radio-pointer" ></span>
+                    <span class="radio-pointer"></span>
                 </label>
             </li>
         }
     }
 </ul>
+
