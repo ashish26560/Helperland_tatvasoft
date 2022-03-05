@@ -48,11 +48,11 @@
                         <li class="nav-item">
                             @if (var == "true")
                             {
-                            <a class="btn head" asp-controller="PublicPages" asp-action="Book_now">Book a cleaner</a>
+                                <a class="btn head" asp-controller="PublicPages" asp-action="Book_now">Book a cleaner</a>
                             }
                             else
                             {
-                            <a class="btn head" data-toggle="modal" data-target="#login-popup">Book a cleaner</a>
+                                <a class="btn head" data-toggle="modal" data-target="#login-popup">Book a cleaner</a>
 
                             }
                         </li>
@@ -76,12 +76,31 @@
 
                                 <a class="nav-link" href="#"><img src="~/assets/icon-notification.png" alt=""> </a>
                             </li>
-                            <li class="nav-item ">
 
-                                <a class=" nav-link" style="margin-right: 0px;" href="#">
-                                    <img src="~/assets/admin-user.png" alt=""> <img src="~/assets/admin-small-arrow.png"
-                                                                                    alt="">
+                            <li class="nav-item dropdown ">
+
+                                <a class=" nav-link dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/assets/admin-user.png" alt=""> @*<img src="~/assets/down-arrow (1).png" alt="">*@
                                 </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <div class="dropdown-item">
+                                            Welcome,<br />
+                                            <b>@Context.Session.GetString("Name")</b>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a class="dropdown-item" asp-action="Customer" asp-controller="User" asp-route-id="1">My Dashboard</a></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="CustomerId" asp-controller="User" asp-route-id="4">My settings </a>
+                                    </li>
+                                    <li>
+                                        <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+
                             </li>
                         }
                         else
@@ -108,23 +127,36 @@
                 <div class="row-auto content">
                     <div class="container-fluid">
                         <div class="row text">
-                            <h1>Lorem ipsum text.</h1>
+                            <h1>
+                                Do not feel like housework?
+                            </h1>
 
                         </div>
                         <div class="row">
                             <p class="subtext">
-                                <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                                Great! Book now for Helperland and enjoy the benefits.
                             </p>
 
                         </div>
                         <div class="row">
                             <p class="subtext">
-                                <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                                <img src="~/assets/ic-check.png" alt=""> certified & insured helper.
+                            </p>
+
+                        </div>
+                        <div class="row">
+                            <p class="subtext">
+                                <img src="~/assets/ic-check.png" alt=""> easy booking procedure.
                             </p>
                         </div>
                         <div class="row">
                             <p class="subtext">
-                                <img src="~/assets/ic-check.png" alt=""> Lorem ipsum dolor, sit amet consectetur adipisicing.
+                                <img src="~/assets/ic-check.png" alt=""> friendly customer service.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="subtext">
+                                <img src="~/assets/ic-check.png" alt=""> Secure online payment method.
                             </p>
                         </div>
                         <div class="row bookcleaner">
