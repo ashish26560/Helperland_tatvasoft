@@ -37,7 +37,7 @@ namespace Helperland.Controllers
             return View();
         }
 
-        public  IActionResult CheckPostalCode(User user)
+        public IActionResult CheckPostalCode(User user)
         {
             var p = _context.Users.Where(c => c.ZipCode == user.ZipCode && c.UserTypeId == 2).FirstOrDefault();
             if (p != null)
@@ -57,13 +57,19 @@ namespace Helperland.Controllers
             }
 
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> YourDetails(UserAddress userAddress)
         {
-            userAddress.UserId= (int)HttpContext.Session.GetInt32("UserId");
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+
+            var p = _context.Users.Where(c => c.UserId == userid).FirstOrDefault();
+
+            userAddress.UserId = userid;
             userAddress.IsDefault = false;
             userAddress.IsDeleted = false;
+            userAddress.Email = p.Email;
+            userAddress.PostalCode = HttpContext.Session.GetString("ZipCode");
 
             await _context.UserAddresses.AddAsync(userAddress);
             await _context.SaveChangesAsync();
@@ -73,12 +79,16 @@ namespace Helperland.Controllers
         public IActionResult UserAddress()
         {
             int userid = (int)HttpContext.Session.GetInt32("UserId");
-            
+            ViewBag.zipcode = HttpContext.Session.GetString("ZipCode");
             var p = _context.UserAddresses.Where(c => c.UserId == userid).ToList();
 
             return PartialView("UserAddress", p);
         }
-
+        public IActionResult Booksuccess()
+        {
+            ViewBag.servicereqid = HttpContext.Session.GetInt32("ServiceRequestId");
+            return PartialView("_BookingSuccess");
+        }
 
         public async Task<IActionResult> CompleteBooking(ServiceRequest serviceRequest, ServiceRequestAddress serviceRequestAddress, ServiceRequestExtra serviceRequestExtra)
         {
@@ -87,22 +97,23 @@ namespace Helperland.Controllers
             serviceRequest = JsonConvert.DeserializeObject<ServiceRequest>(data);
 
             var extraid = serviceRequest.Extra;
-            serviceRequest.ExtraHours=extraid * 0.5;
-            serviceRequest.ServiceHourlyRate=25;
+            serviceRequest.ExtraHours = serviceRequest.ExtraHours;
+            serviceRequest.ServiceHourlyRate = 25;
             var totalhours = (decimal)(serviceRequest.ExtraHours + serviceRequest.ServiceHours);
-            serviceRequest.SubTotal= (decimal)(totalhours * serviceRequest.ServiceHourlyRate);
-            serviceRequest.TotalCost= (decimal)(totalhours * serviceRequest.ServiceHourlyRate);
+            serviceRequest.SubTotal = (decimal)(totalhours * serviceRequest.ServiceHourlyRate);
+            serviceRequest.TotalCost = (decimal)(totalhours * serviceRequest.ServiceHourlyRate);
             serviceRequest.PaymentDone = true;
             serviceRequest.PaymentDue = false;
+            serviceRequest.Status = 1;
             await _context.ServiceRequests.AddAsync(serviceRequest);
             await _context.SaveChangesAsync();
 
             var servicereqid = serviceRequest.ServiceRequestId;
 
-            //HttpContext.Session.SetInt32("ServiceRequestId", serviceRequest.ServiceRequestId);
+            HttpContext.Session.SetInt32("ServiceRequestId", serviceRequest.ServiceRequestId);
 
             HttpContext.Session.Remove("schedule");
-            
+
             data = HttpContext.Session.GetString("serviceaddress");
             serviceRequestAddress = JsonConvert.DeserializeObject<ServiceRequestAddress>(data);
             serviceRequestAddress.ServiceRequestId = servicereqid;
@@ -119,7 +130,7 @@ namespace Helperland.Controllers
             await _context.ServiceRequestExtras.AddAsync(serviceRequestExtra);
             await _context.SaveChangesAsync();
 
-            return View("Book_now");
+            return PartialView("_BookingSuccess", ViewBag.servicereqid);
         }
 
         [HttpPost]
@@ -147,33 +158,44 @@ namespace Helperland.Controllers
             //await _context.SaveChangesAsync();
             return View("Book_now");
         }
-        
+
         [HttpPost]
-        public IActionResult RequestService(ServiceRequest booking )
+        public IActionResult RequestService(ServiceRequest booking)
         {
-          
-            int extra = 0;
+            char[] array = { '0', '0', '0', '0', '0' };
+
+            booking.ExtraHours = 0;
             if (booking.ExtraService1)
             {
-                extra++;
-            } 
+                booking.ExtraHours += 0.5;
+                array[0] = '1';
+            }
             if (booking.ExtraService2)
             {
-                extra++;
-            } 
+
+                booking.ExtraHours += 0.5;
+                array[1] = '1';
+            }
             if (booking.ExtraService3)
             {
-                extra++;
-            } 
+
+                booking.ExtraHours += 0.5;
+                array[2] = '1';
+            }
             if (booking.ExtraService4)
             {
-                extra++;
-            } 
+
+                booking.ExtraHours += 0.5;
+                array[3] = '1';
+            }
             if (booking.ExtraService5)
             {
-                extra++;
-            }
 
+                booking.ExtraHours += 0.5;
+                array[4] = '1';
+            }
+            //var extra=array.ToString();
+            string extra = new string(array);
             string date = booking.StartDate.ToString("yyyy-MM-dd");
             string time = booking.StartTime.ToString("HH:mm:ss");
             DateTime startDateTime = Convert.ToDateTime(date).Add(TimeSpan.Parse(time));
@@ -186,23 +208,8 @@ namespace Helperland.Controllers
             booking.ModifiedDate = DateTime.Now;
             booking.PaymentDone = true;
             booking.PaymentDue = false;
-            booking.Extra = extra;
+            booking.Extra = Convert.ToInt32(extra);
 
-            //await _context.ServiceRequests.AddAsync(booking);
-            //await _context.SaveChangesAsync();
-
-            //HttpContext.Session.SetInt32("ServiceRequestId", booking.ServiceRequestId);
-
-            //serviceRequestExtra.ServiceRequestId = (int)HttpContext.Session.GetInt32("ServiceRequestId");
-            //serviceRequestExtra.ServiceExtraId = extra;
-
-            //await _context.ServiceRequestExtras.AddAsync(serviceRequestExtra);
-            //await _context.SaveChangesAsync();
-
-            //TempData["ServiceMessagePos"] = "Your Service Request Has Successfully Been Admitted.";
-
-
-            //TempData["ServiceMessageNeg"] = "Entered Promocode is Invalid.";
 
             HttpContext.Session.SetString("schedule", JsonConvert.SerializeObject(booking));
             return View("Book_now");
@@ -210,52 +217,28 @@ namespace Helperland.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Contact(ContactU contactU,String Lastname  )
+        public IActionResult Contact(ContactU contactU, String Lastname)
         {
             if (ModelState.IsValid)
             {
                 using HelperlandContext objHelperlandContext = new HelperlandContext();
-          
+
                 string lastname = Convert.ToString(Lastname);
                 contactU.Name = (contactU.Name + " " + lastname);
-                contactU.Message = ("This mail is sent by " + contactU.Name + ", <br/><br/> Email:-  "+ contactU.Email+ "<br/> Phone number:-  " + contactU.PhoneNumber + "<br/><br/> Query:-  " +contactU.Message );
+                contactU.Message = ("This mail is sent by " + contactU.Name + ", <br/><br/> Email:-  " + contactU.Email + "<br/> Phone number:-  " + contactU.PhoneNumber + "<br/><br/> Query:-  " + contactU.Message);
 
                 contactU.CreatedOn = DateTime.Now;
-               // contactU.FileName = Path.GetFileName(contactU.AttachmentFile.FileName);
-                //if (contactU.AttachmentFile != null)
-                //{
-                //    string folder = "~/media/";
-                //    folder += Guid.NewGuid().ToString() + "_" + contactU.AttachmentFile.FileName;
-                //    //string serverFolder = Path.Combine(IWebHostEnvironment.WebRootPath, folder);
-                //   // contactU.AttachmentFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-                //    contactU.FileName = folder;
-
-                //}
 
                 objHelperlandContext.ContactUs.Add(contactU);
                 objHelperlandContext.SaveChanges();
-              
+
                 //sending mail logic starts here
                 using MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", "ashishchauhan26560@gmail.com");
 
-                
-                //MailAddress by = new MailAddress("ashishchauhan26560@gmail.com");
-                //String to = new string("ashish26560@gmail.com");
-                
+
 
                 mm.Subject = contactU.Subject;
                 mm.Body = contactU.Message;
-                //mm.From = by;
-                //mm.To.Add(to);
-                //mm.To = to;
-
-                // mm.To = recepiant;
-
-                //if (contactU.AttachmentFile.Length > 0)
-                //{
-                //    string fileName = Path.GetFileName(contactU.AttachmentFile.FileName);
-                //    mm.Attachments.Add(new Attachment(contactU.AttachmentFile.OpenReadStream(), fileName));
-                //}
 
                 mm.IsBodyHtml = true;
 
@@ -281,7 +264,7 @@ namespace Helperland.Controllers
             return View();
         }
 
-      
+
         public IActionResult Faq()
         {
             return View();
