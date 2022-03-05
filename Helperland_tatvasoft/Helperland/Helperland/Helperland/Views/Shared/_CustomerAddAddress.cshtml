@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.UserAddress
+<div class="modal fade popup" id="add-new-address-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Add New Address</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <!---->
+                    <form id="custaddaddress" data-ajax="true" data-ajax-method="post" data-ajax-success="getmyaddressadd()" asp-action="EditAddress" asp-controller="User">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Street name</label>
+                                    <input class="form-control " formcontrolname="AddressLine2" asp-for="AddressLine2" maxlength="100" type="text" placeholder="Street name">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">House number</label>
+                                    <input class="form-control " formcontrolname="AddressLine1" asp-for="AddressLine1" maxlength="100" type="text" placeholder="House number">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Postal code</label>
+                                    <input class="form-control " formcontrolname="PostalCode" asp-for="PostalCode" maxlength="20" type="text" placeholder="Postal code">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">City</label>
+                                    <select class="form-control " asp-for="City" formcontrolname="City">
+
+                                        <option value="Bonn">Bonn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Phone number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">+49</span>
+                                        <input class="form-control " asp-for="Mobile" formcontrolname="Mobile" maxlength="20" type="text" placeholder="Phone number">
+                                    </div>
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary" type="submit" data-bs-dismiss="modal"  title=""> Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
