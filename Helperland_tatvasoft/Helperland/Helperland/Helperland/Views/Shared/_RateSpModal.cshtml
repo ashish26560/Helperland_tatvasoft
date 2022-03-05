@@ -1,0 +1,203 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.Rating;
+
+<div class="modal popup fade" id="rating-modal" tabindex="-1">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+
+                <!--<div class="modal-header">-->
+                @*<h5 class="modal-title">Service Details</h5>*@
+                <!--<button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>-->
+
+                <div class="modal-body">
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png">
+                    </button>
+                    <div class="sp">
+                        <img alt="Service Provider" src="~/assets/default-sp-large.png">
+                        <span>@ViewBag.serviceprovidername</span>
+                        <span>
+
+                            @{
+                                int totalstars = Convert.ToInt32(ViewBag.rating);
+                                int stars = 5 - totalstars;
+                                for (int i = 1; i <= totalstars; i++)
+                                {
+                                    <span class="star">
+
+                                    <img src="~/assets/yellow-small-star.png" alt="">
+                                    </span>
+
+                                }
+                                for (int j = 1; j <= stars; j++)
+                                {
+                                    <span class="star">
+
+                                    <img src="~/assets/star2.png" alt="">
+                                    </span>
+
+                                }
+                            }
+                        </span>
+                        <span >@ViewBag.rating</span>
+                    </div>
+                    <span class="medium-title">Rate your service provider</span>
+                    <form data-ajax="true" data-ajax-method="post" data-ajax-success="loadservicehistory()" asp-action="AddRatings" asp-controller="User">
+                        <input class="form-control d-none" readonly value="@ViewBag.servicerequestid" asp-for="ServiceRequestId">
+                        <input class="form-control d-none" readonly value="@ViewBag.serviceproviderid" asp-for="RatingTo">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>On time arrival</td>
+                                    <td class="rate">
+
+                                        <fieldset class="rating">
+                                            <input type="radio" id="star5" asp-for="OnTimeArrival" value="5.0" />
+                                            <label class="full" for="star5" title="Awesome - 5 stars"></label>
+
+                                            @*<input type="radio" id="star4half" asp-for="OnTimeArrival" value="4.5" />
+                                            <label class="half" for="star4half" title="Pretty good - 4.5 stars">
+
+                                            </label> 
+                                                *@
+                                            <input type="radio" id="star4" asp-for="OnTimeArrival" value="4.0" />
+                                            <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+
+                                            @*<input type="radio" id="star3half" asp-for="OnTimeArrival" value="3.5" />
+                                            <label class="half" for="star3half" title="Meh - 3.5 stars"></label>*@
+
+                                            <input type="radio" id="star3" asp-for="OnTimeArrival" value="3.0" />
+                                            <label class="full" for="star3" title="Meh - 3 stars"></label>
+
+                                            @*<input type="radio" id="star2half" asp-for="OnTimeArrival" value="2.5" />
+                                            <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>*@
+
+                                            <input type="radio" id="star2" asp-for="OnTimeArrival" value="2.0" />
+                                            <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+
+                                            @*<input type="radio" id="star1half" asp-for="OnTimeArrival" value="1.5" />
+                                            <label class="half" for="star1half" title="Meh - 1.5 stars"></label>*@
+
+                                            <input type="radio" id="star1" asp-for="OnTimeArrival" value="1.0" />
+                                            <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+
+                                            @*<input type="radio" id="starhalf" asp-for="OnTimeArrival" value="0.5" />
+                                            <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>*@
+
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Friendly</td>
+                                    <td class="rate">
+
+                                        <fieldset class="ratingfr" asp-for="">
+                                            <input type="radio" asp-for="Friendly" id="starfr5" value="5.0" />
+                                            <label class="full" for="starfr5" title="Awesome - 5 stars"></label>
+
+                                            @*<input type="radio" asp-for="Friendly" id="starfr4half" value="4.5" />
+                                            <label class="half" for="starfr4half" title="Pretty good - 4.5 stars">
+
+                                            </label>
+                                                *@
+                                            <input type="radio" asp-for="Friendly" id="starfr4" value="4.0" />
+                                            <label class="full" for="starfr4" title="Pretty good - 4 stars"></label>
+
+                                            @*<input type="radio" asp-for="Friendly" id="starfr3half" value="3.5" />
+                                            <label class="half" for="starfr3half" title="Meh - 3.5 stars"></label>*@
+
+                                            <input type="radio" asp-for="Friendly" id="starfr3" value="3.0" />
+                                            <label class="full" for="starfr3" title="Meh - 3 stars"></label>
+
+                                            @*<input type="radio" asp-for="Friendly" id="starfr2half" value="2.5" />
+                                            <label class="half" for="starfr2half" title="Kinda bad - 2.5 stars"></label>*@
+
+                                            <input type="radio" asp-for="Friendly" id="starfr2" value="2.0" />
+                                            <label class="full" for="starfr2" title="Kinda bad - 2 stars"></label>
+
+                                            @*<input type="radio" asp-for="Friendly" id="starfr1half" value="1.5" />
+                                            <label class="half" for="starfr1half" title="Meh - 1.5 stars"></label>*@
+
+                                            <input type="radio" asp-for="Friendly" id="starfr1" value="1.0" />
+                                            <label class="full" for="starfr1" title="Sucks big time - 1 star"></label>
+
+                                            @*<input type="radio" asp-for="Friendly" id="starfrhalf" value="0.5" />
+                                            <label class="half" for="starfrhalf" title="Sucks big time - 0.5 stars"></label>*@
+
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Quality of service</td>
+                                    <td class="rate">
+
+                                        <fieldset class="ratingqs">
+                                            <input type="radio" id="starqs5" asp-for="QualityOfService" value="5.0" />
+                                            <label class="full" for="starqs5" title="Awesome - 5 stars"></label>
+
+                                            @*<input type="radio" id="starqs4half" asp-for="QualityOfService" value="4.5" />
+                                            <label class="half" for="starqs4half" title="Pretty good - 4.5 stars">*@
+
+                                            </label> <input type="radio" id="starqs4" asp-for="QualityOfService" value="4.0" />
+                                            <label class="full" for="starqs4" title="Pretty good - 4 stars"></label>
+
+                                            @*<input type="radio" id="starqs3half" asp-for="QualityOfService" value="3.5" />
+                                            <label class="half" for="starqs3half" title="Meh - 3.5 stars"></label>*@
+
+                                            <input type="radio" id="starqs3" asp-for="QualityOfService" value="3.0" />
+                                            <label class="full" for="starqs3" title="Meh - 3 stars"></label>
+
+                                            @*<input type="radio" id="starqs2half" asp-for="QualityOfService" value="2.5" />
+                                            <label class="half" for="starqs2half" title="Kinda bad - 2.5 stars"></label>*@
+
+                                            <input type="radio" id="starqs2" asp-for="QualityOfService" value="2.0" />
+                                            <label class="full" for="starqs2" title="Kinda bad - 2 stars"></label>
+
+                                            @*<input type="radio" id="starqs1half" asp-for="QualityOfService" value="1.5" />
+                                            <label class="half" for="starqs1half" title="Meh - 1.5 stars"></label>*@
+
+                                            <input type="radio" id="starqs1" asp-for="QualityOfService" value="1.0" />
+                                            <label class="full" for="starqs1" title="Sucks big time - 1 star"></label>
+
+                                            @*<input type="radio" id="starqshalf" asp-for="QualityOfService" value="0.5" />
+                                            <label class="half" for="starqshalf" title="Sucks big time - 0.5 stars"></label>*@
+
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <label class="control-label">Feedback on service provider</label>
+                            <textarea class="form-control ng-untouched ng-pristine ng-valid" asp-for="Comments" maxlength="2000" rows="2"></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-lg" data-bs-dismiss="modal" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("input[type='radio']").click(function () {
+                var sim = $("input[type='radio']:checked").val();
+                //alert(sim);
+                if (sim < 3) {
+                    $('.myratings').css('color', 'red');
+                    $(".myratings").text(sim);
+                } else {
+                    $('.myratings').css('color', 'green');
+                    $(".myratings").text(sim);
+                }
+            });
+        });
+    </script>*@
