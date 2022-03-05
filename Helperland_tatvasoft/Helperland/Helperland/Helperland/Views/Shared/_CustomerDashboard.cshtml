@@ -1,0 +1,129 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Helperland.Models;
+
+@model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+
+<div class="row titletext">
+    <div class="col-auto">
+
+        Dashboard
+    </div>
+    <div class="col-auto exportbtn">
+
+
+        <a class="btn" href="#">export</a>
+    </div>
+</div>
+
+<table class="table" id="servicetable">
+    <thead class="table-success">
+
+        <tr>
+            <th>Service ID</th>
+            <th>Service date </th>
+            <th>Service Provider</th>
+            <th>Payment</th>
+            <th>Action</th>
+        </tr>
+
+    </thead>
+    @if (Model == null)
+    {
+        <b>no items found</b>
+    }
+    else
+    {
+        @foreach (ServiceRequest serviceRequest in Model.Data)
+        {
+            var serviceDateTime = serviceRequest.ServiceStartDate;
+            var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+            var starttime = serviceDateTime.ToString("t");
+
+            var finishtime = serviceDateTime.AddHours(serviceRequest.ServiceHours).ToString("t");
+
+
+            <tbody>
+                <tr>
+                    <td class="serviceid" data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)" id="ServideId">
+                        <a class="showdetails">@serviceRequest.ServiceRequestId</a>
+                    </td>
+                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)">
+                        <ul class="servicedate">
+                            <li class="date" id="servicedate">@startdate</li>
+                            <li class="time" id="servicetime">@starttime - @finishtime</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="row cap-1">
+                            @if (@serviceRequest.ServiceProviderName != null)
+                            {
+
+                                <div class="col-auto cap-2">
+                                    <img src="~/assets/cap.png" alt="" class="cap-customer-history">
+                                </div>
+                                <div class="col-auto cap-3">
+                                    @serviceRequest.ServiceProviderName
+                                    <br>
+                                    @{
+                                        int totalstars = Convert.ToInt32(serviceRequest.ratings);
+                                        int stars = 5 - totalstars;
+                                        for (int i = 1; i <= totalstars; i++)
+                                        {
+                                            <img src="~/assets/yellow-small-star.png" alt="">
+                                        }
+                                        for (int j = 1; j <= stars; j++)
+                                        {
+
+                                            <img src="~/assets/star2.png" alt="">
+                                        }
+                                        @totalstars
+                                    }
+                                </div>
+                            }
+                        </div>
+
+
+
+                    </td>
+                    <td class="text-center payment">@serviceRequest.TotalCost € </td>
+
+                    <td class="text-right btn-list">
+                        <a class="btn btn-primary btn-rounded" data-id="@serviceRequest.ServiceRequestId" data-prompt="2" onclick="GetServiceDetails(this)" style="cursor: pointer" title="Reschedule">Reschedule</a>
+
+                        <a class="btn btn-danger btn-rounded" data-id="@serviceRequest.ServiceRequestId" data-prompt="3" onclick="GetServiceDetails(this)" style="cursor: pointer" title="Cancel">Cancel</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        }
+    }
+
+</table>
+
+
+<div class="row bottom">
+
+    <div class="col-auto ">
+        <p>
+            show
+            <input type="number" id="quantity" name="quantity" min="1" max="5">
+            Entries total record: 1
+        </p>
+    </div>
+    <div class="end col-auto">
+
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-paging-pagesize="@Model.PageSize"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="User"
+                  asp-action="Customerpage"
+                  cs-ajax-target="#dashboard"></cs-pager>
+    </div>
+</div>
+
+
+
