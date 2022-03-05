@@ -33,7 +33,7 @@
 
                     <li class="col-auto-3 nav-item set-service">
                         <a class="nav-link active " data-bs-toggle="tab" onclick="taboneclick()" id="tab1" href="#setservice">
-                            <img src="~/assets/setup-service.png" class="grey" alt=""><img src="~/assets/setup-service-white.png" class="white" alt=""> set up servie
+                            <img src="~/assets/setup-service.png" class="grey" alt=""><img src="~/assets/setup-service-white.png" class="white" alt="">set up servie
                         </a>
                     </li>
 
@@ -123,7 +123,11 @@
                         }
 
 
+
                         <span class="title">Pay securely with Helperland payment gateway!</span>
+                        <div class="alert alert-success d-none" id="success" role="alert">
+                            "your booking is done successfully"
+                        </div>
                         <div class="promo-code">
 
                             <span>Promo code</span>
@@ -142,31 +146,7 @@
 
                         </div>
                         <hr class="hr">
-                        @*<div class="field input--focus StripeElement StripeElement--empty" ref="card">*@
-                        @*<div class="__PrivateStripeElement"
-                                style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
-                                <iframe name="__privateStripeFrame9515" frameborder="0" allowtransparency="true"
-                                    scrolling="no" allow="payment *"
-                                    src="https://js.stripe.com/v3/elements-inner-card-a7dfef515a6efdb78c4c930ce8d289f0.html#locale=en&amp;wait=false&amp;mids[guid]=1025fd4f-1820-47d1-b5b9-6b887aa4136f436137&amp;mids[muid]=59fc8d3e-915b-4e43-ba58-908902252b3decea20&amp;mids[sid]=496bedd7-9977-41ce-ba21-7552a1e87161c0abce&amp;hidePostalCode=true&amp;style[base][iconColor]=%23666EE8&amp;style[base][color]=%2331325F&amp;style[base][lineHeight]=36px&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23c5c5c5&amp;rtl=false&amp;componentName=card&amp;keyMode=test&amp;apiKey=pk_test_CbN2mTsadzVC1WpDPDgcDWbG&amp;referrer=https%3A%2F%2Fweb1.anasource.com%2Ftrainee2021%2Fbook-service&amp;controllerId=__privateStripeController9511"
-                                    title="Secure card payment input frame"
-                                    style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; transform: translate(0px) !important; color-scheme: normal !important; height: 36px;"></iframe><input
-                                    class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" "
-                                    autocomplete="false" maxlength="1"
-                                    style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: -1px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
-                            </div>
-                            </div*@>
-                        <!--<div class="row">
-                        <div class="col-sm-12">
-                            <div style="margin-top: 10px;font-size: 10px;float: right">
-                                <span style="float: right">Accepted cards:</span> <br>-->
-                        <!-- <span>
-                        <img  height="30px" src="~/assets/1.png">
-                          <img  height="30px" src="~/assets/2.png">
-                          <img  height="30px" src="~/assets/3.png">
-                        </span> -->
-                        <!--</div>
-                            </div>
-                        </div>-->
+
 
 
                         <div class="checkbox small">
@@ -197,11 +177,12 @@
                                     Complete Booking
                                 </button>*@
 
-                            <a class="btn completebooking continuebtn completebooking btn-primary btn-lg" asp-action="CompleteBooking" asp-controller="PublicPages">Complete Booking</a>
+                            <a class="btn completebooking continuebtn completebooking btn-primary btn-lg" data-ajax="true" data-ajax-success="successmodal()" asp-action="CompleteBooking" asp-controller="PublicPages">Complete Booking</a>
                             @*<input type="button" class="btn continuebtn btn-primary btn-lg" asp-action="CompleteBooking" asp-controller="PublicPages" value="Complete Booking" />*@
                         </div>
 
                     </div>
+
 
 
                 </div>
@@ -407,7 +388,21 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<section id="booksuccess"> </section>
+@section Script{
+    <script type="text/javascript">
+    function successmodal() {
+        debugger
+        $.ajax({
+            url: "/PublicPages/Booksuccess",
+            contenttype: 'application/json',
+            success: function (response) {
+                $("#booksuccess").html(response);
+                $("#successbook").modal("show");
+            }
+        });
+
+    }
     var totaltime = 0;
     var oldbasicprice = 0;
     var totalprice = 0;
@@ -597,7 +592,6 @@
     $('#SendAddress').on('click', function ()  {
        //$("input[type='button']").click(function () {
             var radioValue = $("input[name='address']:checked").val();
-            console.log("radiobutton");
             if (radioValue) {
                 /*alert("Your are a - " + radioValue);*/
 
@@ -624,72 +618,6 @@
         //});
     });
 
-</script>
+    </script>
 
-
-@*function Tab3Click() {
-        debugger;
-        document.getElementById("UpdateContentDiv").load('@Url.Action("UserAddress", "PublicPages")');
-        debugger;
-    }*@
-@*@Ajax.ActionLink(
-    "List All Schools", // <-- Text to display
-    "AllSchools",// <-- Action/Method Name
-      "Home",//<!-- Controller Name
-     new AjaxOptions
-     {
-         UpdateTargetId = "UpdateContentDiv", // <-- DOM element ID to update
-         InsertionMode = InsertionMode.Replace, // <-- Replace the content of DOM element
-         HttpMethod = "GET", // <-- HTTP method
-         LoadingElementId = "divLoading", //Id of Loading GIF Image
-         OnBegin = "onAjaxBegin", //OnBegin JS Function
-         OnComplete = "onAjaxComplete" //OnComplete JS Function
-     },
-      new { @class = "btn btn-primary" } //-- Class
-     )*@
-
-@*<script type="text/javascript">
-
-        function CompleteBooking() {
-            debugger;
-
-            var booking = {};
-
-            booking.serviceStartDate = $("#ServiceStartDate").val();
-            booking.serviceHours = $("#ServiceHours").val();
-            booking.extraHours = $("#ExtraHours").val();
-            booking.comments = $("#Comments").val();
-
-            //var booking = {
-            //    ServiceStartDate: serviceStartDate,
-            //    ServiceHours: serviceHours,
-            //    ExtraHours: extraHours,
-            //    Comments: comments
-            //}
-
-            //var data = JSON.stringify({booking});
-            debugger;
-            $.ajax({
-                url: "/PublicPages/RequestService",
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: JSON.stringify(booking),
-                success: function (result) {
-                    debugger;
-                    alert('Successfully received Data ');
-                    console.log(result);
-                },
-                error: function () {
-                    alert('Failed to receive the Data');
-                    console.log('Failed ');
-                }
-            });
-
-        }
-
-
-
-
-
-    </script>*@
+}
