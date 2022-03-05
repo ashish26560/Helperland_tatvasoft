@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -36,6 +37,15 @@ namespace Helperland.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [NotMapped]
+        [Required(ErrorMessage = "New password required", AllowEmptyStrings = false)]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
+
+        [NotMapped]
+        [DataType(DataType.Password)]
+        [Compare("NewPassword", ErrorMessage = "New password and confirm password does not match")]
+        public string ConfirmPassword { get; set; }
         //[Required(ErrorMessage = "Please enter confirm password")]
         //[Display(Name = "Confirm Password")]
         //[Compare("Password", ErrorMessage = "Password and confirm password does not match")]
@@ -46,6 +56,12 @@ namespace Helperland.Models
         public int UserTypeId { get; set; }
         public int? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        [NotMapped]
+        public string Day { get; set; }
+        [NotMapped]
+        public string Month { get; set; }
+        [NotMapped]
+        public string Year { get; set; }
         public string UserProfilePicture { get; set; }
         public bool IsRegisteredUser { get; set; }
         public string PaymentGatewayUserRef { get; set; }
