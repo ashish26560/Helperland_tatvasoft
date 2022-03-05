@@ -1,0 +1,107 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Helperland.Models;
+
+@model Helperland.Models.UserAddress;
+
+<div class="modal fade popup" id="delete-address-modal" tabindex="-1" role="dialog"
+     aria-hidden="true">
+
+    <div class="vertical-align-helper">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Address</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form data-ajax="true" data-ajax-success="getmyaddress()" data-ajax-method="post" asp-action="DeleteAddress" asp-controller="User">
+                        <div class="form-group">
+                            <input class="form-control d-none" readonly value="@Model.AddressId" asp-for="AddressId">
+
+                            <span>Are you sure you want to delete this address?</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-normal" data-bs-dismiss="modal" type="submit">Delete</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade popup" id="edit-address-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Edit Address</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form data-ajax="true" data-ajax-success="getmyaddress()" data-ajax-method="post" asp-action="EditAddress" asp-controller="User">
+                        <input class="form-control d-none" readonly value="@Model.AddressId" asp-for="AddressId">
+
+                        <input formcontrolname="UserId" type="hidden" value="" class="">
+                        <input formcontrolname="IsDefault" type="hidden" value="false" class="">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Street name</label>
+                                    <input class="form-control ng-invalid" asp-for="AddressLine2" formcontrolname="AddressLine2" maxlength="100" name="AddressLine2" type="text" placeholder="Street name">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">House number</label>
+                                    <input class="form-control ng-invalid" asp-for="AddressLine1" formcontrolname="AddressLine1" maxlength="100" name="AddressLine1" type="text" placeholder="House number">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Postal code</label>
+                                    <input class="form-control ng-invalid" asp-for="PostalCode" formcontrolname="PostalCode" maxlength="20" name="PostalCode" type="text" placeholder="Postal code">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">City</label>
+                                    <select class="form-control ng-invalid" asp-for="City" formcontrolname="City">
+
+                                        <option value="Bonn">Bonn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Phone number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">+49</span>
+                                        <input class="form-control ng-invalid" asp-for="Mobile" formcontrolname="Mobile" maxlength="20" name="Mobile" type="text" placeholder="Phone number">
+                                    </div>
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary" data-bs-dismiss="modal" type="submit" title=""> Edit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
