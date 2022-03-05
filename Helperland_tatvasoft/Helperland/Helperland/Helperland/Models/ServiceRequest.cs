@@ -32,7 +32,18 @@ namespace Helperland.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
         public DateTime StartTime { get; set; }
 
+        [NotMapped]
+        public string ServiceAddress { get; set; }
 
+        [NotMapped]
+        public string Mobile { get; set; }
+
+        [NotMapped]
+        public string Email { get; set; }
+        [NotMapped]
+        public string ServiceProviderName { get; set; }
+        [NotMapped]
+        public decimal? ratings { get; set; }
         public DateTime ServiceStartDate { get; set; }
         public string ZipCode { get; set; }
         public decimal? ServiceHourlyRate { get; set; }
