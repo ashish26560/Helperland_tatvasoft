@@ -1,0 +1,96 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.User;
+
+<ul class="row nav nav-tabs nav-justified">
+    <li class="col-4 nav-item">
+        <a data-bs-toggle="tab" href="#my-details" onclick="getmydetails()" title="My Details" class="nav-link active ">
+
+            My Details
+        </a>
+    </li>
+    <li class="col-4  nav-item">
+        <a data-bs-toggle="tab" href="#my-addresses" onclick="getmyaddress()" title="My Addresses" class="nav-link">
+
+            My Addresses
+        </a>
+    </li>
+    <li class="col-4  nav-item">
+        <a data-bs-toggle="tab" href="#change-password" title="Change Password" class="nav-link">
+
+            Change Password
+        </a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="my-details">
+
+
+    </div>
+    <div class="tab-pane fade tab2" id="my-addresses">
+
+    </div>
+    <div class="tab-pane fade tab3" id="change-password">
+        <p class=" d-none tab-title">
+            <b>Change Password</b>
+        </p>
+        <form id="changepass" data-ajax="true" data-ajax-Success="passwordchanged()" data-ajax-failure="incorrectpassword()" asp-action="ChangePassword" asp-controller="User">
+            <div class="alert alert-danger collapse" id="failuremessage" role="alert">
+                <strong>The old password you entered is incorrect.</strong>
+                @*<button onclick="closealert()" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+            </div>
+            <div class="alert alert-success collapse" id="successmessage" role="alert">
+                <strong>Your password has been successfully changed.</strong>
+                @*<button onclick="closealertsuccess()" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+
+                    <div class="form-group">
+                        <label class="control-label">Old Password</label>
+                        <input class="form-control ng-invalid" asp-for="Password" type="password" placeholder="Current Password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="newconfirmpassword">
+                    <div class="col-sm-4 col-sm-offset-8 col-sm-pull-8">
+                        <div class="form-group">
+                            <label class="control-label">New Password</label>
+                            <input class="form-control ng-invalid" required asp-for="NewPassword" type="password" placeholder="New Password">
+
+
+                            <span asp-validation-for="NewPassword" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Confirm Password</label>
+                            <input class="form-control ng-invalid" required asp-for="ConfirmPassword" type="password" placeholder="Confirm Password">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn btn-primary" type="submit">Save</button>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#my-details").load("@Url.Action("CustGetMydetails", "User")");
+
+            $("#change-password form").data("validator", null);
+            $.validator.unobtrusive.parse("#change-password form");
+
+    });
+</script>
