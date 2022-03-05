@@ -1,853 +1,414 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model Helperland.Models.User;
+
+
+
+
 @using Microsoft.AspNetCore.Http;
+
+@*@model IEnumerable<ServiceRequest>*@
+
 @{
     Layout = "_Layout";
 }
 
 
 
-    <section class="container-fluid" id="customer-section2">
-        <div class="row">
-            <p>
-                Welcome,
+<section class="container-fluid" id="customer-section2">
+    <div class="row">
+        <p>
+            Welcome,
 
-                <span>
-                    @Context.Session.GetString("Name");
-                </span>
-                
-            </p>
-        </div>
+            <span>
+                @Context.Session.GetString("Name");
+            </span>
 
-    </section>
+        </p>
+    </div>
 
-    <section class="container-fluid " id="customer-section3">
-        <div class="row row1">
-            <div class="col col1">
-                <ul class="nav nav-tabs flex-column" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active " data-bs-toggle="tab" href="#dashboard">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " data-bs-toggle="tab" href="#servicehistory">Service history</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#favouritepros">Favourite pros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#invoices">Invoices</a>
-                    </li>
-                    <li class="nav-item">
+</section>
+
+<section class="container-fluid " id="customer-section3">
+    <div class="row row1">
+        <div class="col col1">
+            <ul class="nav nav-tabs flex-column" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active " id="tabdashboard" data-bs-toggle="tab" onclick="loaddashboard()" href="#dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tabservicehistory" data-bs-toggle="tab" onclick="loadservicehistory()" href="#servicehistory">Service history</a>
+                </li>
+                @*<li class="nav-item">
+                        <a class="nav-link" id="tabserviceschedule" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
+                    </li>*@
+                <li class="nav-item">
+                    <a class="nav-link" id="tabfavouritepros" data-bs-toggle="tab" href="#favouritepros">Favourite pros</a>
+                </li>
+                <li class="nav-item d-none">
+                    <a class="nav-link" id="tabmysettings" data-bs-toggle="tab" onclick="loadmysettings()" href="#mysetting">My Settings</a>
+                </li>
+                @*<li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#notification">Notification</a>
-                    </li>
-                </ul>
+                    </li>*@
+            </ul>
 
-            </div>
-            <div class="col col2">
-
-                <div class="tab-content">
-                    <div id="dashboard" class="container tab-pane active">
-                        <div class="row titletext">
-                            <div class="col-auto">
-
-                                Dashboard
-                            </div>
-                            <div class="col-auto exportbtn">
-
-
-                                <a class="btn" href="#">export</a>
-                            </div>
-                        </div>
-
-                        <table class="table">
-                            <thead class="table-success">
-                                <tr>
-                                <tr>
-                                    <th>Service ID</th>
-                                    <th>Service date </th>
-                                    <th>Service Provider</th>
-                                    <th>Payment</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                        </table>
-                        <div class="row bottom">
-
-                            <div class="col-auto">
-                                <p>
-                                    show
-                                    <input type="number" id="quantity" name="quantity" min="1" max="5">
-                                    Entries total record: 1
-                                </p>
-                            </div>
-                            <div class="end col-auto">
-
-                                <div class="pagination">
-                                    <a href="#"><img src="~/assets/first-page.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/keyboard-right-arrow-button-copy.png" alt=""></a>
-                                    <a href="#" class="active">1</a>
-                                    <a href="#"><img src="~/assets/keyboard-left-arrow-button-copy.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/last-page.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="serviceschedule" class="container tab-pane fade">
-                        <table class="table">
-                            <thead class="table-success">
-                                <tr>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
-                                </tr>
-                                <tr>
-                                    <td>Mary</td>
-                                    <td>Moe</td>
-                                    <td>mary@example.com</td>
-                                </tr>
-                                <tr>
-                                    <td>July</td>
-                                    <td>Dooley</td>
-                                    <td>july@example.com</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="servicehistory" class="container tab-pane fade">
-                        <div class="row titletext">
-                            <div class="col-auto">
-
-                                Service History
-                            </div>
-                            <div class="col-auto exportbtn">
-
-
-                                <a class="btn" href="#">export</a>
-                            </div>
-                        </div>
-                        <table class="table">
-                            <thead class="table-success">
-                                <tr>
-                                    <th>Service ID</th>
-                                    <th>Service date </th>
-                                    <th>Service Provider</th>
-                                    <th>Payment</th>
-                                    <th>status</th>
-                                    <th>Rate SP</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="status">
-                                        <p class="statustext">
-
-                                            cancelled
-                                        </p>
-                                    </td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="status">
-                                        <p class="statustext">
-
-                                            cancelled
-                                        </p>
-                                    </td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="status">
-                                        <p class="statustext">
-
-                                            cancelled
-                                        </p>
-                                    </td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="status">
-                                        <p class="statustext">
-
-                                            cancelled
-                                        </p>
-                                    </td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <div class="row cap-1">
-                                            <div class="col-auto cap-2">
-                                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                            </div>
-                                            <div class="col-auto cap-3">
-                                                Lyum Watson
-                                                <br>
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                <img src="~/assets/yellow-small-star.png" alt="">
-                                                4
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- David Bough
-                                        <ul class="serviceprovider">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul> -->
-                                    </td>
-                                    <td class="payment">€63</td>
-                                    <td class="status">
-                                        <p class="statustext">
-
-                                            cancelled
-                                        </p>
-                                    </td>
-                                    <td class="ratesp"><a class="btn" href="#">Rate SP</a></td>
-                                </tr>
-
-
-
-                            </tbody>
-                        </table>
-                        <div class="row bottom">
-
-                            <div class="col-auto">
-                                <p>
-                                    show
-                                    <input type="number" id="quantity" name="quantity" min="1" max="5">
-                                    Entries total record: 1
-                                </p>
-                            </div>
-                            <div class="end col-auto">
-
-                                <div class="pagination">
-                                    <a href="#"><img src="~/assets/first-page.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/keyboard-right-arrow-button-copy.png" alt=""></a>
-                                    <a href="#" class="active">1</a>
-                                    <a href="#"><img src="~/assets/keyboard-left-arrow-button-copy.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/last-page.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="Favouritepros" class="container tab-pane fade">
-                        <table class="table">
-                            <thead class="table-success">
-                                <tr>
-                                    <th>Service ID</th>
-                                    <th>Service date </th>
-                                    <th>Customer details</th>
-                                    <th>Distance</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        David Bough
-                                        <ul class="customerdetails">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul>
-                                    </td>
-                                    <td class="distance">15km</td>
-                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        David Bough
-                                        <ul class="customerdetails">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul>
-                                    </td>
-                                    <td class="distance">15km</td>
-                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="serviceid">32346</td>
-                                    <td>
-                                        <ul class="servicedate">
-                                            <li class="date">09/04/2018</li>
-                                            <li class="time">12:00-18:00</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        David Bough
-                                        <ul class="customerdetails">
-                                            <li class="address">Musterstrabe 5,12345 bonn</li>
-                                        </ul>
-                                    </td>
-                                    <td class="distance">15km</td>
-                                    <td class="actions"><a class="btn" href="#">cancel</a></td>
-                                </tr>
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col col3">
-                <div class="tab-content">
-
-                    <div id="dashboard-sid" class="container tab-pane active">
-                        <div class="row titletext">
-                            <div class="col-auto">
-                                Dashboard
-                            </div>
-                            <div class="col-auto exportbtn">
-
-
-                                <a class="btn" href="#">export</a>
-                            </div>
-                        </div>
-
-                        <div class="container-fluid">
-
-
-                            <div class="row frow">
-                                32346
-                            </div>
-                            <div class="row row1">
-                                <ul class="servicedate">
-                                    <li class="date">09/04/2018</li>
-                                    <li class="time">12:00-18:00</li>
-                                </ul>
-                            </div>
-                            <div class="row customerdet">
-                                <div class="row cap-1">
-                                    <div class="col-auto cap-2">
-                                        <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                    </div>
-                                    <div class="col-auto cap-3">
-                                        Lyum Watson
-                                        <br>
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        4
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row1 payment">
-                                €63
-                            </div>
-                            <div class="row row1">
-                                <p class="statustext">
-
-                                    cancelled
-                                </p>
-                            </div>
-                            <div class="row row1 ratesp">
-                                <a class="btn" href="#">Rate SP</a>
-                            </div>
-
-                        </div>
-                        <div class="container-fluid">
-
-                            <div class="row frow">
-                                32346
-                            </div>
-                            <div class="row row1">
-                                <ul class="servicedate">
-                                    <li class="date">09/04/2018</li>
-                                    <li class="time">12:00-18:00</li>
-                                </ul>
-                            </div>
-                            <div class="row customerdet">
-                                <div class="row cap-1">
-                                    <div class="col-auto cap-2">
-                                        <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                    </div>
-                                    <div class="col-auto cap-3">
-                                        Lyum Watson
-                                        <br>
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        4
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row1 payment">
-                                €63
-                            </div>
-                            <div class="row row1">
-                                <p class="statustext">
-
-                                    cancelled
-                                </p>
-                            </div>
-                            <div class="row row1 ratesp">
-                                <a class="btn" href="#">Rate SP</a>
-                            </div>
-                        </div>
-                        <div class="row bottom">
-
-                            <div class="col-auto">
-                                <p>
-                                    show
-                                    <input type="number" id="quantity" name="quantity" min="1" max="5">
-                                    Entries total record: 1
-                                </p>
-                            </div>
-                            <div class="end col-auto">
-
-                                <div class="pagination">
-                                    <a href="#"><img src="~/assets/first-page.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/keyboard-right-arrow-button-copy.png" alt=""></a>
-                                    <a href="#" class="active">1</a>
-                                    <a href="#"><img src="~/assets/keyboard-left-arrow-button-copy.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/last-page.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="servicehistory-sid" class="container tab-pane fade">
-                        <div class="row titletext">
-                            <div class="col-auto">
-
-                                Service History
-                            </div>
-                            <div class="col-auto exportbtn">
-
-
-                                <a class="btn" href="#">export</a>
-                            </div>
-                        </div>
-
-                        <div class="container-fluid">
-
-
-                            <div class="row frow">
-                                32346
-                            </div>
-                            <div class="row row1">
-                                <ul class="servicedate">
-                                    <li class="date">09/04/2018</li>
-                                    <li class="time">12:00-18:00</li>
-                                </ul>
-                            </div>
-                            <div class="row customerdet">
-                                <div class="row cap-1">
-                                    <div class="col-auto cap-2">
-                                        <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                    </div>
-                                    <div class="col-auto cap-3">
-                                        Lyum Watson
-                                        <br>
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        4
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row1 payment">
-                                €63
-                            </div>
-                            <div class="row row1">
-                                <p class="statustext">
-
-                                    cancelled
-                                </p>
-                            </div>
-                            <div class="row row1 ratesp">
-                                <a class="btn" href="#">Rate SP</a>
-                            </div>
-
-                        </div>
-                        <div class="container-fluid">
-
-                            <div class="row frow">
-                                32346
-                            </div>
-                            <div class="row row1">
-                                <ul class="servicedate">
-                                    <li class="date">09/04/2018</li>
-                                    <li class="time">12:00-18:00</li>
-                                </ul>
-                            </div>
-                            <div class="row customerdet">
-                                <div class="row cap-1">
-                                    <div class="col-auto cap-2">
-                                        <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                                    </div>
-                                    <div class="col-auto cap-3">
-                                        Lyum Watson
-                                        <br>
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                        4
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row1 payment">
-                                €63
-                            </div>
-                            <div class="row row1">
-                                <p class="statustext">
-
-                                    cancelled
-                                </p>
-                            </div>
-                            <div class="row row1 ratesp">
-                                <a class="btn" href="#">Rate SP</a>
-                            </div>
-                        </div>
-                        <div class="row bottom">
-
-                            <div class="col-auto">
-                                <p>
-                                    show
-                                    <input type="number" id="quantity" name="quantity" min="1" max="5">
-                                    Entries total record: 1
-                                </p>
-                            </div>
-                            <div class="end col-auto">
-
-                                <div class="pagination">
-                                    <a href="#"><img src="~/assets/first-page.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/keyboard-right-arrow-button-copy.png" alt=""></a>
-                                    <a href="#" class="active">1</a>
-                                    <a href="#"><img src="~/assets/keyboard-left-arrow-button-copy.png" alt=""></a>
-                                    <a href="#"><img src="~/assets/last-page.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="servicehistory" class="container tab-pane fade">
-
-                        <div class="row">
-                            jhgjhg
-                        </div>
-                        <div class="row">
-                            ljhojh
-                        </div>
-                        <div class="row">
-                            fhfyh
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
         </div>
+        <div class="col col2">
+
+            <div class="tab-content">
+                <div id="dashboard" class="container tab-pane active">
+
+                    @*<partial name="_CustomerDashboard" />*@
+                </div>
+                <div id="servicehistory" class="container tab-pane fade">
+
+                    @*<partial name="_CustomerServiceHistory" />*@
+                </div>
+                <div id="favouritepros" class="container tab-pane fade">
+                    <table class="table">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Service ID</th>
+                                <th>Service date </th>
+                                <th>Customer details</th>
+                                <th>Distance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
 
 
+                        </tbody>
+                    </table>
+                </div>
+                <div id="mysetting" class="container tab-pane fade">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <partial name="_CustomerAddAddress" />
+    <section id="servicepopup">
+    </section>
+    <section id="mydetailsmodals">
+    </section>
+    <section id="servicehistorymodal">
     </section>
 
+</section>
+@section Script{
+
+    @if (TempData.ContainsKey("pageid"))
+    {
+        int id = Convert.ToInt32(TempData["pageid"]);
+        if (id == 1)
+        {//for dashboard
+            <script>
+                $(document).ready(function () {
+
+                    loaddashboard();
+
+                });
+            </script>
+        }
+        else if (id == 2)
+        {//for service history
+            <script>
+                $(document).ready(function () {
+
+                    loadservicehistory();
+
+                });
+            </script>
+        }
+        else if (id == 3)
+        {//for favourite pros
+            <script>
+                $(document).ready(function () {
+
+                    loadmysettings();
+
+                });
+            </script>
+        }
+        else if (id == 4)
+        {//for my settings
+            <script>
+                $(document).ready(function () {
+
+                    loadmysettings();
+
+                });
+            </script>
+        }
+        else
+        {// else load dashboad
+            <script>
+                $(document).ready(function () {
+
+                    loaddashboard();
+
+                });
+            </script>
+        }
+
+    }
+    else
+    {
+        <script>
+                $(document).ready(function() {
+                    $("#dashboard").load("@Url.Action("CustomerPage", "User")");
+                    $(".tab-content div").removeClass("show");
+                    $(".tab-content div").removeClass("active");
+                    $("#dashboard").addClass("active");
+                    $("#dashboard").addClass("show");
+                });
+        </script>
+    }
+    <script>
+
+
+
+
+        function loadservicehistory()
+        {
+            $("#servicehistory").load("@Url.Action("ServiceHistory", "User")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#servicehistory").addClass("active");
+            $("#servicehistory").addClass("show");
+
+            $("#tabdashboard").removeClass("active");
+            $("#tabservicehistory").addClass("active");
+            $("#tabfavouritepros").removeClass("active");
+            $("#tabmysettings").removeClass("active");
+
+        }
+        function loaddashboard() {
+
+            $("#dashboard").load("@Url.Action("CustomerPage", "User")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#dashboard").addClass("active");
+            $("#dashboard").addClass("show");
+
+
+            $("#tabdashboard").addClass("active");
+            $("#tabservicehistory").removeClass("active");
+            $("#tabfavouritepros").removeClass("active");
+            $("#tabmysettings").removeClass("active");
+        }
+        function getmydetails() {
+            $("#my-details").load("@Url.Action("CustGetMydetails", "User")");
+        }
+
+        function getmyaddress() {
+            $("#my-addresses").load("@Url.Action("CustGetMyaddress", "User")");
+            //$("#add-new-address-modal").modal("toggle");
+
+        }
+        function getmyaddressadd() {
+            $("#my-addresses").load("@Url.Action("CustGetMyaddress", "User")");
+            $("#custaddaddress").trigger("reset");
+        }
+        function ratesp(sp) {
+
+            var id = sp.getAttribute("data-id");
+            $.ajax({
+                url: "/User/RateSpModal",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#servicehistorymodal").html(response);
+                    $("#rating-modal").modal("show");
+                }
+            });
+        }
+        function AddressModal(sr) {
+            var id = sr.getAttribute("data-id");
+            var prompt = sr.getAttribute("data-prompt");
+
+            if (prompt == 1) {
+                $.ajax({
+                        url: "/User/AddressModal",
+                        type: 'POST',
+                        contenttype: 'application/json',
+                    data: { "id": id },
+                    success: function (response) {
+                        $("#mydetailsmodals").html(response);
+                        $("#edit-address-modal").modal("show");
+                    }
+                });
+            }
+            if (prompt == 2) {
+                $.ajax({
+                    url: "/User/AddressModal",
+                    type: 'POST',
+                    contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#mydetailsmodals").html(response);
+                    $("#delete-address-modal").modal("show");
+                }
+            });
+            }
+            if (prompt == 3) {
+                $.ajax({
+                    url: "/User/AddAddress",
+                    type: 'POST',
+                    contenttype: 'application/json',
+                //data: { "id": id },
+                success: function (response) {
+                    $("#mydetailsmodals").html(response);
+                    $("#add-new-address-modal").modal("show");
+                }
+            });
+            }
+        }
+        function GetServiceDetails(sr) {
+            var id = sr.getAttribute("data-id");
+            var prompt = sr.getAttribute("data-prompt");
+
+            if (prompt == 1) {
+                $.ajax({
+                url: "/User/GetServicedetails",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#servicepopup").html(response);
+                    $("#servicedetails").modal("show");
+                }
+            });
+            }
+            if (prompt == 2) {
+                $.ajax({
+                url: "/User/GetServicedetails",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#servicepopup").html(response);
+                    $("#reschedule").modal("show");
+                }
+            });
+            }
+            if (prompt == 3) {
+                $.ajax({
+                url: "/User/GetServicedetails",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#servicepopup").html(response);
+                    $("#cancel").modal("show");
+                }
+            });
+            }
+        }
+        function loadsuccessmodel() {
+            loaddashboard();
+            $("#success").modal("show");
+        }
+
+        function loadmysettings() {
+            $("#mysetting").load("@Url.Action("CustomerMySettings", "User")");
+
+            $("#mysetting").addClass("active");
+            $("#mysetting").removeClass("fade");
+            $("#dashboard").removeClass("active");
+            $("#servicehistory").removeClass("active");
+            $("#favouritepros").removeClass("active");
+
+            $("#tabdashboard").removeClass("active");
+            $("#tabservicehistory").removeClass("active");
+            $("#tabfavouritepros").removeClass("active");
+            $("#tabmysettings").addClass("active");
+        }
+
+        function passwordchanged() {
+            $("#successmessage").show('fade');
+            $("#successmessage").fadeTo(2000, 500).slideUp(500, function () {
+                $("#successmessage").slideUp(500);
+            });
+
+            $("#changepass").trigger("reset");
+        }
+        function incorrectpassword() {
+            $("#failuremessage").show('fade');
+            $("#failuremessage").fadeTo(2000, 500).slideUp(500, function () {
+                $("#failuremessage").slideUp(500);
+            });
+
+        }
+        function updatesuccess() {
+
+            $("#updatesuccess").show('fade');
+            $("#updatesuccess").fadeTo(2000, 500).slideUp(500, function () {
+                $("#updatesuccess").slideUp(500);
+            });
+        }
+        function updatefail() {
+            $("#updatefail").show('fade');
+            $("#updatefail").fadeTo(2000, 500).slideUp(500, function () {
+                $("#updatefail").slideUp(500);
+            });
+
+        }
+    </script>
+}
