@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@model IEnumerable<UserAddress>
+
+<p class="d-none tab-title">
+    <b>My Addresses</b>
+</p>
+<!---->
+
+<div class="table-responsive mb-15">
+    <table>
+        <thead>
+            <tr>
+                @*<th class="text-center">Invoicing</th>*@
+                <th>Addresses</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null)
+            {
+                <b>no items found</b>
+            }
+            else
+            {
+
+                @foreach (UserAddress userAddress in Model)
+                {
+                    <tr>
+                        @*<td class="text-center">
+                                <div class="radio">
+                                    <label>
+                                        <input name="address-name" type="radio">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </td>*@
+                        <td class="contact">
+                            <span>
+                                <b>Address:</b> @userAddress.AddressLine1 @userAddress.AddressLine2, @userAddress.PostalCode @userAddress.City
+                            </span>
+                            <span>
+                                <b>Phone number:</b> @userAddress.Mobile
+                            </span>
+                        </td>
+                        <td class="text-center action-buttons">
+                            <a title="Edit" data-prompt="1" data-id="@userAddress.AddressId" onclick="AddressModal(this)" style="cursor: pointer">
+                                <img src="~/assets/edit-icon.png" alt="Edit">
+                            </a>
+                            <a title="Delete" data-prompt="2" data-id="@userAddress.AddressId" onclick="AddressModal(this)" style="cursor: pointer">
+                                <img src="~/assets/delete-icon.png" alt="Delete">
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<!--<div class="show-more-block">-->
+<!---->
+<!--<div class="text-right">
+        <span class="show-more">
+            5 of 21
+        </span>
+        <a class="btn btn-default" style="cursor: pointer" title="Show More">
+            Show More
+        </a>
+    </div>
+</div>-->
+<a class="btn btn-primary add-button" data-bs-toggle="modal" href="#add-new-address-modal" title="Add New Address">Add New Address</a>
