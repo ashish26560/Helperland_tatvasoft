@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@*@using Helperland.Models;
+
+    @using Microsoft.AspNetCore.Http;*@
+@{
+    int id = Convert.ToInt32(TempData["responseid"]);
+}
+
+<div class="modal fade popup" id="acceptreqresponse" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog">
+            @if (id == 1)
+            {
+
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <span>
+                            <img alt="Correct" src="~/assets/correct-white-medium.png">
+                        </span>
+
+                        <h3>This service request is assigned to you.</h3>
+                        <h4>
+                            @*Request Id:@ViewBag.servicereqid*@
+                        </h4>
+                        <a class="btn btn-primary" data-bs-dismiss="modal">Ok</a>
+                    </div>
+                </div>
+            }
+            @if (id == 2)
+            {
+
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <span>
+                            <img alt="Correct" src="~/assets/correct-white-medium.png">
+                        </span>
+                
+                            <h3>This service request is no more available. It has been assigned to another provider.</h3>
+                        
+                        <h4>
+                            @*Request Id:@ViewBag.servicereqid*@
+                        </h4>
+                        <a class="btn btn-primary" data-bs-dismiss="modal">Ok</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

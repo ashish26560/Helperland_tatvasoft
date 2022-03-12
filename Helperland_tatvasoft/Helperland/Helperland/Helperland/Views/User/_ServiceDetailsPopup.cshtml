@@ -7,7 +7,7 @@
 
 @{
     var serviceDateTime = Model.ServiceStartDate;
-    var startdate = serviceDateTime.ToString("").Replace("-", "/");
+    var startdate = serviceDateTime.ToString("d").Replace("-", "/");
     var starttime = serviceDateTime.ToString("t");
 
     var finishtime = serviceDateTime.AddHours(Model.ServiceHours).ToString("t");

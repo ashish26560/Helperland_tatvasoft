@@ -1,0 +1,153 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.ServiceRequest;
+@{
+    var serviceDateTime = Model.ServiceStartDate;
+    var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+    var starttime = serviceDateTime.ToString("t");
+
+    var endtime = serviceDateTime.AddHours(Model.ServiceHours);
+    var finishtime = serviceDateTime.AddHours(Model.ServiceHours).ToString("t");
+
+    var extras = Model.Extra.ToString("D5");
+    var array = extras.ToCharArray();
+    var extraservice = " ";
+
+    if (array[0] == '1')
+    {
+
+        extraservice += "Inside cabinets, ";
+    }
+    if (array[1] == '1')
+    {
+
+        extraservice += "Inside fridge, ";
+    }
+    if (array[2] == '1')
+    {
+        extraservice += "Inside oven, ";
+    }
+    if (array[3] == '1')
+    {
+        extraservice += "Laundry wash & dry, ";
+    }
+    if (array[4] == '1')
+    {
+        extraservice += "Interioir window, ";
+    }
+}
+<div class="modal fade popup" id="serviceprovdetails" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title">Service Details</h4>
+                    <button type="button" class="modal-closer close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                    <p class="date-time">@startdate @starttime-@finishtime</p>
+                    <span class="title-text">
+                        <b>Duration:</b> @Model.ServiceHours
+                    </span>
+                    <hr>
+                    <span class="title-text">
+                        <b>Service Id:</b> @Model.ServiceRequestId
+                    </span>
+
+                    <span class="title-text">
+                        <b>Extras:</b>@extraservice
+                    </span>
+
+                    <!---->
+                    <!----><span class="title-text">
+                        <b>Total Payment:</b>
+                        <span class="price">
+                            @Model.TotalCost&nbsp;€
+                        </span>
+                    </span>
+                    <hr>
+                    <!----><span class="title-text">
+                        <b>Customer Name:</b> <!----><span>@Model.ServiceProviderName</span>
+                    </span>
+                    <!---->
+                    <span class="title-text">
+                        <b>Service Address:</b> <!----><span> @Model.ServiceAddress</span>,
+                        53225 Bonn
+                    </span>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!----><span class="title-text">
+                        <b>Phone:</b> @Model.Mobile
+                    </span>
+                    <!----><span class="title-text">
+                        <b>Email:</b> @Model.Email
+                    </span>
+
+
+                    <!----><span class="title-text">
+                        <b>Distance:</b>
+                        <!----><span>
+                            20,69 km
+                        </span>
+                        <!---->
+                    </span>
+                    <hr>
+                    <span class="title-text">
+                        <b>Comments:</b>@Model.Comments
+                    </span>
+                    <!---->
+                    <!---->
+                    <!----><span class="title-text">
+                        @if (!Model.HasPets)
+                        {
+                            <img alt="Not-Included" src="~/assets/not-included.png">
+                            <span>I don't have pets at home</span>
+                        }
+                        else
+                        {
+                            <img alt="Included" src="~/assets/included.png">
+                            <span>I have pets at home</span>
+                        }
+                    </span>
+                    <div class="actions">
+
+
+                        @if (Model.SpacceptedDate == null)
+                        {
+                            <hr>
+                            <a class="btn accept" data-bs-dismiss="modal" data-id="@Model.ServiceRequestId" data-prompt="2" onclick="acceptrequest(this)">
+                                <img src="~/assets/tick.png">Accept
+                            </a>
+                        }
+
+
+                        @if (Model.Status == 2 || Model.Status == 5)
+                        {
+                            <hr>
+                            <a class="btn cancel" data-id="@Model.ServiceRequestId" data-prompt="1" onclick="upcomingcall(this)">
+                                <img src="~/assets/close-icon-small.png">cancel
+                            </a>
+                            @if (endtime < DateTime.Now)
+                            {
+                                <a class="btn complete" data-id="@Model.ServiceRequestId" data-prompt="2" onclick="upcomingcall(this)">
+                                    <img src="~/assets/tick.png">complete
+                                </a>
+                            }
+                        }
+                    </div>
+                    <!----><div class="sp-map">
+                        <iframe allowfullscreen="" frameborder="0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAag-Mf1I5xbhdVHiJmgvBsPfw7mCqwBKU&amp;origin=18,test street,Troisdorf-53844, Germany&amp;destination=45,Abcd,Bonn,53225, Germany&amp;language=en"></iframe>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2536,3 +2536,27 @@ color: #4f4f4f;
   border-color: #ccc;
   margin: 30px 0;
   box-sizing: inherit;}
+
+  #myratings .rate1{
+    color: #646464;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px #dee2e6;
+  }
+  #myratings .raterow1{
+    margin: 0px;
+    padding: 0px;
+    border-top: 1px solid #dee2e6;
+    padding-top: 10px;
+  }
+  #myratings .rate1 .col{
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 10px;
+  }
+  #myratings .rate1 ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+  }

@@ -1,0 +1,680 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Helperland.Models.User;
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "_Layout";
+}
+<!-- section2 start contains  -->
+<section class="container-fluid" id="service-provider-section2">
+    <div class="row">
+        <p>Welcome, @Context.Session.GetString("Name")</p>
+    </div>
+
+</section>
+<!-- section2 over -->
+<!-- section3 start contains nav-tabs-->
+<section class="container-fluid " id="service-provider-section3">
+    <!-- col1 contains navtabs col2 contains content and col3 contains content for small screen -->
+    <div class="row row1">
+        <div class="col col1">
+            <ul class="nav nav-tabs flex-column" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" id="tab-newservicerequests" onclick="loadnewservrequest()" href="#newservicerequests">New Service Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " data-bs-toggle="tab" id="tab-upcomingservice" onclick="loadupcomingservices()" href="#upcomingservices">Upcoming Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" id="tab-serviceschedule" href="#serviceschedule">Service Schedule</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" id="tab-servicehistory" onclick="loadservicehistory()" href="#servicehistory">Service History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" id="tab-myratings" onclick="loadmyratings()" href="#myratings">My Ratings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" id="tab-blockcustomer" onclick="loadblockcustomer()" href="#blockcustomer">Block Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" id="tab-mysettings" onclick="loadmysettings()" href="#mysetting">My settings</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col col2">
+            <div class="tab-content">
+
+                <div id="newservicerequests" class="container tab-pane  active">
+                </div>
+                <div id="upcomingservices" class="container tab-pane fade">
+                    <table class="table">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Service ID</th>
+                                <th>Service date </th>
+                                <th>Customer details</th>
+                                <th>Distance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="serviceschedule" class="container tab-pane fade">
+                    <table class="table">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Service ID</th>
+                                <th>Service date </th>
+                                <th>Customer details</th>
+                                <th>Distance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+                            <tr>
+                                <td class="serviceid">32346</td>
+                                <td>
+                                    <ul class="servicedate">
+                                        <li class="date">09/04/2018</li>
+                                        <li class="time">12:00-18:00</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    David Bough
+                                    <ul class="customerdetails">
+                                        <li class="address">Musterstrabe 5,12345 bonn</li>
+                                    </ul>
+                                </td>
+                                <td class="distance">15km</td>
+                                <td class="actions"><a class="btn" href="#">cancel</a></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="servicehistory" class="container tab-pane fade">
+                </div>
+                <div id="blockcustomer" class="container tab-pane fade">
+                </div>
+                <div id="myratings" class="container tab-pane fade">
+                </div>
+                <div id="mysetting" class="container tab-pane fade">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+<!-- section3 over -->
+<section id="accept-response">
+</section>
+<section id="cancelsuccess">
+</section>
+<section id="serviceprovdetailsmodal">
+</section>
+@section Script{
+
+    @if (TempData.ContainsKey("pageid"))
+    {
+        int id = Convert.ToInt32(TempData["pageid"]);
+        if (id == 1)
+        {//for dashboard
+            <script>
+                $(document).ready(function () {
+
+                    loadnewservrequest();
+
+                });
+            </script>
+        }
+        else if (id == 2)
+        {//for service history
+            <script>
+                $(document).ready(function () {
+
+                    loadupcomingservices();
+
+                });
+            </script>
+        }
+        else if (id == 3)
+        {//for favourite pros
+            <script>
+                $(document).ready(function () {
+
+                    loadserviceschedule();
+
+                });
+            </script>
+        }
+        else if (id == 4)
+        {//for my settings
+            <script>
+                $(document).ready(function () {
+
+                    loadservicehistory();
+
+                });
+            </script>
+        }
+        else if (id == 5)
+        {//for my settings
+            <script>
+                $(document).ready(function () {
+
+                    loadmyratings();
+
+                });
+            </script>
+        }
+        else if (id == 6)
+        {//for my settings
+            <script>
+                $(document).ready(function () {
+
+                    loadblockcustomer();
+
+                });
+            </script>
+        }
+        else if (id == 7)
+        {//for my settings
+            <script>
+                $(document).ready(function () {
+
+                    loadmysettings();
+
+                });
+            </script>
+        }
+        else
+        {// else load dashboad
+            <script>
+                $(document).ready(function () {
+
+                    loadnewservrequest();
+
+                });
+            </script>
+        }
+
+    }
+    else
+    {
+        <script>
+            $(document).ready(function () {
+
+                $("#newservicerequests").load("@Url.Action("ServiceProviderPage", "ServiceProvider")");
+                $(".tab-content div").removeClass("show");
+                $(".tab-content div").removeClass("active");
+                $("#newservicerequests").addClass("active");
+                $("#newservicerequests").addClass("show");
+
+
+                $("#tab-newservicerequests").addClass("active");
+                $("#tab-mysettings").removeClass("active");
+                $("#tab-blockcustomer").removeClass("active");
+                $("#tab-upcomingservice").removeClass("active");
+                $("#tab-serviceschedule").removeClass("active");
+                $("#tab-myratings").removeClass("active");
+                $("#tab-servicehistory").removeClass("active");
+                $("#tab-servicehistory").removeClass("active");
+                });
+        </script>
+
+    }
+    <script>
+        function hischangepagesize() {
+            var pagesize = $("#hisquantity").val();
+            $.ajax({
+                url: "/ServiceProvider/ServProvServHistory",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+                    $("#servicehistory").html(response);
+                }
+            });
+
+        }
+        function upcomchangepagesize() {
+            var pagesize = $("#upcomquantity").val();
+            $.ajax({
+                url: "/ServiceProvider/ServProvUpcomServ",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+                    $("#loadupcomingservices").html(response);
+                }
+            });
+
+        }
+        function newreqchangepagesize() {
+            var pagesize = $("#newreqquantity").val();
+            $.ajax({
+                url: "/ServiceProvider/ServiceProviderPage",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+                    $("#newservicerequests").html(response);
+                }
+            });
+
+        }
+        function ratechangepagesize() {
+            var pagesize = $("#ratequantity").val();
+            $.ajax({
+                url: "/ServiceProvider/Myratings",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+                    $("#myratings").html(response);
+                }
+            });
+
+        }
+        function acceptrequest(sr) {
+            var id = sr.getAttribute("data-id");
+            $.ajax({
+                url: "/ServiceProvider/AcceptServiceRequest",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#accept-response").html(response);
+                    $("#acceptreqresponse").modal("show");
+                    loadnewservrequest();
+                }
+            });
+
+        }
+        function servprovdetails(sr) {
+            var id = sr.getAttribute("data-id");
+            $.ajax({
+                url: "/ServiceProvider/ServProvDetailsModal",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    $("#serviceprovdetailsmodal").html(response);
+                    $("#serviceprovdetails").modal("show");
+                }
+            });
+
+        }
+        function loadsuccessmodel() {
+            loadupcomingservices();
+            $("#success").modal("show");
+        }
+        function upcomingcall(sr) {
+            var id = sr.getAttribute("data-id");
+            var prompt = sr.getAttribute("data-prompt");
+            if (prompt == 1) {
+                $.ajax({
+                    url: "/ServiceProvider/CancelRequestModal",
+                    type: 'POST',
+                    contenttype: 'application/json',
+                    data: { "id": id },
+                    success: function (response) {
+                        $("#cancelsuccess").html(response);
+                        $("#cancel").modal("show");
+                    }
+                });
+            }
+            if (prompt == 2) {
+                $.ajax({
+                    url: "/ServiceProvider/CompleteRequest",
+                    type: 'POST',
+                    contenttype: 'application/json',
+                    data: { "id": id },
+                    success: function (response) {
+                        $("#cancelsuccess").html(response);
+                        $("#completesuccess").modal("show");
+                        loadupcomingservices();
+                    }
+                });
+            }
+
+
+        }
+
+    </script>
+
+    <script>
+        function loadnewservrequest() {
+            $("#newservicerequests").load("@Url.Action("ServiceProviderPage", "ServiceProvider")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#newservicerequests").addClass("active");
+            $("#newservicerequests").addClass("show");
+
+
+            $("#tab-newservicerequests").addClass("active");
+            $("#tab-mysettings").removeClass("active");
+            $("#tab-blockcustomer").removeClass("active");
+            $("#tab-upcomingservice").removeClass("active");
+            $("#tab-serviceschedule").removeClass("active");
+            $("#tab-myratings").removeClass("active");
+            $("#tab-servicehistory").removeClass("active");
+        }
+        function loadblockcustomer() {
+            $("#blockcustomer").load("@Url.Action("LoadBlockCustomer","ServiceProvider")")
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#blockcustomer").addClass("active");
+            $("#blockcustomer").addClass("show");
+
+            $("#tab-newservicerequests").removeClass("active");
+            $("#tab-mysettings").removeClass("active");
+            $("#tab-blockcustomer").addClass("active");
+            $("#tab-upcomingservice").removeClass("active");
+            $("#tab-serviceschedule").removeClass("active");
+            $("#tab-myratings").removeClass("active");
+            $("#tab-servicehistory").removeClass("active");
+        }
+        function loadmyratings() {
+            $("#myratings").load("@Url.Action("Myratings", "ServiceProvider")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#myratings").addClass("active");
+            $("#myratings").addClass("show");
+
+
+            $("#tab-newservicerequests").removeClass("active");
+            $("#tab-mysettings").removeClass("active");
+            $("#tab-blockcustomer").removeClass("active");
+            $("#tab-upcomingservice").removeClass("active");
+            $("#tab-serviceschedule").removeClass("active");
+            $("#tab-myratings").addClass("active");
+            $("#tab-servicehistory").removeClass("active");
+        }
+        function loadservicehistory() {
+            $("#servicehistory").load("@Url.Action("ServProvServHistory", "ServiceProvider")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#servicehistory").addClass("active");
+            $("#servicehistory").addClass("show");
+
+            $("#tab-newservicerequests").removeClass("active");
+            $("#tab-mysettings").removeClass("active");
+            $("#tab-blockcustomer").removeClass("active");
+            $("#tab-upcomingservice").removeClass("active");
+            $("#tab-serviceschedule").removeClass("active");
+            $("#tab-myratings").removeClass("active");
+            $("#tab-servicehistory").addClass("active");
+
+        }
+        function loadserviceschedule() {
+        }
+        function loadmysettings() {
+            $("#mysetting").load("@Url.Action("ServProvMySetting","ServiceProvider")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#mysetting").addClass("active");
+            $("#mysetting").addClass("show");
+
+
+            $("#tab-newservicerequests").removeClass("active");
+            $("#tab-mysettings").addClass("active");
+            $("#tab-blockcustomer").removeClass("active");
+            $("#tab-upcomingservice").removeClass("active");
+            $("#tab-serviceschedule").removeClass("active");
+            $("#tab-myratings").removeClass("active");
+            $("#tab-servicehistory").removeClass("active");
+        }
+        function loadupcomingservices() {
+            $("#upcomingservices").load("@Url.Action("ServProvUpcomServ", "ServiceProvider")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#upcomingservices").addClass("active");
+            $("#upcomingservices").addClass("show");
+
+            $("#tab-newservicerequests").removeClass("active");
+            $("#tab-mysettings").removeClass("active");
+            $("#tab-blockcustomer").removeClass("active");
+            $("#tab-upcomingservice").addClass("active");
+            $("#tab-serviceschedule").removeClass("active");
+            $("#tab-myratings").removeClass("active");
+            $("#tab-servicehistory").removeClass("active");
+
+        }
+        function passwordchanged() {
+            $("#successmessage").show('fade');
+            $("#successmessage").fadeTo(2000, 500).slideUp(500, function () {
+                $("#successmessage").slideUp(500);
+            });
+
+            $("#changepass").trigger("reset");
+        }
+        function incorrectpassword() {
+            $("#failuremessage").show('fade');
+            $("#failuremessage").fadeTo(2000, 500).slideUp(500, function () {
+                $("#failuremessage").slideUp(500);
+            });
+
+        }
+        function updatesuccess() {
+
+            $("#updatesuccess").show('fade');
+            $("#updatesuccess").fadeTo(2000, 500).slideUp(500, function () {
+                $("#updatesuccess").slideUp(500);
+            });
+        }
+        function updatefail() {
+            $("#updatefail").show('fade');
+            $("#updatefail").fadeTo(2000, 500).slideUp(500, function () {
+                $("#updatefail").slideUp(500);
+            });
+
+        }
+        function blockuser(sp) {
+            var id = sp.getAttribute("data-id");
+            $.ajax({
+                url: "/ServiceProvider/BlockUser",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function () {
+                    loadblockcustomer();
+                }
+            });
+        }
+        function unblockuser(sp) {
+            var id = sp.getAttribute("data-id");
+            $.ajax({
+                url: "/ServiceProvider/UnBlockUser",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function () {
+                    loadblockcustomer();
+                }
+            });
+        }
+        function getcityname() {
+            //var temp = document.getElementById("selectcity");
+            //temp.innerHTML = "";
+            var id=$("#Postalcode").val();
+            $.ajax({
+                url: "/ServiceProvider/GetCityName",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    if (response == "NotFound") {
+                        $("#invalidpostalcode").show('fade');
+                        $("#invalidpostalcode").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#invalidpostalcode").slideUp(500);
+                        });
+                    } else {
+
+                        $("#selectcity").html("");
+                        $("#selectcity").html('<option value="' + response + '" selected>' + response + '</option>');
+
+                    }
+                    //var cityname = result;
+                    //$('#City').append($('<option>').val(cityname).text(cityname));
+
+                    //var temp = document.getElementById("selectcity");
+                    //temp.innerHTML = '<option value="' + response + '" selected>' + response + '</option>';
+                    //alert("OH NO!");
+                    //var mySelection = new Option(response, response, true);
+                    //$("#City").html("Samsung Mobile");
+                    //$("#City").html("Samsung Mobile");
+                    //$("#City").append(mySelection);
+
+                    //$("#City").append("<option value="${response}">${response}</option>");
+                }
+            });
+        }
+    </script>
+}

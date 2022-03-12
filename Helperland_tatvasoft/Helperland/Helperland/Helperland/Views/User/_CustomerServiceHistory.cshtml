@@ -11,7 +11,7 @@
         Service History
     </div>
     <div class="col-auto exportbtn">
-        <a class="btn" href="#">export</a>
+        <a class="btn" asp-action="Export" asp-controller="User">export</a>
     </div>
 </div>
 <table class="table">
@@ -146,11 +146,11 @@
 <div class="row bottom">
 
     <div class="col-auto ">
-        <p>
-            show
-            <input type="number" id="quantity" name="quantity" min="1" max="5">
-            Entries total record: 1
-        </p>
+            show<select class="form-control entry" value="@Model.PageSize"  onchange="hischangepagesize()" id="hisquantity" >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>Entries total record: @Model.TotalItems
     </div>
     <div class="end col-auto">
 

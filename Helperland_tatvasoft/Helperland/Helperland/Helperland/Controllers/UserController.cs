@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
+using System.Text;
 
 namespace Helperland.Controllers
 {
@@ -29,6 +30,46 @@ namespace Helperland.Controllers
         {
             TempData["pageid"] = id;
             return View("Customer");
+        }
+
+        public async Task<IActionResult> Export()
+        {
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var servicelist = await _context.ServiceRequests.Where(c => c.UserId == userid && (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).ToListAsync();
+
+            foreach (ServiceRequest service in servicelist)
+            {
+                if (service.ServiceProviderId != null)
+                {
+                    var serviceproviderdetails = await _context.Users.Where(c => c.UserId == service.ServiceProviderId).FirstOrDefaultAsync();
+
+                    service.ServiceProviderName = serviceproviderdetails.FirstName + " " + serviceproviderdetails.LastName;
+
+                    var rate = await _context.Ratings.Where(c => c.RatingTo == service.ServiceProviderId).ToListAsync();
+                    decimal temp = 0;
+                    foreach (Rating rating in rate)
+                    {
+                        if (rating.Ratings != 0)
+                        {
+                            temp += rating.Ratings;
+                        }
+                    }
+                    if (rate.Count() != 0)
+                    {
+                        temp /= rate.Count();
+
+                    }
+                    service.ratings = temp;
+                }
+
+            }
+            var builder = new StringBuilder();
+            builder.AppendLine("Service ID,Service date,Service Provider,Payment,status");
+            foreach (var item in servicelist)
+            {
+                builder.AppendLine($"{item.ServiceRequestId},{item.ServiceStartDate},{item.ServiceProviderName},{item.TotalCost},{item.Status}");
+            }
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "Servicehistory.csv");
         }
 
         public async Task<IActionResult> RateSpModal(int id)
@@ -63,7 +104,6 @@ namespace Helperland.Controllers
 
         }
         [HttpPost]
-
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(User user)
         {
@@ -142,8 +182,6 @@ namespace Helperland.Controllers
                 var DateTime = user.Day + "-" + user.Month + "-" + user.Year;
                 p.DateOfBirth = Convert.ToDateTime(DateTime);
             }
-            //date of birth remaining
-            //success modal
             await _context.SaveChangesAsync();
 
             return View("Customer");
@@ -400,9 +438,7 @@ namespace Helperland.Controllers
             }
             return PartialView("_CustomerServiceHistory", result);
         }
-        public IActionResult Serviceprovider()
-        {
-            return View();
-        }
+
+
     }
 }

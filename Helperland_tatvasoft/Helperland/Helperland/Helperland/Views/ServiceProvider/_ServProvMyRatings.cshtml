@@ -1,0 +1,122 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+@if (Model != null)
+{
+    @foreach (ServiceRequest serviceRequest in Model.Data)
+    {
+        var serviceDateTime = serviceRequest.ServiceStartDate;
+        var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+        var starttime = serviceDateTime.ToString("t");
+
+        var finishtime = serviceDateTime.AddHours(serviceRequest.ServiceHours).ToString("t");
+
+        <div class="row rate1">
+            <div class="col ratecol1">
+                <ul>
+                    <li>@serviceRequest.ServiceRequestId</li>
+                    <li class="font">@serviceRequest.ServiceProviderName</li>
+                </ul>
+            </div>
+            <div class="col ratecol2">
+                <ul>
+                    <li class="font date">
+                        @startdate
+                    </li>
+                    <li class="time">@starttime-@finishtime</li>
+                </ul>
+            </div>
+            <div class="col ratecol3">
+                <ul>
+                    <li class="font">ratings</li>
+                    <li>
+                        @{
+
+                            int totalstars = Convert.ToInt32(serviceRequest.ratings);
+                            int stars = 5 - totalstars;
+                            for (int i = 1; i <= totalstars; i++)
+                            {
+                                <img src="~/assets/yellow-small-star.png" alt="">
+                            }
+                            for (int j = 1; j <= stars; j++)
+                            {
+
+                                <img src="~/assets/star2.png" alt="">
+                            }
+                            if (totalstars == 1)
+                            {
+                                <small>
+                                    Very Poor
+                                </small>
+                            }
+                            else if (totalstars == 2)
+                            {
+                                <small>
+                                    Poor
+                                </small>
+                            }
+                            else if (totalstars == 3)
+                            {
+                                <small>
+                                    Good
+                                </small>
+                            }
+                            else if (totalstars == 4)
+                            {
+                                <small>
+                                    Very Good
+                                </small>
+                            }
+                            else if (totalstars == 5)
+                            {
+                                <small>
+                                    Excellent
+                                </small>
+                            }
+                            else
+                            {
+                                <small>
+                                    Not Rated
+                                </small>
+                            }
+
+                        }
+                    </li>
+                </ul>
+            </div>
+            <div class="row raterow1">
+                <ul>
+                    <li class="font">
+                        Customer comment
+                    </li>
+                    <li>
+                        @serviceRequest.Comments
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+}
+<div class="row bottom">
+
+    <div class="col-auto ">
+        show
+        <select class="form-control entry" onchange="ratechangepagesize()" id="ratequantity">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+        Entries total record: @Model.TotalItems"
+
+    </div>
+    <div class="end col-auto">
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-paging-pagesize="@Model.PageSize"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="ServiceProvider"
+                  asp-action="Myratings"
+                  cs-ajax-target="#myratings"></cs-pager>
+    </div>
+</div>

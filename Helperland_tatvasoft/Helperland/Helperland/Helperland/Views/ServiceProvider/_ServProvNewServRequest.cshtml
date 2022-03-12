@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+<table class="table">
+    <thead class="table-success">
+        <tr>
+            <th>Service ID</th>
+            <th>Service date </th>
+            <th>Customer details</th>
+            <th>Payment </th>
+            <th>Time conflict</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    @if (Model != null)
+    {
+        <tbody>
+
+            @foreach (ServiceRequest serviceRequest in Model.Data)
+            {
+                var serviceDateTime = serviceRequest.ServiceStartDate;
+                var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+                var starttime = serviceDateTime.ToString("t");
+
+                var finishtime = serviceDateTime.AddHours(serviceRequest.ServiceHours).ToString("t");
+
+                <tr>
+                    <td class="serviceid" data-id="@serviceRequest.ServiceRequestId" onclick="servprovdetails(this)">@serviceRequest.ServiceRequestId</td>
+                    <td>
+                        <ul class="servicedate" data-id="@serviceRequest.ServiceRequestId" onclick="servprovdetails(this)">
+                            <li class="date">@startdate</li>
+                            <li class="time">@starttime - @finishtime</li>
+                        </ul>
+                    </td>
+                    <td>
+                        @serviceRequest.ServiceProviderName
+                        <ul class="customerdetails">
+                            <li class="address">@serviceRequest.ServiceAddress</li>
+                        </ul>
+                    </td>
+                    <td class="">@serviceRequest.TotalCost</td>
+                    <td class="distance"></td>
+                    <td class="actions"><a class="btn accept" data-id="@serviceRequest.ServiceRequestId" data-prompt="2" onclick="acceptrequest(this)">accept</a></td>
+                </tr>
+
+
+            }
+        </tbody>
+    }
+</table>
+<div class="row bottom">
+
+    <div class="col-auto ">
+        show
+        <select class="form-control entry" onchange="newreqchangepagesize()" id="newreqquantity">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+        Entries total record: @Model.TotalItems"
+
+    </div>
+    <div class="end col-auto">
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-paging-pagesize="@Model.PageSize"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="ServiceProvider"
+                  asp-action="ServiceProviderPage"
+                  cs-ajax-target="#newservicerequests"></cs-pager>
+    </div>
+</div>

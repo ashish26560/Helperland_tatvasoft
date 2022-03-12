@@ -4,7 +4,10 @@
 @model Helperland.Models.User
 @using Microsoft.AspNetCore.Http;
 
-@{string var = Context.Session.GetString("IsLoggedIn");
+@{
+
+    string IsLoggedIn = Context.Session.GetString("IsLoggedIn");
+    string UserTypeId = Context.Session.GetString("UserTypeId");
 }
 
 <!DOCTYPE html>
@@ -46,7 +49,7 @@
                             <!-- can also use a tag with nav-link class  -->
                             <!-- <button type="button" class="btn">Book a cleaner</button> -->
                         <li class="nav-item">
-                            @if (var == "true")
+                            @if (IsLoggedIn == "true")
                             {
                                 <a class="btn head" asp-controller="PublicPages" asp-action="Book_now">Book a cleaner</a>
                             }
@@ -70,7 +73,7 @@
                         </li>
 
 
-                        @if (var == "true")
+                        @if (IsLoggedIn == "true")
                         {
                             <li class="nav-item notification">
 
@@ -90,15 +93,29 @@
                                         </div>
                                     </li>
                                     <li class="divider"></li>
-                                    <li><a class="dropdown-item" asp-action="Customer" asp-controller="User" asp-route-id="1">My Dashboard</a></li>
-                                    <li>
-                                        <a class="dropdown-item" asp-action="CustomerId" asp-controller="User" asp-route-id="4">My settings </a>
-                                    </li>
-                                    <li>
-                                        <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
-                                            Logout
-                                        </a>
-                                    </li>
+                                    @if (UserTypeId == "1")
+                                    {
+                                        <li><a class="dropdown-item" asp-action="Customer" asp-controller="User" asp-route-id="1">My Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-action="CustomerId" asp-controller="User" asp-route-id="4">My Setting</a></li>
+                                        <li>
+                                            <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                                Logout
+                                            </a>
+                                        </li>
+
+                                    }
+                                    @if (UserTypeId == "2")
+                                    {
+                                        <li><a class="dropdown-item" asp-action="Serviceprovider" asp-controller="ServiceProvider">New Service Request</a></li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="7">My Settings</a>
+                                        </li>
+                                        <li>
+                                            <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                                Logout
+                                            </a>
+                                        </li>
+                                    }
                                 </ul>
 
                             </li>

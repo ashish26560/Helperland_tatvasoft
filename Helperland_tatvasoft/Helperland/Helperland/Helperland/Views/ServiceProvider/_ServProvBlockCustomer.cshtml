@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<User>
+@{
+    int i = 0;
+}
+<div class="row favourite-pro-wrapper block-customer" style="overflow: hidden;">
+    @foreach (User user in Model)
+    {
+        <div class="col-sm-4">
+            <div class="favourite-pro">
+                <img src="~/assets/avatar-hat.png" alt="cust1 cust1">
+                <div class="sp-details">
+                    <span class="name">@user.FirstName @user.LastName</span>
+                </div>
+                @if (ViewBag.blockedornot[i] == "yes")
+                {
+                    <a class="btn btn-primary" data-id="@user.UserId" onclick="unblockuser(this)" title="Unblock">Unblock</a>
+                    
+                }
+                @if (ViewBag.blockedornot[i] == "no")
+                {
+                    <a class="btn btn-danger" data-id="@user.UserId" onclick="blockuser(this)" title="Block">Block</a>
+                    
+                }
+            </div>
+        </div>
+        i = i + 1;
+    }
+
+</div>

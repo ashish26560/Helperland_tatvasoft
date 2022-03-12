@@ -222,7 +222,32 @@
     <script>
 
 
+        function dashchangepagesize() {
+            var pagesize = $("#quantity").val();
+            $.ajax({
+                url: "/User/Customerpage",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+                    $("#dashboard").html(response);
+                }
+            });
 
+        }
+        function hischangepagesize() {
+            var pagesize = $("#hisquantity").val();
+            $.ajax({
+                url: "/User/ServiceHistory",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+                    $("#servicehistory").html(response);
+                }
+            });
+
+        }
 
         function loadservicehistory()
         {

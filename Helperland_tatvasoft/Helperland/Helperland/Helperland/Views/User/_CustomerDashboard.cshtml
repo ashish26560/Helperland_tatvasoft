@@ -14,7 +14,7 @@
     <div class="col-auto exportbtn">
 
 
-        <a class="btn" href="#">export</a>
+        <a class="btn" asp-controller="PublicPages" asp-action="Book_now">Add New Service Request</a>
     </div>
 </div>
 
@@ -107,11 +107,14 @@
 <div class="row bottom">
 
     <div class="col-auto ">
-        <p>
             show
-            <input type="number" id="quantity" name="quantity" min="1" max="5">
-            Entries total record: 1
-        </p>
+            <select class="form-control entry" value="@Model.PageSize" onchange="dashchangepagesize()" id="quantity" >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+            Entries total record: @Model.TotalItems"
+       
     </div>
     <div class="end col-auto">
 

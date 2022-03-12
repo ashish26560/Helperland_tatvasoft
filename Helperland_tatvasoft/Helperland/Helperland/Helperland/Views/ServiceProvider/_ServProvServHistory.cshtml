@@ -1,0 +1,78 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+    <div class="row titletext">
+        <div class="col-auto">
+
+            Service History
+        </div>
+        <div class="col-auto exportbtn">
+            <a class="btn" asp-action="Export" asp-controller="ServiceProvider">export</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Service ID</th>
+                <th>Service date </th>
+                <th>Customer details</th>
+            </tr>
+        </thead>
+        @if (Model != null)
+        {
+            <tbody>
+
+                @foreach (ServiceRequest serviceRequest in Model.Data)
+                {
+                    var serviceDateTime = serviceRequest.ServiceStartDate;
+                    var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+                    var starttime = serviceDateTime.ToString("t");
+
+                    var finishtime = serviceDateTime.AddHours(serviceRequest.ServiceHours).ToString("t");
+
+                    <tr data-id="@serviceRequest.ServiceRequestId" onclick="servprovdetails(this)">
+                        <td class="serviceid">@serviceRequest.ServiceRequestId</td>
+                        <td>
+                            <ul class="servicedate">
+                                <li class="date">@startdate</li>
+                                <li class="time">@starttime - @finishtime</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="customerdetails">
+                                <li>
+                                    @serviceRequest.ServiceProviderName
+                                </li>
+                                <li class="address">@serviceRequest.ServiceAddress</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+
+                }
+            </tbody>
+        }
+    </table>
+    <div class="row bottom">
+
+        <div class="col-auto ">
+            show
+            <select class="form-control entry" onchange="hischangepagesize()" id="hisquantity">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+            Entries total record: @Model.TotalItems"
+
+        </div>
+        <div class="end col-auto">
+            <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                      cs-paging-totalitems="@Model.TotalItems"
+                      cs-paging-pagesize="@Model.PageSize"
+                      cs-pagenumber-param="pagenumber"
+                      asp-controller="ServiceProvider"
+                      asp-action="ServProvServHistory"
+                      cs-ajax-target="#servicehistory"></cs-pager>
+        </div>
+    </div>

@@ -70,6 +70,42 @@
                         </ul>
                     </div>
                 }
+                @if (IsLoggedIn == "true" && UserTypeId == "2")
+                {
+                    <div class="row row1">
+                        Warm Welcome,
+                        Sandeep.
+                    </div>
+                    <div class="row row2">
+                        <ul class="nav nav-tabs flex-column" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="1">New Service Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="2">Upcoming Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled " asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="3">Service Schedule </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="4">Service History </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="5">My Ratings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="6">Block Customer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="7">My Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                }
 
 
                 <div class="row row3">
@@ -132,11 +168,14 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            @if (UserTypeId != "2" && IsLoggedIn == "true")
+                            @if (IsLoggedIn == "true")
                             {
-                                <li class="nav-item">
-                                    <a class="btn" asp-controller="PublicPages" asp-action="Book_now">Book now</a>
-                                </li>
+                                if (UserTypeId == "1")
+                                {
+                                    <li class="nav-item">
+                                        <a class="btn" asp-controller="PublicPages" asp-action="Book_now">Book now</a>
+                                    </li>
+                                }
 
                             }
                             else
@@ -179,18 +218,36 @@
                                             </div>
                                         </li>
                                         <li class="divider"></li>
-                                        <li><a class="dropdown-item" asp-action="Customer" asp-controller="User" asp-route-id="1">My Dashboard</a></li>
-                                        <li><a class="dropdown-item" asp-action="CustomerId" asp-controller="User" asp-route-id="4">My Setting</a></li>
-                                        <li>
-                                            <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
-                                                Logout
-                                            </a>
-                                        </li>
+                                        @if (UserTypeId == "1")
+                                        {
+                                            <li><a class="dropdown-item" asp-action="Customer" asp-controller="User" asp-route-id="1">My Dashboard</a></li>
+                                            <li><a class="dropdown-item" asp-action="CustomerId" asp-controller="User" asp-route-id="4">My Setting</a></li>
+                                            <li>
+                                                <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                                    Logout
+                                                </a>
+                                            </li>
+
+                                        }
+                                        @if (UserTypeId == "2")
+                                        {
+                                            <li><a class="dropdown-item" asp-action="Serviceprovider" asp-controller="ServiceProvider">New Service Request</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-action="ServiceproviderId" asp-controller="ServiceProvider" asp-route-id="7">My Settings</a>
+                                            </li>
+                                            <li>
+                                                <a a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                                    Logout
+                                                </a>
+                                            </li>
+                                        }
+
                                     </ul>
 
                                 </li>
 
                             }
+
                             else
                             {
                                 <li class="nav-item">

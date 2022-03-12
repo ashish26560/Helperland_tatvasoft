@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Helperland.Models;
+
+@model Helperland.Models.ServiceRequest;
+
+<div class="modal fade popup" id="cancel" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reschedule Service Request</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                </div>
+
+
+                <form method="post" data-ajax="true" data-ajax-success="loadsuccessmodel()" asp-action="CancelService" asp-controller="ServiceProvider">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input class="form-control d-none" readonly value="@Model.ServiceRequestId" asp-for="ServiceRequestId">
+
+                            <label class="control-label">Why you want to cancel the service request?</label>
+
+                            <textarea class="form-control" asp-for="Comments" rows="3"></textarea>
+
+                        </div>
+                        <input type="submit" data-bs-dismiss="modal" class="btn btn-primary" value="Cancel Now">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade popup" id="success" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span>
+                        <img alt="Correct" src="~/assets/correct-white-medium.png">
+                    </span>
+                    <h3>Your service request cancelled successfully</h3>
+                    <h4>Cancelled Request Id : @Model.ServiceRequestId</h4>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" type="button">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade popup" id="completesuccess" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span>
+                        <img alt="Correct" src="~/assets/correct-white-medium.png">
+                    </span>
+                    <h3>Your service request assigned completed successfully.</h3>
+                    <h4>Service Request Id : @Model.ServiceRequestId</h4>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" type="button">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

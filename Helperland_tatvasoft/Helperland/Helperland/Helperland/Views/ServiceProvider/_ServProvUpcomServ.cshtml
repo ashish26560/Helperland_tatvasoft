@@ -1,0 +1,83 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+<table class="table">
+    <thead class="table-success">
+        <tr>
+            <th>Service ID</th>
+            <th>Service date </th>
+            <th>Customer details</th>
+            <th>Payment </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    @if (Model != null)
+    {
+        <tbody>
+
+            @foreach (ServiceRequest serviceRequest in Model.Data)
+            {
+                var serviceDateTime = serviceRequest.ServiceStartDate;
+                var startdate = serviceDateTime.ToString("d").Replace("-", "/");
+                var starttime = serviceDateTime.ToString("t");
+
+                var endtime = serviceDateTime.AddHours(serviceRequest.ServiceHours);
+                var finishtime = serviceDateTime.AddHours(serviceRequest.ServiceHours).ToString("t");
+
+                <tr>
+                    <td class="serviceid" data-id="@serviceRequest.ServiceRequestId" onclick="servprovdetails(this)">@serviceRequest.ServiceRequestId</td>
+                    <td>
+                        <ul class="servicedate" data-id="@serviceRequest.ServiceRequestId" onclick="servprovdetails(this)">
+                            <li class="date">@startdate</li>
+                            <li class="time">@starttime - @finishtime</li>
+                        </ul>
+                    </td>
+                    <td>
+                        @serviceRequest.ServiceProviderName
+                        <ul class="customerdetails">
+                            <li class="address">@serviceRequest.ServiceAddress</li>
+                        </ul>
+                    </td>
+                    <td class="">@serviceRequest.TotalCost</td>
+                    <td class="actions">
+                        <a class="btn cancel" data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="upcomingcall(this)">
+                            <img src="~/assets/close-icon-small.png">cancel
+                        </a>
+                        @if (endtime < DateTime.Now)
+                        {
+                            <a class="btn complete" data-id="@serviceRequest.ServiceRequestId" data-prompt="2" onclick="upcomingcall(this)">
+                                <img src="~/assets/tick.png">complete
+                            </a>
+                        }
+
+                    </td>
+                </tr>
+
+
+            }
+        </tbody>
+    }
+</table>
+<div class="row bottom">
+
+    <div class="col-auto ">
+        show
+        <select class="form-control entry" onchange="upcomchangepagesize()" id="upcomquantity">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+        Entries total record: @Model.TotalItems"
+
+    </div>
+    <div class="end col-auto">
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-paging-pagesize="@Model.PageSize"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="ServiceProvider"
+                  asp-action="ServProvUpcomServ"
+                  cs-ajax-target="#upcomingservices"></cs-pager>
+    </div>
+</div>

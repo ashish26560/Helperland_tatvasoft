@@ -114,7 +114,7 @@ namespace Helperland.Controllers
                 {
 
                     HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
-                    return RedirectToAction("Serviceprovider", "User");
+                    return RedirectToAction("ServiceProvider", "ServiceProvider");
                 }
                 else
                 {
