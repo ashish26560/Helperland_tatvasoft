@@ -1984,17 +1984,54 @@ color: #4f4f4f;
             padding: 10px 18px;
         }
 
-    #admin-section2 .col2 .status .new {
-        color: #FFFFFF;
-        padding: 5px 5px;
-        background: #F2BB37;
+    #admin-section2 .col2 .status .statustext {
+        background: #FF6B6B;
+        color: white;
+        padding-left: 5px;
+        margin-top: 16px;
+        text-align: center;
     }
 
-    #admin-section2 .col2 .status .cancelled {
-        color: #FFFFFF;
-        padding: 5px 5px;
-        background: #FF6B6B;
+    #admin-section2 .col2 .status .statustextcomp {
+        background: #67B644;
+        color: white;
+        padding-left: 5px;
+        margin-top: 16px;
+        text-align: center;
     }
+
+    #admin-section2 .col2 .status .statustextnew {
+        background: #ECB91C;
+        color: white;
+        padding-left: 5px;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    #admin-section2 .col2 .status .statustextexpired {
+        background: #bbb;
+        color: white;
+        padding-left: 5px;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    #admin-section2 .col2 .status .statustextrefunded {
+        background: #ff7335;
+        color: white;
+        padding-left: 5px;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    #admin-section2 .col2 .status .statustextpending {
+        background: #1FB6FF;
+        color: white;
+        padding-left: 5px;
+        margin-top: 16px;
+        text-align: center;
+    }
+
 
     #admin-section2 .col2 .form {
         padding-bottom: 20px;
@@ -2047,6 +2084,10 @@ color: #4f4f4f;
     color: #A0A0A0;
 }
 
+#admin-section2 .pagination li a {
+    color: black;
+}
+
 #admin-section2 .pagination {
     display: inline-block;
 }
@@ -2055,7 +2096,7 @@ color: #4f4f4f;
     justify-content: space-between;
 }
 
-#admin-section2 .pagination a {
+#admin-section2 .pagination li {
     color: black;
     float: left;
     padding: 4px 12px;
@@ -2066,7 +2107,7 @@ color: #4f4f4f;
     border-radius: 0px 0px;
 }
 
-    #admin-section2 .pagination a.active {
+    #admin-section2 .pagination li.active {
         background-color: #1D7A8C;
         color: white;
     }
@@ -2810,6 +2851,10 @@ display: none;
 }*/
 #success .modal-content {
     max-width: 400px;
+}
+
+#edit-and-reschedule .modal-content {
+    max-width: 600px;
 }
 
 #completesuccess .modal-content {
@@ -3611,6 +3656,7 @@ edit-address-modal .btn-primary {
 
 #rating-modal .sp .star img {
     position: relative;
+    border: none;
 }
 
 #serviceprovdetails .modal-body {
@@ -3892,3 +3938,39 @@ edit-address-modal .btn-primary {
         max-height: 88px !important;
         max-width: 88px !important;
     }
+
+.admin .cap-1 .cap-2 .avatar {
+    width: 50px;
+    height: 50px;
+}
+
+#edit-and-reschedule .modal-content {
+    max-width: 600px;
+}
+
+#edit-and-reschedule .modal-title {
+    margin: 0 0 25px;
+}
+
+#edit-and-reschedule .control-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+    #edit-and-reschedule .control-label.normal {
+        font-weight: 400;
+    }
+
+#edit-and-reschedule .input-wrapper {
+    position: relative;
+}
+
+    #edit-and-reschedule .input-wrapper img {
+        position: absolute;
+        left: 10px !important;
+    }
+
+#edit-and-reschedule .calculator-date-time input {
+    padding-left: 40px !important;
+}

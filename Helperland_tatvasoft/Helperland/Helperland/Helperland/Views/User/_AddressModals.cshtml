@@ -54,6 +54,12 @@
 
                         <input formcontrolname="UserId" type="hidden" value="" class="">
                         <input formcontrolname="IsDefault" type="hidden" value="false" class="">
+                        <div class="alert alert-danger collapse" id="invalidpostalcode" role="alert">
+                            <strong>The PostalCode you entered is invalid.</strong>
+                            @*<button onclick="closealert()" type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>*@
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -72,17 +78,21 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">Postal code</label>
-                                    <input class="form-control ng-invalid" asp-for="PostalCode" formcontrolname="PostalCode" maxlength="20" name="PostalCode" type="text" placeholder="Postal code">
+                                    <input class="form-control ng-invalid" asp-for="PostalCode" onchange="getcityname()" id="postalcode" formcontrolname="PostalCode" maxlength="20" name="PostalCode" type="text" placeholder="Postal code">
                                     <!---->
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">City</label>
-                                    <select class="form-control ng-invalid" asp-for="City" formcontrolname="City">
-
-                                        <option value="Bonn">Bonn</option>
+                                    @*<select class="form-control ng-invalid"formcontrolname="City">*@
+                                    <select class="form-control" asp-for="City" id="selectcity" name="City">
+                                        <option value="Ahmedabad">Ahmedabad</option>
+                                        <option value="Surat">Surat</option>
+                                        <option value="Junagadh">Junagadh</option>
+                                        <option value="Porbandar">Porbandar</option>
                                     </select>
+                                    @*</select>*@
                                 </div>
                             </div>
                             <div class="col-sm-6">

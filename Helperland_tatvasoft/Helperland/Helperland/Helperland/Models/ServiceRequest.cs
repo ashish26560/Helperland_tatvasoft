@@ -43,7 +43,11 @@ namespace Helperland.Models
         [NotMapped]
         public string ServiceProviderName { get; set; }
         [NotMapped]
+        public string CustomerName { get; set; }
+        [NotMapped]
         public decimal? ratings { get; set; }
+        [NotMapped]
+        public string UserProfilePicture { get; set; }
         public DateTime ServiceStartDate { get; set; }
         public string ZipCode { get; set; }
         public decimal? ServiceHourlyRate { get; set; }

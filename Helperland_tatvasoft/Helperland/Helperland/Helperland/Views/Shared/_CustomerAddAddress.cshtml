@@ -17,6 +17,12 @@
                 <div class="modal-body">
                     <!---->
                     <form id="custaddaddress" data-ajax="true" data-ajax-method="post" data-ajax-success="getmyaddressadd()" asp-action="EditAddress" asp-controller="User">
+                        <div class="alert alert-danger collapse" id="newinvalidpostalcode" role="alert">
+                            <strong>The PostalCode you entered is invalid.</strong>
+                            @*<button onclick="closealert()" type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>*@
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -35,17 +41,18 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">Postal code</label>
-                                    <input class="form-control " formcontrolname="PostalCode" asp-for="PostalCode" maxlength="20" type="text" placeholder="Postal code">
+                                    <input class="form-control " formcontrolname="PostalCode" onchange="newgetcityname()" asp-for="PostalCode" maxlength="20" type="text" id="newpostalcode" placeholder="Postal code">
                                     <!---->
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">City</label>
-                                    <select class="form-control " asp-for="City" formcontrolname="City">
-
-                                        <option value="Bonn">Bonn</option>
+                                    @*<select class="form-control ng-invalid"formcontrolname="City">*@
+                                    <select class="form-control" asp-for="City" id="newselectcity" name="City">
+                                        <option value="@ViewBag.City">@ViewBag.City</option>
                                     </select>
+                                    @*</select>*@
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -59,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <button class="btn btn-primary" type="submit" data-bs-dismiss="modal"  title=""> Add</button>
+                                <button class="btn btn-primary" type="submit" data-bs-dismiss="modal" title=""> Add</button>
                             </div>
                         </div>
                     </form>

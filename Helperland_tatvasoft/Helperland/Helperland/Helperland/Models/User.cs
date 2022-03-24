@@ -59,6 +59,8 @@ namespace Helperland.Models
         [NotMapped]
         public string Day { get; set; }
         [NotMapped]
+        public string City { get; set; }
+        [NotMapped]
         public string Month { get; set; }
         [NotMapped]
         public string Year { get; set; }

@@ -175,8 +175,8 @@ namespace Helperland.Controllers
             int excluderecords = (pagenumber * pagesize) - pagesize;
             var userid = (int)HttpContext.Session.GetInt32("UserId");
 
-            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && (c.Status == 2 || c.Status == 5) && c.ServiceStartDate >= DateTime.Now && c.ServiceProviderId == userid).Skip(excluderecords).Take(pagesize).ToListAsync();
-            var slist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && (c.Status == 2 || c.Status == 5) && c.ServiceStartDate >= DateTime.Now && c.ServiceProviderId == userid).ToListAsync();
+            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && (c.Status == 2 || c.Status == 5) && c.ServiceStartDate.AddHours(24) >= DateTime.Now && c.ServiceProviderId == userid).Skip(excluderecords).Take(pagesize).ToListAsync();
+            var slist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && (c.Status == 2 || c.Status == 5) && c.ServiceStartDate.AddHours(24) >= DateTime.Now && c.ServiceProviderId == userid).ToListAsync();
 
             var result = new PagedResult<ServiceRequest>
             {

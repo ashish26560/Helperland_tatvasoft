@@ -114,7 +114,8 @@ namespace Helperland.Controllers
             if (user.Password == curuser.Password)
             {
                 curuser.Password = user.NewPassword;
-
+                curuser.ModifiedDate = DateTime.Now;
+                curuser.ModifiedBy = userid;
                 await _context.SaveChangesAsync();
                 //ModelState.Clear();
 
@@ -151,6 +152,7 @@ namespace Helperland.Controllers
                 p.RatingDate = rating.RatingDate;
                 p.RatingFrom = rating.RatingFrom;
                 p.RatingTo = rating.RatingTo;
+                p.Comments = rating.Comments;
                 await _context.SaveChangesAsync();
 
             }
@@ -176,6 +178,8 @@ namespace Helperland.Controllers
             p.LastName = user.LastName;
             p.LanguageId = user.LanguageId;
             p.Mobile = user.Mobile;
+            p.ModifiedBy = userid;
+            p.ModifiedDate = DateTime.Now;
 
             if (user.Day != null && user.Month != null && user.Year != null)
             {
@@ -219,7 +223,18 @@ namespace Helperland.Controllers
 
             return PartialView("_CustomerMysettings");
         }
+        public async Task<string> GetCityName(string id)
+        {
+            var p = await _context.Zipcodes.Where(c => c.ZipcodeValue == id).FirstOrDefaultAsync();
+            if (p == null)
+            {
+                return "NotFound";
+            }
+            var q = await _context.Cities.Where(c => c.Id == p.CityId).FirstOrDefaultAsync();
+            string cityname = q.CityName;
 
+            return cityname;
+        }
         public async Task<IActionResult> Customerpage(int pagenumber = 1, int pagesize = 5)
         {
 
@@ -227,8 +242,14 @@ namespace Helperland.Controllers
 
             var userid = (int)HttpContext.Session.GetInt32("UserId");
 
-            var servicelist = await _context.ServiceRequests.Where(c => c.UserId == userid && (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).Skip(excluderecords).Take(pagesize).ToListAsync();
-            var slist = await _context.ServiceRequests.Where(c => c.UserId == userid && (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).ToListAsync();
+            var servicelist = await _context.ServiceRequests.
+                Where(c => c.UserId == userid && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).
+                Skip(excluderecords).
+                Take(pagesize).
+                ToListAsync();
+            var slist = await _context.ServiceRequests.
+                Where(c => c.UserId == userid && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).
+                ToListAsync();
 
             var result = new PagedResult<ServiceRequest>
             {

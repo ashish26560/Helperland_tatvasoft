@@ -1,0 +1,157 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model cloudscribe.Pagination.Models.PagedResult<User>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>User type</th>
+            <th>Postal code</th>
+            <th>City</th>
+            <th>User Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (User user in Model.Data)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                @if (user.UserTypeId == 1)
+                {
+                    <td>Customer</td>
+                }
+                @if (user.UserTypeId == 2)
+                {
+                    <td>Service Provider</td>
+                }
+                @if (user.UserTypeId == 3)
+                {
+                    <td>Admin</td>
+
+                }
+                <td>@user.ZipCode</td>
+                <td>@user.City</td>
+                @if (user.IsActive == true)
+                {
+                    <td class="userstatus"><a class="active" href="#">active</a></td>
+                }
+                else
+                {
+                    <td class="userstatus"><a class="inactive" href="#">inactive</a></td>
+
+                }
+
+                <td class="actions dropdown">
+                    <a data-bs-toggle="dropdown" href="#">
+                        <img src="~/assets/group-38.png" alt="">
+                    </a>
+                    <ul class="dropdown-menu">
+                        @if (user.UserTypeId == 2)
+                        {
+                            if (user.IsApproved)
+                            {
+                                <li>
+                                    <a class="dropdown-item"
+                                       data-ajax="true"
+                                       data-ajax-mode="replace"
+                                       data-ajax-failure="notfounduser"
+                                       data-ajax-update="#usrmanagetable"
+                                       asp-route-id="@user.UserId"
+                                       asp-action="ProviderApprove"
+                                       asp-controller="Admin">Un Approve</a>
+                                </li>
+                            }
+                            else
+                            {
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       data-ajax="true"
+                                       data-ajax-mode="replace"
+                                       data-ajax-failure="notfounduser"
+                                       data-ajax-update="#usrmanagetable"
+                                       asp-route-id="@user.UserId"
+                                       asp-action="ProviderApprove"
+                                       asp-controller="Admin">Approve</a>
+                                </li>
+                            }
+                        }
+                        @if (user.IsActive)
+                        {
+                            <li>
+                                <a class="dropdown-item"
+                                   data-ajax="true"
+                                   data-ajax-mode="replace"
+                                   data-ajax-failure="notfounduser"
+                                   data-ajax-update="#usrmanagetable"
+                                   asp-route-id="@user.UserId"
+                                   asp-action="UserStatus"
+                                   asp-controller="Admin">Deactivate</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="dropdown-item"
+                                   data-ajax="true"
+                                   data-ajax-mode="replace"
+                                   data-ajax-failure="notfounduser"
+                                   data-ajax-update="#usrmanagetable"
+                                   asp-route-id="@user.UserId"
+                                   asp-action="UserStatus"
+                                   asp-controller="Admin">Activate</a>
+
+                            </li>
+                        }
+                        <li><a class="dropdown-item" href="#">Service History</a></li>
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div class="row bottom">
+
+    <div class="col-auto ">
+        show
+        <select class="form-control entry" onchange="hischangepagesize()" id="hisquantity">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+        Entries total record: @Model.TotalItems
+
+    </div>
+    @*<div class="col-auto">
+            <p>
+                show
+                <input type="number" id="quantity" name="quantity" min="1" max="5">
+                Entries
+            </p>
+        </div>*@
+    <div class="end col-auto">
+        <cs-pager cs-paging-pagenumber="@Model.PageNumber"
+                  cs-paging-totalitems="@Model.TotalItems"
+                  cs-paging-pagesize="@Model.PageSize"
+                  cs-pagenumber-param="pagenumber"
+                  asp-controller="Admin"
+                  asp-action="UserManagementPage"
+                  cs-ajax-target="#usrmanagetable"></cs-pager>
+    </div>
+    @*<div class="end col-auto">
+
+            <div class="pagination">
+                <a href="#"><img src="~/assets/first-page.png" alt=""></a>
+                <a href="#"><img src="~/assets/keyboard-right-arrow-button-copy.png" alt=""></a>
+                <a href="#" class="active">1</a>
+                <a href="#"><img src="~/assets/keyboard-left-arrow-button-copy.png" alt=""></a>
+                <a href="#"><img src="~/assets/last-page.png" alt=""></a>
+            </div>
+        </div>*@
+</div>

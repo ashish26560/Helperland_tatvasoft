@@ -39,7 +39,16 @@
         </p>
         <h3 class="account-status">
             Account Status:
-            <span>Active</span>
+            @if (Model.IsActive == false)
+            {
+                <span class="alert-success">In Active</span>
+
+            }
+            @if (Model.IsActive == true)
+            {
+                <span class="alert-success" >Active</span>
+
+            }
             @if (Model.UserProfilePicture == "1")
             {
 

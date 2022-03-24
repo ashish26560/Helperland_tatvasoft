@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row titletext">
+    <div class="col-auto text">
+        User Management
+    </div>
+</div>
+<form method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-failure="notfounduser" data-ajax-update="#usrmanagetable" asp-action="SearchUserRequest" asp-controller="Admin">
+    <div class="row form">
+        <div class="alert alert-danger collapse" id="responseuser" role="alert">
+            <!--<div class="alert alert-danger collapse" id="failuremessage" role="alert">
+                <strong>The old password you entered is incorrect.</strong>-->
+            @*<button onclick="closealert()" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>*@
+            <!--</div>-->
+        </div>
+
+
+        <div class="col-auto">
+            <select class="form-select" asp-items="@ViewBag.username" name="username">
+            </select>
+        </div>
+        <div class="col-auto ">
+            <select class="form-select" name="userrole">
+                <option value="0">User Role</option>
+                <option value="1">Customer</option>
+                <option value="2">Service Provider</option>
+                <option value="3">Admin </option>
+            </select>
+        </div>
+
+
+        <!-- <div class="col-auto ">
+            <select class="form-select">
+                <option>Status</option>
+                <option>New</option>
+                <option>Cancelled</option>
+            </select>
+        </div> -->
+        <div class="col-auto date">
+            <input type="text" class="form-control" placeholder="From date " name="fromdate"
+                   onfocus="(this.type='date')">
+        </div>
+        <div class="col-auto date">
+            <input type="text" class="form-control" placeholder="To date" name="todate"
+                   onfocus="(this.type='date')">
+        </div>
+
+        <div class="col-auto">
+            <input type="tel" class="form-control" placeholder="Phone number" name="phonenumber">
+        </div>
+        <div class="col-auto">
+            <input type="number" class="form-control" placeholder="Zipcode" name="zipcode">
+        </div>
+        <div class="col-auto">
+            <button class="search" type="submit">Search</button>
+        </div>
+        <div class="col-auto">
+            <button class="clear" type="reset">Clear</button>
+        </div>
+    </div>
+</form>

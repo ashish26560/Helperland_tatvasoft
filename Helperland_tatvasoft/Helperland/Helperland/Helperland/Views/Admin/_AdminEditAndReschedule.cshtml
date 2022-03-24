@@ -1,0 +1,121 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Helperland.Models;
+@model ServiceRequestDetails
+@{
+    var serviceDateTime = Model.Service.ServiceStartDate;
+    var starttime = serviceDateTime.ToString("t");
+}
+<div class="modal fade show popup" id="edit-and-reschedule" tabindex="-1" role="dialog" style="display:block">
+    <div class="vertical-align-helper">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title">Edit Service Request</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                        <img src="~/assets/close.png" alt="">
+                    </button>
+                    <form method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-failure="notfound" data-ajax-update="#servreqtable" asp-action="UpdateServiceDetails" asp-controller="Admin">
+                        <div class="alert alert-danger collapse" id="invalidpostalcode" role="alert">
+                            <strong>The PostalCode you entered is invalid.</strong>
+                            @*<button onclick="closealert()" type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>*@
+                        </div>
+
+                        <input type="hidden" asp-for="Service.ServiceRequestId">
+                        <div class="row">
+                            <div class="col-sm-6 calculator-date-time edit-date in-modal">
+                                <div class="form-group">
+                                    <label class="control-label">Date</label>
+                                    <div class="input-wrapper">
+                                        <img alt="Calendar" src="~/assets/calendar (1).png">
+                                        <input class="form-control" asp-for="Service.ServiceStartDate" type="date" placeholder="DD/MM/YYYY">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Time</label>
+                                    <select class="form-control" asp-for="Service.StartTime">
+                                        <option value="08:00">8:00</option>
+                                        <option value="08:30">8:30</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="9:30">9:30</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="10:30">10:30</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="11:30">11:30</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="12:30">12:30</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="13:30">13:30</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="14:30">14:30</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="15:30">15:30</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="16:30">16:30</option>
+                                        <option value="17:00">17:00</option>
+                                        <option value="17:30">17:30</option>
+                                        <option value="18:00">18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="control-label">Service Address</label>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label normal">Street name</label>
+                                    <input class="form-control" asp-for="ServiceAddress.AddressLine2" type="text">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label normal">House number</label>
+                                    <input class="form-control" asp-for="ServiceAddress.AddressLine1" type="text">
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label normal">Postal code</label>
+                                    <input class="form-control" asp-for="ServiceAddress.PostalCode" onchange="getcityname()" id="postalcode" type="text">
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label normal">City</label>
+
+                                    <select class="form-control" asp-for="ServiceAddress.City" id="selectcity" >
+                                        <option value="Ahmedabad">Ahmedabad</option>
+                                        <option value="Surat">Surat</option>
+                                        <option value="Junagadh">Junagadh</option>
+                                        <option value="Porbandar">Porbandar</option>
+                                        <option value="Bonn">Bonn</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Why do you want to reschedule service request?</label>
+                            <textarea class="form-control" asp-for="Service.Comments" rows="3" placeholder="Why do you want to reschedule service request?"></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

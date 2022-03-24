@@ -220,7 +220,50 @@
         </script>
     }
     <script>
+        function getcityname() {
+            var id = $("#postalcode").val();
+            $.ajax({
+                url: "/User/GetCityName",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    if (response == "NotFound") {
+                        $("#invalidpostalcode").show('fade');
+                        $("#invalidpostalcode").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#invalidpostalcode").slideUp(500);
+                        });
+                    } else {
 
+                        $("#selectcity").html("");
+                        $("#selectcity").html('<option value="' + response + '" selected>' + response + '</option>');
+
+                    }
+                }
+            });
+        }
+        function newgetcityname() {
+            var id = $("#newpostalcode").val();
+            $.ajax({
+                url: "/User/GetCityName",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "id": id },
+                success: function (response) {
+                    if (response == "NotFound") {
+                        $("#newinvalidpostalcode").show('fade');
+                        $("#newinvalidpostalcode").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#newinvalidpostalcode").slideUp(500);
+                        });
+                    } else {
+
+                        $("#newselectcity").html("");
+                        $("#newselectcity").html('<option value="' + response + '" selected>' + response + '</option>');
+
+                    }
+                }
+            });
+        }
 
         function dashchangepagesize() {
             var pagesize = $("#quantity").val();

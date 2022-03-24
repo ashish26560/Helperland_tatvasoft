@@ -41,7 +41,7 @@
 
             <tbody>
                 <tr>
-                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)" class="serviceid">@serviceRequest.ServiceRequestId</td>
+                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)"class="serviceid">@serviceRequest.ServiceRequestId</td>
                     <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)">
                         <ul class="servicedate">
                             <li class="date">@startdate</li>
@@ -49,29 +49,33 @@
                         </ul>
                     </td>
                     <td>
-                        <div class="row cap-1">
-                            <div class="col-auto cap-2">
-                                <img src="~/assets/cap.png" alt="" class="cap-customer-history">
-                            </div>
-                            <div class="col-auto cap-3">
-                                @serviceRequest.ServiceProviderName
-                                <br>
-                                @{
-                                    int totalstars = Convert.ToInt32(serviceRequest.ratings);
-                                    int stars = 5 - totalstars;
-                                    for (int i = 1; i <= totalstars; i++)
-                                    {
-                                        <img src="~/assets/yellow-small-star.png" alt="">
-                                    }
-                                    for (int j = 1; j <= stars; j++)
-                                    {
+                        @if (serviceRequest.ServiceProviderName != null)
+                        {
 
-                                        <img src="~/assets/star2.png" alt="">
+                            <div class="row cap-1">
+                                <div class="col-auto cap-2">
+                                    <img src="~/assets/cap.png" alt="" class="cap-customer-history">
+                                </div>
+                                <div class="col-auto cap-3">
+                                    @serviceRequest.ServiceProviderName
+                                    <br>
+                                    @{
+                                        int totalstars = Convert.ToInt32(serviceRequest.ratings);
+                                        int stars = 5 - totalstars;
+                                        for (int i = 1; i <= totalstars; i++)
+                                        {
+                                            <img src="~/assets/yellow-small-star.png" alt="">
+                                        }
+                                        for (int j = 1; j <= stars; j++)
+                                        {
+
+                                            <img src="~/assets/star2.png" alt="">
+                                        }
+                                        @totalstars
                                     }
-                                    @totalstars
-                                }
+                                </div>
                             </div>
-                        </div>
+                        }
                     </td>
                     <td class="payment">@serviceRequest.TotalCost €</td>
 
@@ -146,11 +150,11 @@
 <div class="row bottom">
 
     <div class="col-auto ">
-            show<select class="form-control entry" value="@Model.PageSize"  onchange="hischangepagesize()" id="hisquantity" >
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-            </select>Entries total record: @Model.TotalItems
+        show<select class="form-control entry" value="@Model.PageSize" onchange="hischangepagesize()" id="hisquantity">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>Entries total record: @Model.TotalItems
     </div>
     <div class="end col-auto">
 

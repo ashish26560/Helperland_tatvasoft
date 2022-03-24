@@ -69,7 +69,7 @@ namespace Helperland.Controllers
                 SendEmail(getUser.Email, body, subject);
 
                 TempData["ForgetPositive"] = "Reset password link has been sent to your email id.";
-                TempData["Modal"] ="#forget-popup";
+                TempData["Modal"] = "#forget-popup";
 
                 return View("Index");
             }
@@ -95,7 +95,7 @@ namespace Helperland.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(User user)
         {
-          
+
             var p = _context.Users.Where(c => c.Email == user.Email && c.Password == user.Password).FirstOrDefault();
             if (p != null)
             {
@@ -116,6 +116,12 @@ namespace Helperland.Controllers
                     HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
                     return RedirectToAction("ServiceProvider", "ServiceProvider");
                 }
+                else if (p.UserTypeId == 3)
+                {
+
+                    HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
+                    return RedirectToAction("Admin", "Admin");
+                }
                 else
                 {
                     return View("Index");
@@ -125,7 +131,7 @@ namespace Helperland.Controllers
             {
                 //ViewBag.loginMessage = "Email or password entered is invalid";
 
-                TempData["LoginMessage"]= "Email or password entered is invalid";
+                TempData["LoginMessage"] = "Email or password entered is invalid";
                 TempData["Modal"] = "#login-popup";
 
                 return View("Index");
@@ -137,8 +143,29 @@ namespace Helperland.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(User user)
         {
-           
-            return View(user);
+            //ContactU contact = new ContactU
+            //{
+            //    CreatedOn = DateTime.Now
+            //};
+            //contactU.CreatedOn= contact.CreatedOn;    
+            //IQueryable<bool> = select exists(select * from User where Email='" + Email + "' and password='" + Password + "');
+            //IEnumerable<User> query= from emp in objHelperlandContext.Users
+            //                         where emp.Email == email
+            //                         And emp.Password == password;
+
+
+            user.UserTypeId = 1;
+            user.IsActive=true;
+            user.CreatedDate = DateTime.Now;
+            user.ModifiedDate = DateTime.Now;
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            // Int64 id = objEmployee.EmployeeID;
+            ModelState.Clear();
+
+
+            return View("Index");
         }
 
         private void SendEmail(string emailAddress, string body, string subject)
@@ -204,7 +231,7 @@ namespace Helperland.Controllers
                         //make resetpasswordcode empty string now
                         user.ResetPasswordCode = "";
                         //to avoid validation issues, disable it
-                      //  ObjHelperlandContext.Configuration.ValidateOnSaveEnabled = false;
+                        //  ObjHelperlandContext.Configuration.ValidateOnSaveEnabled = false;
                         ObjHelperlandContext.SaveChanges();
                         message = "New password updated successfully";
                     }
@@ -226,34 +253,31 @@ namespace Helperland.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Becomeprovider(User user)
         {
-            if (ModelState.IsValid)
-            {
-                using (HelperlandContext objHelperlandContext = new HelperlandContext())
-                {
-                    //ContactU contact = new ContactU
-                    //{
-                    //    CreatedOn = DateTime.Now
-                    //};
-                    //contactU.CreatedOn= contact.CreatedOn;    
-                    //IQueryable<bool> = select exists(select * from User where Email='" + Email + "' and password='" + Password + "');
-                    //IEnumerable<User> query= from emp in objHelperlandContext.Users
-                    //                         where emp.Email == email
-                    //                         And emp.Password == password;
+
+            //ContactU contact = new ContactU
+            //{
+            //    CreatedOn = DateTime.Now
+            //};
+            //contactU.CreatedOn= contact.CreatedOn;    
+            //IQueryable<bool> = select exists(select * from User where Email='" + Email + "' and password='" + Password + "');
+            //IEnumerable<User> query= from emp in objHelperlandContext.Users
+            //                         where emp.Email == email
+            //                         And emp.Password == password;
 
 
-                    user.UserTypeId = 2;
-                    user.CreatedDate = DateTime.Now; 
-                    user.ModifiedDate = DateTime.Now;
+            user.UserTypeId = 2;
+            user.CreatedDate = DateTime.Now;
+            user.ModifiedDate = DateTime.Now;
 
-                    objHelperlandContext.Users.Add(user);
-                    objHelperlandContext.SaveChanges();
-                    // Int64 id = objEmployee.EmployeeID;
-                    ModelState.Clear();
-                }
-                // return View(objEmployee);
+            user.IsActive = true;
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            // Int64 id = objEmployee.EmployeeID;
+            ModelState.Clear();
+            // return View(objEmployee);
 
-            }
-            return View();
+
+            return View("Index");
         }
 
 
