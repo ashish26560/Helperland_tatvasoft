@@ -43,7 +43,7 @@
                         <a class="nav-link" id="tabserviceschedule" data-bs-toggle="tab" href="#serviceschedule">Service Schedule</a>
                     </li>*@
                 <li class="nav-item">
-                    <a class="nav-link" id="tabfavouritepros" data-bs-toggle="tab" href="#favouritepros">Favourite pros</a>
+                    <a class="nav-link" id="tabfavouritepros" data-bs-toggle="tab" onclick="loadfavouritepros()" href="#favouritepros">Favourite pros</a>
                 </li>
                 <li class="nav-item d-none">
                     <a class="nav-link" id="tabmysettings" data-bs-toggle="tab" onclick="loadmysettings()" href="#mysetting">My Settings</a>
@@ -66,72 +66,6 @@
                     @*<partial name="_CustomerServiceHistory" />*@
                 </div>
                 <div id="favouritepros" class="container tab-pane fade">
-                    <table class="table">
-                        <thead class="table-success">
-                            <tr>
-                                <th>Service ID</th>
-                                <th>Service date </th>
-                                <th>Customer details</th>
-                                <th>Distance</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="serviceid">32346</td>
-                                <td>
-                                    <ul class="servicedate">
-                                        <li class="date">09/04/2018</li>
-                                        <li class="time">12:00-18:00</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    David Bough
-                                    <ul class="customerdetails">
-                                        <li class="address">Musterstrabe 5,12345 bonn</li>
-                                    </ul>
-                                </td>
-                                <td class="distance">15km</td>
-                                <td class="actions"><a class="btn" href="#">cancel</a></td>
-                            </tr>
-                            <tr>
-                                <td class="serviceid">32346</td>
-                                <td>
-                                    <ul class="servicedate">
-                                        <li class="date">09/04/2018</li>
-                                        <li class="time">12:00-18:00</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    David Bough
-                                    <ul class="customerdetails">
-                                        <li class="address">Musterstrabe 5,12345 bonn</li>
-                                    </ul>
-                                </td>
-                                <td class="distance">15km</td>
-                                <td class="actions"><a class="btn" href="#">cancel</a></td>
-                            </tr>
-                            <tr>
-                                <td class="serviceid">32346</td>
-                                <td>
-                                    <ul class="servicedate">
-                                        <li class="date">09/04/2018</li>
-                                        <li class="time">12:00-18:00</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    David Bough
-                                    <ul class="customerdetails">
-                                        <li class="address">Musterstrabe 5,12345 bonn</li>
-                                    </ul>
-                                </td>
-                                <td class="distance">15km</td>
-                                <td class="actions"><a class="btn" href="#">cancel</a></td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
                 </div>
                 <div id="mysetting" class="container tab-pane fade">
 
@@ -180,7 +114,7 @@
             <script>
                 $(document).ready(function () {
 
-                    loadmysettings();
+                    loadfavouritepros();
 
                 });
             </script>
@@ -273,7 +207,14 @@
                 contenttype: 'application/json',
                 data: { "pagesize": pagesize },
                 success: function (response) {
+
+                    debugger
                     $("#dashboard").html(response);
+                    $("#quantity option").each(function () {
+                        if ($(this).val() == pagesize ) {
+                            $(this).prop("selected", true);
+                        }
+                    });
                 }
             });
 
@@ -287,6 +228,12 @@
                 data: { "pagesize": pagesize },
                 success: function (response) {
                     $("#servicehistory").html(response);
+
+                    $("#hisquantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
                 }
             });
 
@@ -318,6 +265,20 @@
             $("#tabdashboard").addClass("active");
             $("#tabservicehistory").removeClass("active");
             $("#tabfavouritepros").removeClass("active");
+            $("#tabmysettings").removeClass("active");
+        }
+        function loadfavouritepros() {
+
+            $("#favouritepros").load("@Url.Action("FavouritePros", "User")");
+            $(".tab-content div").removeClass("show");
+            $(".tab-content div").removeClass("active");
+            $("#favouritepros").addClass("active");
+            $("#favouritepros").addClass("show");
+
+
+            $("#tabdashboard").removeClass("active");
+            $("#tabservicehistory").removeClass("active");
+            $("#tabfavouritepros").addClass("active");
             $("#tabmysettings").removeClass("active");
         }
         function getmydetails() {
@@ -476,6 +437,20 @@
             $("#updatefail").fadeTo(2000, 500).slideUp(500, function () {
                 $("#updatefail").slideUp(500);
             });
+
+        }
+        function errorresch(data) {
+            var temp = JSON.parse(data.responseText);
+            $("#rescherror").html(temp.message);
+
+            $("#rescherror").show('fade');
+            $("#rescherror").fadeTo(2000, 1000).slideUp(1000, function () {
+                $("#rescherror").slideUp(2000);
+            });
+        }
+        function successresch() {
+            $("#reschedule").modal("hide");
+            loaddashboard();
 
         }
     </script>

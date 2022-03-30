@@ -65,21 +65,21 @@
                                 <div class="form-group">
                                     <label class="control-label">Street name</label>
                                     <input class="form-control ng-invalid" asp-for="AddressLine2" formcontrolname="AddressLine2" maxlength="100" name="AddressLine2" type="text" placeholder="Street name">
-                                    <!---->
+                                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">House number</label>
                                     <input class="form-control ng-invalid" asp-for="AddressLine1" formcontrolname="AddressLine1" maxlength="100" name="AddressLine1" type="text" placeholder="House number">
-                                    <!---->
+                                    <span asp-validation-for="AddressLine1" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">Postal code</label>
                                     <input class="form-control ng-invalid" asp-for="PostalCode" onchange="getcityname()" id="postalcode" formcontrolname="PostalCode" maxlength="20" name="PostalCode" type="text" placeholder="Postal code">
-                                    <!---->
+                                    <span asp-validation-for="PostalCode" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -102,6 +102,7 @@
                                         <span class="input-group-addon">+49</span>
                                         <input class="form-control ng-invalid" asp-for="Mobile" formcontrolname="Mobile" maxlength="20" name="Mobile" type="text" placeholder="Phone number">
                                     </div>
+                                    <span asp-validation-for="Mobile" class="text-danger"></span>
                                     <!---->
                                 </div>
                             </div>
@@ -115,3 +116,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#edit-address-modal form").data("validator", null);
+        $.validator.unobtrusive.parse("#edit-address-modal form");
+
+    });
+</script>

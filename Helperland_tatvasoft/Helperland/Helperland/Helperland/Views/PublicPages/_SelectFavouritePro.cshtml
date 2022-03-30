@@ -1,0 +1,97 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<User>
+@{
+    int i = 0;
+}
+<div class="row favourite-pro-wrapper" style="overflow: hidden;">
+
+    <div class="header-title">Your Favourite Service Providers.</div>
+
+    <hr class="hr">
+
+    @if (Model == null)
+    {
+        <div class="title-text">You have not selected any favourite provider.</div>
+    }
+    else
+    {
+
+        <div class="title-text">You can choose your favourite provider from below list.</div>
+        @foreach (User user in Model)
+        {
+            if (user != null)
+            {
+
+                <div class="col-sm-4">
+                    <div class="favourite-pro">
+                        @if (user.UserProfilePicture == null)
+                        {
+                            <img src="~/assets/avatar-hat.png" alt="cust1 cust1">
+                        }
+                        @if (user.UserProfilePicture == "1")
+                        {
+
+                            <img class="avatar active" src="~/assets/avatar-car.png">
+                        }
+                        @if (user.UserProfilePicture == "2")
+                        {
+
+                            <img class="avatar" src="~/assets/avatar-female.png">
+                        }
+                        @if (user.UserProfilePicture == "3")
+                        {
+
+                            <img class="avatar" src="~/assets/avatar-hat.png">
+                        }
+                        @if (user.UserProfilePicture == "4")
+                        {
+
+                            <img class="avatar" src="~/assets/avatar-iron.png">
+                        }
+                        @if (user.UserProfilePicture == "5")
+                        {
+
+                            <img class="avatar" src="~/assets/avatar-male.png">
+                        }
+                        @if (user.UserProfilePicture == "6")
+                        {
+
+                            <img class="avatar" src="~/assets/avatar-ship.png">
+                        }
+                        <div class="sp-details">
+                            <span class="name">@user.FirstName @user.LastName</span>
+                        </div>
+                        <div class="buttons">
+
+
+
+                            @*<a type="radio" class="btn  btn-primary"
+                                   data-ajax="true"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#favouriteprovider"
+                                   asp-route-id="@user.UserId"
+                                   asp-action="SelectFavPro"
+                                   asp-controller="PublicPages" title="Select">
+                                    Select
+                                </a>*@
+
+                            @*<label >*@
+                            <input type="radio" class="btn-check" id="favpro-@i" value="@user.UserId" name="favpro">
+                            @*</label>*@
+                            <label class="btn btn-primary" for="favpro-@i"> Select</label>
+                            @*<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined">Single toggle</label><br>*@
+                        </div>
+
+
+                    </div>
+                </div>
+            }
+
+            i = i + 1;
+        }
+    }
+
+</div>

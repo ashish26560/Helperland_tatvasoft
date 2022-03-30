@@ -68,10 +68,13 @@
                     <div id="setservice" class="container tab-pane active">
                         <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-failure="Showalert()" data-ajax-success="tabonepass()" data-ajax-url="/PublicPages/CheckPostalCode">
 
-                            <div class="alert alert-danger d-none" id="ziperror" role="alert">
-                                “We are not providing service in this area. We’ll notify you if any helper would start working near your area.”s
-                            </div>
 
+                            <div class="alert alert-danger collapse" id="ziperror" role="alert">
+                                <strong>
+                                    “We are not providing service in this area. We’ll notify you if any helper would start working near your area.”
+                                </strong>
+
+                            </div>
 
                             <div class=" row zip ">
                                 <span class="title">Enter your Postal Code</span>
@@ -103,7 +106,18 @@
                             @*Div to update content after Ajax Call*@
 
                         </div>
-                        <partial name="_YourDetails">
+                        <div id="addaddressdiv">
+
+                        </div>
+                        <div id="favouriteprovider">
+
+                        </div>
+
+                        <hr class="hr">
+                        <div class="text-right">
+                            <input type="button" id="sendaddress" class="btn continuebtn btn-primary btn-lg" value="Continue">
+                        </div>
+                        @*<partial name="_YourDetails">*@
                     </div>
                     <div id="makepayment" class="container tab-pane ">
 
@@ -145,7 +159,6 @@
                             </div>
 
                         </div>
-                        <hr class="hr">
 
 
 
@@ -392,7 +405,6 @@
 @section Script{
     <script type="text/javascript">
     function successmodal() {
-        debugger
         $.ajax({
             url: "/PublicPages/Booksuccess",
             contenttype: 'application/json',
@@ -408,7 +420,14 @@
     var totalprice = 0;
     var percleaning = 25;
     //$('#Tab3Click').on('click', function (e)
-    $(document).ready(function () {
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            $('#servicestartdate').attr('min', today);
         $("#servicestartdate").change(function () {
             var date = $("#servicestartdate").val();
             var dataArray = date.split("-");
@@ -445,7 +464,10 @@
     });
 
     function Showalert() {
-        $("#ziperror").removeClass("d-none");
+        $("#ziperror").show('fade');
+        $("#ziperror").fadeTo(2000, 500).slideUp(500, function () {
+            $("#ziperror").slideUp(500);
+        });
     }
 
     function Addhours() {
@@ -533,6 +555,8 @@
     function Tab3Click(){
 
         $("#UpdateContentDiv").load("@Url.Action("UserAddress", "PublicPages")");
+        $("#addaddressdiv").load("@Url.Action("LoadYourDetails", "PublicPages")");
+        $("#favouriteprovider").load("@Url.Action("LoadFavouritePro", "PublicPages")");
     }
     function tabthreeclick() {
         $("#tab4").removeClass("active");
@@ -589,19 +613,21 @@
     //    $("#datepicker").datepicker();
     //});
 
-    $('#SendAddress').on('click', function ()  {
+        $('#sendaddress').on('click', function () {
        //$("input[type='button']").click(function () {
             var radioValue = $("input[name='address']:checked").val();
+            var favid = $("input[name='favpro']:checked").val();
             if (radioValue) {
                 /*alert("Your are a - " + radioValue);*/
-
+                debugger
                 $.ajax({
                     url: "/publicpages/sendaddress",
                     type: 'POST',
                     contenttype: 'application/json',
-                    data: { "radioValue": radioValue },
-                    success: function tabthreepass() {
 
+                    data: { "radioValue": radioValue, "favid": favid},
+                    success: function tabthreepass() {
+                        debugger
                         $("#tab4").removeClass("disabled");
                             $("#tab3").removeClass("active");
                             $("#tab3").addClass("activated");

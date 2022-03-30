@@ -88,6 +88,8 @@ namespace Helperland.Controllers
         {
             HttpContext.Session.Clear();
 
+            HttpContext.Session.SetString("IsLoggedIn", false.ToString());
+
             return RedirectToAction("Index", "Home");
 
         }
@@ -101,31 +103,65 @@ namespace Helperland.Controllers
             {
                 var name = p.FirstName + " " + p.LastName;
                 ViewBag.Name = name;
-                HttpContext.Session.SetString("IsLoggedIn", "true");
-                HttpContext.Session.SetString("Name", name);
-                HttpContext.Session.SetInt32("UserId", p.UserId);
+
                 if (p.UserTypeId == 1)
                 {
+                    if (p.IsActive == true)
+                    {
+                        HttpContext.Session.SetString("IsLoggedIn", "true");
+                        HttpContext.Session.SetString("Name", name);
+                        HttpContext.Session.SetInt32("UserId", p.UserId);
+                        HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
+                        return RedirectToAction("Customer", "User");
 
-                    HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
-                    return RedirectToAction("Customer", "User");
+                    }
+                    else
+                    {
+                        TempData["LoginMessage"] = "Your Account is Deactivated by Admin.";
+                        TempData["Modal"] = "#login-popup";
+
+                        return View("Index");
+                    }
+
                 }
-                else if (p.UserTypeId == 2)
+                if (p.UserTypeId == 2)
                 {
+                    if (p.IsActive == true && p.IsApproved == true)
+                    {
+                        HttpContext.Session.SetString("IsLoggedIn", "true");
+                        HttpContext.Session.SetString("Name", name);
+                        HttpContext.Session.SetInt32("UserId", p.UserId);
+                        HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
+                        return RedirectToAction("ServiceProvider", "ServiceProvider");
+                    }
 
-                    HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
-                    return RedirectToAction("ServiceProvider", "ServiceProvider");
+                    if (p.IsActive == false)
+                    {
+                        TempData["LoginMessage"] = "Your Account is Deactivated by Admin.";
+                        TempData["Modal"] = "#login-popup";
+                        return View("Index");
+
+                    }
+                    if (p.IsApproved == false)
+                    {
+
+                        TempData["LoginMessage"] = "Your Account is not approved by Admin.";
+                        TempData["Modal"] = "#login-popup";
+
+                        return View("Index");
+                    }
+
                 }
-                else if (p.UserTypeId == 3)
+                if (p.UserTypeId == 3)
                 {
-
+                    HttpContext.Session.SetString("IsLoggedIn", "true");
+                    HttpContext.Session.SetString("Name", name);
+                    HttpContext.Session.SetInt32("UserId", p.UserId);
                     HttpContext.Session.SetString("UserTypeId", p.UserTypeId.ToString());
                     return RedirectToAction("Admin", "Admin");
                 }
-                else
-                {
-                    return View("Index");
-                }
+                return View("Index");
+
             }
             else
             {
@@ -155,7 +191,7 @@ namespace Helperland.Controllers
 
 
             user.UserTypeId = 1;
-            user.IsActive=true;
+            user.IsActive = true;
             user.CreatedDate = DateTime.Now;
             user.ModifiedDate = DateTime.Now;
 

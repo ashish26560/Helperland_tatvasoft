@@ -2,6 +2,15 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+<div id="accepterror" class="alert alert-danger collapse" role="alert">
+
+    @*Another service request has been assigned to the service provider on
+
+
+        @sdate from @stime to @etime.
+        Either choose another date or pick up a different time slot.*@
+
+</div>
 <table class="table">
     <thead class="table-success">
         <tr>
@@ -16,6 +25,7 @@
     @if (Model != null)
     {
         <tbody>
+
 
             @foreach (ServiceRequest serviceRequest in Model.Data)
             {

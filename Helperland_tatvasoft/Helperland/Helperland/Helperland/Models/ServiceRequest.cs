@@ -25,6 +25,7 @@ namespace Helperland.Models
         [NotMapped]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "Please select Service Date ")]
         public DateTime StartDate { get; set; }
 
         [NotMapped]
@@ -48,6 +49,8 @@ namespace Helperland.Models
         public decimal? ratings { get; set; }
         [NotMapped]
         public string UserProfilePicture { get; set; }
+
+        [Required(ErrorMessage = "Please select Service Date ")]
         public DateTime ServiceStartDate { get; set; }
         public string ZipCode { get; set; }
         public decimal? ServiceHourlyRate { get; set; }

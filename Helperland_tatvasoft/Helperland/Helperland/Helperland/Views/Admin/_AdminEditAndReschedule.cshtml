@@ -32,7 +32,7 @@
                                     <label class="control-label">Date</label>
                                     <div class="input-wrapper">
                                         <img alt="Calendar" src="~/assets/calendar (1).png">
-                                        <input class="form-control" asp-for="Service.ServiceStartDate" type="date" placeholder="DD/MM/YYYY">
+                                        <input class="form-control" id="servicestartdate" asp-for="Service.ServiceStartDate" type="date" placeholder="DD/MM/YYYY">
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label class="control-label normal">City</label>
 
-                                    <select class="form-control" asp-for="ServiceAddress.City" id="selectcity" >
+                                    <select class="form-control" asp-for="ServiceAddress.City" id="selectcity">
                                         <option value="Ahmedabad">Ahmedabad</option>
                                         <option value="Surat">Surat</option>
                                         <option value="Junagadh">Junagadh</option>
@@ -119,3 +119,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#servicestartdate').attr('min', today);
+    });
+</script>

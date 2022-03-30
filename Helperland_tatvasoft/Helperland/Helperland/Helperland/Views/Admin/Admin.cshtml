@@ -149,6 +149,80 @@
                 });
             }
         }
+        function usrmanagpagesize() {
+            var pagesize = $("#usrmanagquantity").val();
+            $.ajax({
+                url: "/Admin/UserManagementPage",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+
+                    debugger
+                    $("#usrmanagetable").html(response);
+                    $("#usrmanagquantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
+                }
+            });
+
+        }
+        function servreqpagesize() {
+            var pagesize = $("#servreqquantity").val();
+            $.ajax({
+                url: "/Admin/ServiceRequestPage",
+                type: 'POST',
+                contenttype: 'application/json',
+                data: { "pagesize": pagesize },
+                success: function (response) {
+
+                    debugger
+                    $("#servreqtable").html(response);
+                    $("#servreqquantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
+                }
+            });
+
+        }
+        function checkvalidation() {
+            var fromdate = $("#fromdate").val();
+            var todate = $("#todate").val();
+            if (todate < fromdate) {
+
+                $("#response").html("Fromdate should be less than ToDate");
+
+                $("#response").show('fade');
+                $("#response").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#response").slideUp(500);
+                });
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        function checkvalidationusr() {
+            var fromdate = $("#usrfromdate").val();
+            var todate = $("#usrtodate").val();
+            if (todate < fromdate) {
+
+                $("#responseuser").html("Fromdate should be less than ToDate");
+
+                $("#responseuser").show('fade');
+                $("#responseuser").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#responseuser").slideUp(500);
+                });
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
         function notfound(data) {
             var temp = JSON.parse(data.responseText);
             $("#response").html(temp.message);

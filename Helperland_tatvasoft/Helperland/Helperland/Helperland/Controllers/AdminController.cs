@@ -10,6 +10,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -27,12 +29,74 @@ namespace Helperland.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Export()
+        {
+            int pagenumber = (int)HttpContext.Session.GetInt32("pagenumber");
+            int pagesize = (int)HttpContext.Session.GetInt32("pagesize");
+
+            int excluderecords = (pagenumber * pagesize) - pagesize;
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && c.Status == 3 && c.ServiceProviderId == userid).Skip(excluderecords).Take(pagesize).ToListAsync();
+            foreach (ServiceRequest service in servicelist)
+            {
+                var serviceproviderdetails = await _context.Users.Where(c => c.UserId == service.UserId).FirstOrDefaultAsync();
+
+                service.ServiceProviderName = serviceproviderdetails.FirstName + " " + serviceproviderdetails.LastName;
+
+                var temp = await _context.ServiceRequestAddresses.Where(c => c.ServiceRequestId == service.ServiceRequestId).FirstOrDefaultAsync();
+
+                service.ServiceAddress += temp.AddressLine1 + ", ";
+                service.ServiceAddress += temp.AddressLine2 + ", ";
+                service.ServiceAddress += temp.City;
+            }
+            var builder = new StringBuilder();
+            builder.AppendLine("Service ID,Service date,Customer Details");
+            foreach (var item in servicelist)
+            {
+                builder.AppendLine($"{item.ServiceRequestId},{item.ServiceStartDate},{item.ServiceProviderName}");
+            }
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "Servicehistory.csv");
+        }
         public async Task<IActionResult> CancelRequest(int id)
         {
             var servicerequest = await _context.ServiceRequests.Where(c => c.ServiceRequestId == id).FirstOrDefaultAsync();
             servicerequest.Status = 4;
+
+            var serviceprovider = await _context.Users.Where(c => c.UserId == servicerequest.ServiceProviderId).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(c => c.UserId == servicerequest.UserId).FirstOrDefaultAsync();
+            if (servicerequest.ServiceProviderId != null)
+            {
+                string bodycust = "Hi " + user.FirstName + ", <br/><br/> Service request " + servicerequest.ServiceRequestId +
+                    ": is cancelled by a Admin.<br/><br/> Thank you";
+                string csubject = "ServiceRequest is cancelled.";
+                string bodyprov = "Hi " + serviceprovider.FirstName + ", <br/><br/> Service request " + servicerequest.ServiceRequestId +
+                    ": is cancelled by a Admin.<br/><br/> Thank you";
+                SendEmail(user.Email, bodycust, csubject);
+                SendEmail(serviceprovider.Email, bodyprov, csubject);
+            }
+
             await _context.SaveChangesAsync();
             return ServiceRequestPage();
+        }
+
+        private void SendEmail(string emailAddress, string body, string subject)
+        {
+            using MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", emailAddress);
+            mm.Subject = subject;
+            mm.Body = body;
+
+            mm.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                EnableSsl = true
+            };
+            NetworkCredential NetworkCred = new NetworkCredential("ashish.chauhan93133@gmail.com", "FeelFree@2389");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
         }
         public async Task<IActionResult> ProviderApprove(int id)
         {
@@ -70,6 +134,7 @@ namespace Helperland.Controllers
             var servicerequest = await _context.ServiceRequests.Where(c => c.ServiceRequestId == id).FirstOrDefaultAsync();
             var serviceaddress = await _context.ServiceRequestAddresses.Where(c => c.ServiceRequestId == id).FirstOrDefaultAsync();
 
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
             string date = serviceRequestDetails.Service.ServiceStartDate.ToString("yyyy-MM-dd");
             string time = serviceRequestDetails.Service.StartTime.ToString("HH:mm:ss");
             DateTime startDateTime = Convert.ToDateTime(date).Add(TimeSpan.Parse(time));
@@ -77,12 +142,45 @@ namespace Helperland.Controllers
             serviceRequestDetails.Service.ServiceStartDate = startDateTime;
             servicerequest.ServiceStartDate = serviceRequestDetails.Service.ServiceStartDate;
             servicerequest.Comments = serviceRequestDetails.Service.Comments;
+            servicerequest.Status = 5;
+            servicerequest.ModifiedDate = DateTime.Now;
+            servicerequest.ModifiedBy = userid;
 
             serviceaddress.AddressLine1 = serviceRequestDetails.ServiceAddress.AddressLine1;
             serviceaddress.AddressLine2 = serviceRequestDetails.ServiceAddress.AddressLine2;
             serviceaddress.City = serviceRequestDetails.ServiceAddress.City;
             serviceaddress.PostalCode = serviceRequestDetails.ServiceAddress.PostalCode;
+
             await _context.SaveChangesAsync();
+
+
+            var serviceprovider = await _context.Users.Where(c => c.UserId == servicerequest.ServiceProviderId).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(c => c.UserId == servicerequest.UserId).FirstOrDefaultAsync();
+
+            string bodycust = "Hi " + user.FirstName + ", <br/><br/> Service request " + servicerequest.ServiceRequestId +
+                ": is rescheduled by a Admin.<br/><br/>the details modified are as below:<br/>Rescheduled Date :" + date +
+                "<br/> Rescheduled Start time :" + time +
+                "<br/>Comment :" + servicerequest.Comments +
+                "<br/><br/>AddressLine1 :" + serviceaddress.AddressLine1 +
+                "<br/>AddressLine2 :" + serviceaddress.AddressLine2 +
+                "<br/>City :" + serviceaddress.City +
+                "<br/>PostalCode :" + serviceaddress.PostalCode +
+                "<br/><br/> Thank you";
+            string csubject = "ServiceRequest is rescheduled.";
+
+            string bodyprov = "Hi " + serviceprovider.FirstName + ", <br/><br/> Service request " + servicerequest.ServiceRequestId +
+                     ": is rescheduled by a Admin.<br/><br/>the details modified are as below:<br/>Rescheduled Date :" + date +
+                "<br/> Rescheduled Start time :" + time +
+                "<br/>Comment :" + servicerequest.Comments +
+                "<br/><br/>AddressLine1 :" + serviceaddress.AddressLine1 +
+                "<br/>AddressLine2 :" + serviceaddress.AddressLine2 +
+                "<br/>City :" + serviceaddress.City +
+                "<br/>PostalCode :" + serviceaddress.PostalCode +
+                "<br/><br/> Thank you";
+
+            SendEmail(user.Email, bodycust, csubject);
+            SendEmail(serviceprovider.Email, bodyprov, csubject);
+
             return ServiceRequestPage();
         }
         public async Task<string> GetCityName(string id)
@@ -106,6 +204,7 @@ namespace Helperland.Controllers
 
             servicedetails.Service = servicerequest;
             servicedetails.ServiceAddress = serviceaddress;
+
 
             return PartialView("_AdminEditAndReschedule", servicedetails);
         }
@@ -174,6 +273,8 @@ namespace Helperland.Controllers
         {
             List<ServiceRequest> slist = new List<ServiceRequest>();
             var result = new PagedResult<ServiceRequest>();
+            HttpContext.Session.SetInt32("pagenumber", pagenumber);
+            HttpContext.Session.SetInt32("pagesize", pagesize);
             int excluderecords = (pagenumber * pagesize) - pagesize;
             var services = _context.ServiceRequests.ToList();
 
@@ -341,6 +442,9 @@ namespace Helperland.Controllers
         public IActionResult UserManagementPage(int pagenumber = 1, int pagesize = 5)
         {
 
+            HttpContext.Session.SetInt32("pagenumber", pagenumber);
+            HttpContext.Session.SetInt32("pagesize", pagesize);
+
             int excluderecords = (pagenumber * pagesize) - pagesize;
             var users = _context.Users.
                    ToList();
@@ -376,8 +480,10 @@ namespace Helperland.Controllers
             if (HttpContext.Session.GetString("phonenumber") != "0")
             {
                 var phonenumber = HttpContext.Session.GetString("phonenumber");
-                ulist = users.Where(c => c.Mobile == phonenumber).ToList();
-                users = users.Where(c => c.Mobile == phonenumber).
+
+                users = users.Where(c => c.Mobile != null).ToList();
+                ulist = users.Where(c => c.Mobile.Contains(phonenumber)).ToList();
+                users = users.Where(c => c.Mobile.Contains(phonenumber)).
                     ToList();
 
                 if (users.Count == 0)
@@ -389,9 +495,10 @@ namespace Helperland.Controllers
             if (HttpContext.Session.GetString("zipcode") != "0")
             {
                 var zipcode = HttpContext.Session.GetString("zipcode");
-                ulist = users.Where(c => c.ZipCode == zipcode).ToList();
-                users = users.Where(c => c.ZipCode == zipcode).
-                    ToList();
+                users = users.Where(c => c.ZipCode != null).ToList();
+
+                ulist = users.Where(c => c.ZipCode.Contains(zipcode)).ToList();
+                users = users.Where(c => c.ZipCode.Contains(zipcode)).ToList();
 
                 if (users.Count == 0)
                 {

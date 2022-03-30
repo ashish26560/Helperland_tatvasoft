@@ -46,7 +46,7 @@
             }
             @if (Model.IsActive == true)
             {
-                <span class="alert-success" >Active</span>
+                <span class="alert-success">Active</span>
 
             }
             @if (Model.UserProfilePicture == "1")
@@ -680,10 +680,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $("#change-password form").data("validator", null);
-        $.validator.unobtrusive.parse("#change-password form");
         $("#my-details form").data("validator", null);
         $.validator.unobtrusive.parse("#my-details form");
+
+        $("#change-password form").data("validator", null);
+        $.validator.unobtrusive.parse("#change-password form");
 
     });
 </script>

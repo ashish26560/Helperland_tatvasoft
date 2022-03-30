@@ -15,10 +15,9 @@
             <div class="form-group calculator-date-time">
                 <div class="input-wrapper">
                     <img alt="Calendar" src="~/assets/calendar (1).png">
-                    @*<input class="form-control date" id="txtServiceStartDate"
-                        placeholder="DD/MM/YYYY" type="text" name="Date" >*@
-                    @*<input class="form-control date" id="ServiceStartDate" asp-for="ServiceStartDate" name="ServiceStartDate" placeholder="DD/MM/YYYY" type="date" data-max-year="2032" data-min-year="2012">*@
-                    <input class="form-control date" value="@date" type="date"  id="servicestartdate" asp-for="StartDate" data-max-year="2032" data-min-year="2012">
+                    <input class="form-control date" value="@date" type="date" id="servicestartdate" asp-for="StartDate" data-max-year="2032" data-min-year="2012">
+
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
                 <select class="form-control servicetime" id="servicestarttime" asp-for="StartTime" formcontrolname="ServiceTime">
                     <option value="08:00" selected>8:00</option>
@@ -43,6 +42,7 @@
                     <option value="17:30">17:30</option>
                     <option value="18:00">18:00</option>
                 </select>
+
             </div>
         </div>
         <div class="col-md-6">
@@ -164,7 +164,7 @@
     <div class="row ">
         <div class="checkbox">
             <label>
-                <input type="checkbox" id="Haspet"  asp-for="HasPets" >
+                <input type="checkbox" id="Haspet" asp-for="HasPets">
                 <span>
                     <!-- <img  alt="Checked" src="~/assets/images/checkbox-check.png"> -->
                     I have pets at home

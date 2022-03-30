@@ -166,7 +166,17 @@
                         <img src="~/assets/close.png" alt="">
                     </button>
                 </div>
-                <form method="post" asp-action="RescheduleService" asp-controller="User">
+
+                <div id="rescherror" class="alert alert-danger collapse" role="alert">
+                    <strong>
+                        @*Another service request has been assigned to the service provider on
+
+
+                            @sdate from @stime to @etime.
+                            Either choose another date or pick up a different time slot.*@
+                    </strong>
+                </div>
+                <form data-ajax="true" data-ajax-method="post" data-ajax-failure="errorresch" data-ajax-success="successresch()" asp-action="RescheduleService" asp-controller="User">
                     <div class="modal-body">
                         <div class="form-group calculator-date-time in-modal">
                             <label class="control-label">Select New Date &amp; Time</label>
@@ -179,8 +189,8 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <select class="form-control servicetime" id="servicestarttime" asp-for="StartTime"  formcontrolname="ServiceTime">
-                                        <option value="08:00"selected>8:00</option>
+                                    <select class="form-control servicetime" id="servicestarttime" asp-for="StartTime" formcontrolname="ServiceTime">
+                                        <option value="08:00" selected>8:00</option>
                                         <option value="08:30">8:30</option>
                                         <option value="09:00">9:00</option>
                                         <option value="9:30">9:30</option>
@@ -267,3 +277,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#servicestartdate').attr('min', today);
+    });
+</script>

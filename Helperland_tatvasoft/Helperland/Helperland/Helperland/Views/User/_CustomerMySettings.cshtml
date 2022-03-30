@@ -89,6 +89,9 @@
         $(document).ready(function () {
             $("#my-details").load("@Url.Action("CustGetMydetails", "User")");
 
+            $("#my-details form").data("validator", null);
+            $.validator.unobtrusive.parse("#my-details form");
+
             $("#change-password form").data("validator", null);
             $.validator.unobtrusive.parse("#change-password form");
 

@@ -1,4 +1,127 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model IEnumerable<User>
+@{
+    int i = 0;
+}
+<div class="row favourite-pro-wrapper block-customer" style="overflow: hidden;">
+    @foreach (User user in Model)
+    {
+        if (user != null)
+        {
+
+            <div class="col-sm-4">
+                <div class="favourite-pro">
+                    @if (ViewBag.profilepicture[i] == null)
+                    {
+                        <img src="~/assets/avatar-hat.png" alt="cust1 cust1">
+                    }
+                    @if (ViewBag.profilepicture[i] == "1")
+                    {
+
+                        <img class="avatar active" src="~/assets/avatar-car.png">
+                    }
+                    @if (ViewBag.profilepicture[i] == "2")
+                    {
+
+                        <img class="avatar" src="~/assets/avatar-female.png">
+                    }
+                    @if (ViewBag.profilepicture[i] == "3")
+                    {
+
+                        <img class="avatar" src="~/assets/avatar-hat.png">
+                    }
+                    @if (ViewBag.profilepicture[i] == "4")
+                    {
+
+                        <img class="avatar" src="~/assets/avatar-iron.png">
+                    }
+                    @if (ViewBag.profilepicture[i] == "5")
+                    {
+
+                        <img class="avatar" src="~/assets/avatar-male.png">
+                    }
+                    @if (ViewBag.profilepicture[i] == "6")
+                    {
+
+                        <img class="avatar" src="~/assets/avatar-ship.png">
+                    }
+                    <div class="sp-details">
+                        <span class="name">@user.FirstName @user.LastName</span>
+                    </div>
+                    <div class="rating">
+                        @{
+                            int totalstars = Convert.ToInt32(ViewBag.ratings[i]);
+                            int stars = 5 - totalstars;
+                            for (int p = 1; p <= totalstars; p++)
+                            {
+                                <img src="~/assets/yellow-small-star.png" alt="star">
+                            }
+                            for (int j = 1; j <= stars; j++)
+                            {
+
+                                <img src="~/assets/star2.png" alt="star">
+                            }
+                            @totalstars
+                        }
+
+                    </div>
+                    <div class="cleaning">
+                        @ViewBag.cleaning[i] cleanings
+                    </div>
+                    <div class="buttons">
+                        @if (ViewBag.favouriteornot[i] == "yes")
+                        {
+                            <a class="btn btn-danger"
+                               data-ajax="true"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#favouritepros"
+                               asp-route-id="@user.UserId"
+                               asp-action="UnfavouriteProvider"
+                               asp-controller="User" title="UnFavourite">UnFavourite</a>
+                        }
+                        @if (ViewBag.favouriteornot[i] == "no")
+                        {
+                            <a class="btn btn-primary"
+                               data-ajax="true"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#favouritepros"
+                               asp-route-id="@user.UserId"
+                               asp-action="FavouriteProvider"
+                               asp-controller="User" title="Favourite">Favourite</a>
+                        }
+                        @if (ViewBag.blockedornot[i] == "yes")
+                        {
+                            <a class="btn btn-primary"
+                               data-ajax="true"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#favouritepros"
+                               asp-route-id="@user.UserId"
+                               asp-action="UnBlockProvider"
+                               asp-controller="User" title="Unblock">Unblock</a>
+                        }
+                        @if (ViewBag.blockedornot[i] == "no")
+                        {
+                            <a class="btn btn-danger"
+                               data-ajax="true"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#favouritepros"
+                               asp-route-id="@user.UserId"
+                               asp-action="BlockProvider"
+                               asp-controller="User" title="Block">Block</a>
+                        }
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        }
+
+        i = i + 1;
+    }
+
+</div>
+<hr class="hr">

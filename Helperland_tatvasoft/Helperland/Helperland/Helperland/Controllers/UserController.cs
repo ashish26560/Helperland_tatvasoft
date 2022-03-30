@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
 using System.Text;
+using System.Net;
+using System.Net.Mail;
 
 namespace Helperland.Controllers
 {
@@ -34,8 +36,14 @@ namespace Helperland.Controllers
 
         public async Task<IActionResult> Export()
         {
+            int pagenumber = (int)HttpContext.Session.GetInt32("pagenumber");
+            int pagesize = (int)HttpContext.Session.GetInt32("pagesize");
+
+            int excluderecords = (pagenumber * pagesize) - pagesize;
+
             var userid = (int)HttpContext.Session.GetInt32("UserId");
-            var servicelist = await _context.ServiceRequests.Where(c => c.UserId == userid && (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).ToListAsync();
+            var servicelist = await _context.ServiceRequests.Where(c => c.UserId == userid &&
+            (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).Skip(excluderecords).Take(pagesize).ToListAsync();
 
             foreach (ServiceRequest service in servicelist)
             {
@@ -199,7 +207,7 @@ namespace Helperland.Controllers
             //var date = p.DateOfBirth.Day.ToString();
             if (p.DateOfBirth != null)
             {
-                DateTime datevalue = (Convert.ToDateTime(p.DateOfBirth.ToString()));
+                DateTime datevalue = Convert.ToDateTime(p.DateOfBirth.ToString());
                 p.Day = datevalue.Day.ToString();
                 p.Month = datevalue.Month.ToString();
                 p.Year = datevalue.Year.ToString();
@@ -242,15 +250,34 @@ namespace Helperland.Controllers
 
             var userid = (int)HttpContext.Session.GetInt32("UserId");
 
-            var servicelist = await _context.ServiceRequests.
-                Where(c => c.UserId == userid && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).
-                Skip(excluderecords).
-                Take(pagesize).
-                ToListAsync();
-            var slist = await _context.ServiceRequests.
-                Where(c => c.UserId == userid && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).
-                ToListAsync();
+            List<string> profilepicturelist = new List<string>();
 
+            var servicelist = await _context.ServiceRequests.
+                Where(c => c.UserId == userid && c.ServiceStartDate >= DateTime.Now &&
+                (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).ToListAsync();
+            var slist = await _context.ServiceRequests.
+                Where(c => c.UserId == userid && c.ServiceStartDate >= DateTime.Now &&
+                (c.Status == 1 || c.Status == 2 || c.Status == 5 || c.Status == 7)).ToListAsync();
+
+            //filtering the data where customer blocked serviceprovider and service provider blocked customer
+            var block = await _context.FavoriteAndBlockeds.Where(c => c.UserId == userid && c.IsBlocked == true).ToListAsync();
+            var blockby = await _context.FavoriteAndBlockeds.Where(c => c.TargetUserId == userid && c.IsBlocked == true).ToListAsync();
+
+            foreach (FavoriteAndBlocked b in block)
+            {
+                servicelist = servicelist.Where(c => c.ServiceProviderId != b.TargetUserId).ToList();
+                slist = slist.Where(c => c.ServiceProviderId != b.TargetUserId).ToList();
+            }
+            foreach (FavoriteAndBlocked b in blockby)
+            {
+                servicelist = servicelist.Where(c => c.ServiceProviderId != b.UserId).ToList();
+                slist = slist.Where(c => c.ServiceProviderId != b.UserId).ToList();
+            }
+
+
+            servicelist = servicelist.Skip(excluderecords).Take(pagesize).ToList();
+
+            slist = slist.ToList();
             var result = new PagedResult<ServiceRequest>
             {
                 Data = servicelist,
@@ -264,6 +291,12 @@ namespace Helperland.Controllers
             {
                 if (service.ServiceProviderId != null)
                 {
+                    var userpic = _context.Users.Where(c => c.UserId == service.ServiceProviderId).FirstOrDefault();
+                    if (userpic != null)
+                    {
+                        profilepicturelist.Add(userpic.UserProfilePicture);
+
+                    }
                     var serviceproviderdetails = await _context.Users.Where(c => c.UserId == service.ServiceProviderId).FirstOrDefaultAsync();
 
                     service.ServiceProviderName = serviceproviderdetails.FirstName + " " + serviceproviderdetails.LastName;
@@ -284,9 +317,15 @@ namespace Helperland.Controllers
                     }
                     service.ratings = temp;
                 }
+                else
+                {
+
+                    profilepicturelist.Add(null);
+                }
 
             }
 
+            ViewBag.profilepicture = profilepicturelist;
             return PartialView("_CustomerDashboard", result);
         }
 
@@ -381,21 +420,89 @@ namespace Helperland.Controllers
         {
             var p = await _context.ServiceRequests.Where(c => c.ServiceRequestId == serviceRequest.ServiceRequestId).FirstOrDefaultAsync();
 
-            string date = serviceRequest.ServiceStartDate.ToString("yyyy-MM-dd");
-            string time = serviceRequest.StartTime.ToString("HH:mm:ss");
+            string date = serviceRequest.ServiceStartDate.ToString("d");
+
+            string time = serviceRequest.StartTime.ToString("T");
             DateTime startDateTime = Convert.ToDateTime(date).Add(TimeSpan.Parse(time));
 
-            //status=5 for reschedule service
-            p.Status = 5;
-            p.ServiceStartDate = startDateTime;
+            string Stime = startDateTime.ToString("T");
+            DateTime RescStartTime = Convert.ToDateTime(Stime);
+            string Etime = startDateTime.AddHours(p.ServiceHours).ToString("T");
+            DateTime RescEndTime = Convert.ToDateTime(Etime);
 
-            await _context.SaveChangesAsync();
+            if (p.ServiceProviderId != null)
+            {
+                var acceptedservice = await _context.ServiceRequests.Where(c => c.ServiceProviderId == p.ServiceProviderId && (c.Status == 2 || c.Status == 5)).ToListAsync();
+                foreach (ServiceRequest service in acceptedservice)
+                {
+                    string sdate = service.ServiceStartDate.ToString("d");
+                    string stime = service.ServiceStartDate.ToString("T");
+                    DateTime AccStartTime = Convert.ToDateTime(stime);
+                    string etime = service.ServiceStartDate.AddHours(service.ServiceHours).ToString("T");
+                    DateTime AccEndTime = Convert.ToDateTime(etime);
+                    if (sdate == date)
+                    {
+                        if ((RescStartTime >= AccStartTime && RescStartTime <= AccEndTime)
+                        || (RescEndTime >= AccStartTime && RescEndTime <= AccEndTime))
+                        {
+
+                            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            return Json(new
+                            {
+                                message = "Another service request has been assigned to the service provider on <b>" + sdate + " </b>from<b> " + stime + " </b>to<b> " + etime +
+                                ". </b>Either choose another date or pick up a different time slot."
+                            });
+                        }
+                    }
+                }
+                p.Status = 5;
+                p.ServiceStartDate = startDateTime;
+                await _context.SaveChangesAsync();
+                var user = await _context.Users.Where(c => c.UserId == p.ServiceProviderId).FirstOrDefaultAsync();
+                string cbody = "Hi " + user.FirstName + ", <br/><br/> Service request : " + p.ServiceRequestId +
+                    " is Rescheduled by a Customer.<br/> Rescheduled Date :" + date + " <br/>Rescheduled Start time :" + Stime + "<br/><br/> Thank you";
+                string csubject = "ServiceRequest in your area.";
+                SendEmail(user.Email, cbody, csubject);
+
+
+                return View("customer");
+            }
+            else
+            {
+
+                //status=5 for reschedule service
+                p.Status = 5;
+                p.ServiceStartDate = startDateTime;
+
+                await _context.SaveChangesAsync();
+
+
+
+                return View("customer");
+            }
 
             //returning the updated customerdashboard
 
-            return View("customer");
         }
 
+        private void SendEmail(string emailAddress, string body, string subject)
+        {
+            using MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", emailAddress);
+            mm.Subject = subject;
+            mm.Body = body;
+
+            mm.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                EnableSsl = true
+            };
+            NetworkCredential NetworkCred = new NetworkCredential("ashish.chauhan93133@gmail.com", "FeelFree@2389");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
+        }
         [HttpPost]
         public async Task<IActionResult> CancelService(ServiceRequest serviceRequest)
         {
@@ -407,20 +514,31 @@ namespace Helperland.Controllers
             p.Status = 4;
 
             await _context.SaveChangesAsync();
-
+            var user = await _context.Users.Where(c => c.UserId == p.ServiceProviderId).FirstOrDefaultAsync();
+            string cbody = "Hi " + user.FirstName + ", <br/><br/> Service request " + p.ServiceRequestId +
+                ": is cancelled by a service provider.<br/> the reason stated by service provider is as below,<br/> '" + p.Comments + "'<br/><br/> Thank you";
+            string csubject = "ServiceRequest in your area.";
+            SendEmail(user.Email, cbody, csubject);
             //returning the updated customerdashboard
             return View("customer");
         }
 
         public async Task<IActionResult> ServiceHistory(int pagenumber = 1, int pagesize = 5)
         {
+            HttpContext.Session.SetInt32("pagenumber", pagenumber);
+            HttpContext.Session.SetInt32("pagesize", pagesize);
 
             int excluderecords = (pagenumber * pagesize) - pagesize;
 
             var userid = (int)HttpContext.Session.GetInt32("UserId");
 
-            var servicelist = await _context.ServiceRequests.Where(c => c.UserId == userid && (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).Skip(excluderecords).Take(pagesize).ToListAsync();
-            var slist = await _context.ServiceRequests.Where(c => c.UserId == userid && (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).ToListAsync();
+            List<string> profilepicturelist = new List<string>();
+
+            var servicelist = await _context.ServiceRequests.Where(c => c.UserId == userid
+            && (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).Skip(excluderecords).Take(pagesize).ToListAsync();
+            var slist = await _context.ServiceRequests.Where(c => c.UserId == userid &&
+            (c.Status == 3 || c.Status == 4 || c.Status == 6 || c.Status == 8)).ToListAsync();
+
 
             var result = new PagedResult<ServiceRequest>
             {
@@ -435,6 +553,13 @@ namespace Helperland.Controllers
             {
                 if (service.ServiceProviderId != null)
                 {
+                    var userpic = _context.Users.Where(c => c.UserId == service.ServiceProviderId).FirstOrDefault();
+                    if (userpic != null)
+                    {
+                        profilepicturelist.Add(userpic.UserProfilePicture);
+
+                    }
+
                     var serviceproviderdetails = await _context.Users.Where(c => c.UserId == service.ServiceProviderId).FirstOrDefaultAsync();
 
                     service.ServiceProviderName = serviceproviderdetails.FirstName + " " + serviceproviderdetails.LastName;
@@ -455,11 +580,204 @@ namespace Helperland.Controllers
                     }
                     service.ratings = temp;
                 }
+                else
+                {
+
+                    profilepicturelist.Add(null);
+                }
 
             }
+
+            ViewBag.profilepicture = profilepicturelist;
             return PartialView("_CustomerServiceHistory", result);
         }
+        public IActionResult FavouritePros()
+        {
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
 
+            var p = _context.ServiceRequests.Where(c => c.UserId == userid &&
+            (c.Status == 3 || c.Status == 4)).AsEnumerable().GroupBy(x => x.ServiceProviderId).ToList();
 
+            List<User> users = new List<User>();
+            List<string> blocklist = new List<string>();
+            List<string> favouritelist = new List<string>();
+            List<string> profilepicturelist = new List<string>();
+            List<int> ratinglist = new List<int>();
+            List<int> cleaninglist = new List<int>();
+            foreach (var i in p)
+            {
+                User temp = _context.Users.Find(i.Key);
+                users.Add(temp);
+
+                var userpic = _context.Users.Where(c => c.UserId == i.Key).FirstOrDefault();
+                if (userpic != null)
+                {
+                    profilepicturelist.Add(userpic.UserProfilePicture);
+
+                }
+
+                var clean = _context.ServiceRequests.Where(c => c.UserId == userid &&
+                c.ServiceProviderId == i.Key && c.Status == 3).Count();
+                cleaninglist.Add(clean);
+
+                var blockornot = _context.FavoriteAndBlockeds.Where(c => c.UserId == userid &&
+                                               c.TargetUserId == i.Key).FirstOrDefault();
+                var totalrating = _context.Ratings.Where(c => c.RatingTo == i.Key).ToList();
+
+                if (totalrating != null)
+                {
+                    decimal data = 0;
+                    foreach (Rating rate in totalrating)
+                    {
+                        data += rate.Ratings;
+                    }
+                    if (totalrating.Count() != 0)
+                    {
+                        data /= totalrating.Count();
+
+                    }
+                    ratinglist.Add((int)data);
+                }
+                if (blockornot != null)
+                {
+                    if (blockornot.IsBlocked == true)
+                    {
+                        string value = "yes";
+                        blocklist.Add(value);
+                    }
+                    else
+                    {
+                        string value = "no";
+                        blocklist.Add(value);
+                    }
+                    if (blockornot.IsFavorite == true)
+                    {
+                        string value = "yes";
+                        favouritelist.Add(value);
+                    }
+                    else
+                    {
+                        string value = "no";
+                        favouritelist.Add(value);
+                    }
+                }
+                else
+                {
+
+                    string value = "no";
+                    blocklist.Add(value);
+                    favouritelist.Add(value);
+                }
+            }
+
+            ViewBag.blockedornot = blocklist;
+            ViewBag.favouriteornot = favouritelist;
+            ViewBag.ratings = ratinglist;
+            ViewBag.cleaning = cleaninglist;
+            ViewBag.profilepicture = profilepicturelist;
+
+            return PartialView("_CustomerFavouritePros", users);
+        }
+
+        public async Task<IActionResult> UnfavouriteProvider(int id)
+        {
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var p = await _context.FavoriteAndBlockeds.Where(c => c.UserId == userid && c.TargetUserId == id).FirstOrDefaultAsync();
+            if (p == null)
+            {
+                FavoriteAndBlocked favoriteAndBlocked = new FavoriteAndBlocked
+                {
+                    UserId = userid,
+                    TargetUserId = id,
+                    IsBlocked = false,
+                    IsFavorite = false
+
+                };
+
+                await _context.FavoriteAndBlockeds.AddAsync(favoriteAndBlocked);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                p.IsFavorite = false;
+                await _context.SaveChangesAsync();
+            }
+            return FavouritePros();
+        }
+        public async Task<IActionResult> BlockProvider(int id)
+        {
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var p = await _context.FavoriteAndBlockeds.Where(c => c.UserId == userid && c.TargetUserId == id).FirstOrDefaultAsync();
+            if (p == null)
+            {
+                FavoriteAndBlocked favoriteAndBlocked = new FavoriteAndBlocked
+                {
+                    UserId = userid,
+                    TargetUserId = id,
+                    IsBlocked = true,
+                    IsFavorite = false
+
+                };
+
+                await _context.FavoriteAndBlockeds.AddAsync(favoriteAndBlocked);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                p.IsBlocked = true;
+                await _context.SaveChangesAsync();
+            }
+            return FavouritePros();
+        }
+        public async Task<IActionResult> UnBlockProvider(int id)
+        {
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var p = await _context.FavoriteAndBlockeds.Where(c => c.UserId == userid && c.TargetUserId == id).FirstOrDefaultAsync();
+            if (p == null)
+            {
+                FavoriteAndBlocked favoriteAndBlocked = new FavoriteAndBlocked
+                {
+                    UserId = userid,
+                    TargetUserId = id,
+                    IsBlocked = false,
+                    IsFavorite = false
+
+                };
+
+                await _context.FavoriteAndBlockeds.AddAsync(favoriteAndBlocked);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                p.IsBlocked = false;
+                await _context.SaveChangesAsync();
+            }
+            return FavouritePros();
+        }
+        public async Task<IActionResult> FavouriteProvider(int id)
+        {
+            var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var p = await _context.FavoriteAndBlockeds.Where(c => c.UserId == userid && c.TargetUserId == id).FirstOrDefaultAsync();
+            if (p == null)
+            {
+                FavoriteAndBlocked favoriteAndBlocked = new FavoriteAndBlocked
+                {
+                    UserId = userid,
+                    TargetUserId = id,
+                    IsBlocked = false,
+                    IsFavorite = true
+
+                };
+
+                await _context.FavoriteAndBlockeds.AddAsync(favoriteAndBlocked);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                p.IsFavorite = true;
+                await _context.SaveChangesAsync();
+            }
+            return FavouritePros();
+        }
     }
 }

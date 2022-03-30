@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,8 +28,12 @@ namespace Helperland.Controllers
         }
         public async Task<IActionResult> Export()
         {
+            int pagenumber = (int)HttpContext.Session.GetInt32("pagenumber");
+            int pagesize = (int)HttpContext.Session.GetInt32("pagesize");
+
+            int excluderecords = (pagenumber * pagesize) - pagesize;
             var userid = (int)HttpContext.Session.GetInt32("UserId");
-            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && c.Status == 3 && c.ServiceProviderId == userid).ToListAsync();
+            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate != null && c.Status == 3 && c.ServiceProviderId == userid).Skip(excluderecords).Take(pagesize).ToListAsync();
             foreach (ServiceRequest service in servicelist)
             {
                 var serviceproviderdetails = await _context.Users.Where(c => c.UserId == service.UserId).FirstOrDefaultAsync();
@@ -42,7 +48,7 @@ namespace Helperland.Controllers
             }
             var builder = new StringBuilder();
             builder.AppendLine("Service ID,Service date,Customer Details");
-            foreach(var item in servicelist)
+            foreach (var item in servicelist)
             {
                 builder.AppendLine($"{item.ServiceRequestId},{item.ServiceStartDate},{item.ServiceProviderName}");
             }
@@ -61,8 +67,28 @@ namespace Helperland.Controllers
             var userid = (int)HttpContext.Session.GetInt32("UserId");
 
             var user = await _context.Users.Where(c => c.UserId == userid).FirstOrDefaultAsync();
-            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate == null && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 5 || c.Status == 7) && c.ZipCode == user.ZipCode).Skip(excluderecords).Take(pagesize).ToListAsync();
+            var servicelist = await _context.ServiceRequests.Where(c => c.SpacceptedDate == null && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 5 || c.Status == 7) && c.ZipCode == user.ZipCode).ToListAsync();
             var slist = await _context.ServiceRequests.Where(c => c.SpacceptedDate == null && c.ServiceStartDate >= DateTime.Now && (c.Status == 1 || c.Status == 5 || c.Status == 7) && c.ZipCode == user.ZipCode).ToListAsync();
+
+            //filtering the data where customer blocked serviceprovider and service provider blocked customer
+            var block = await _context.FavoriteAndBlockeds.Where(c => c.UserId == userid && c.IsBlocked == true).ToListAsync();
+            var blockby = await _context.FavoriteAndBlockeds.Where(c => c.TargetUserId == userid && c.IsBlocked == true).ToListAsync();
+
+            foreach (FavoriteAndBlocked b in block)
+            {
+                servicelist = servicelist.Where(c => c.UserId != b.TargetUserId).ToList();
+                slist = slist.Where(c => c.UserId != b.TargetUserId).ToList();
+            }
+            foreach (FavoriteAndBlocked b in blockby)
+            {
+                servicelist = servicelist.Where(c => c.UserId != b.UserId).ToList();
+                slist = slist.Where(c => c.UserId != b.UserId).ToList();
+            }
+
+
+            servicelist = servicelist.Skip(excluderecords).Take(pagesize).ToList();
+
+            slist = slist.ToList();
 
             var result = new PagedResult<ServiceRequest>
             {
@@ -90,27 +116,105 @@ namespace Helperland.Controllers
         }
         public async Task<IActionResult> AcceptServiceRequest(int id)
         {
-
             var userid = (int)HttpContext.Session.GetInt32("UserId");
+            var serviceRequest = await _context.ServiceRequests.Where(c => c.ServiceRequestId == id).FirstOrDefaultAsync();
 
-            var p = await _context.ServiceRequests.Where(c => c.ServiceRequestId == id).FirstOrDefaultAsync();
-            if (p.SpacceptedDate == null)
+
+            //accepted by other provider or not
+            if (serviceRequest.SpacceptedDate == null)
             {
+                //date and time of request accept service
+                string Sdate = serviceRequest.ServiceStartDate.ToString("d");
+
+                string Stime = serviceRequest.ServiceStartDate.ToString("T");
+
+                DateTime RescStartTime = Convert.ToDateTime(Stime);
+
+                string Etime = serviceRequest.ServiceStartDate.AddHours(serviceRequest.ServiceHours).ToString("T");
+
+                DateTime RescEndTime = Convert.ToDateTime(Etime);
+
+                var acceptedservice = await _context.ServiceRequests.Where(c => c.ServiceProviderId == userid
+                                                                   && c.SpacceptedDate != null &&
+                                                                   (c.Status == 2 || c.Status == 5)).ToListAsync();
+
+                //check each accepted request for conflict
+                foreach (ServiceRequest service in acceptedservice)
+                {
+                    string sdate = service.ServiceStartDate.ToString("d");
+                    string stime = service.ServiceStartDate.ToString("T");
+                    DateTime AccStartTime = Convert.ToDateTime(stime);
+                    string etime = service.ServiceStartDate.AddHours(service.ServiceHours).ToString("T");
+                    DateTime AccEndTime = Convert.ToDateTime(etime);
+                    if (sdate == Sdate)
+                    {
+                        if ((RescStartTime >= AccStartTime && RescStartTime <= AccEndTime)
+                        || (RescEndTime >= AccStartTime && RescEndTime <= AccEndTime))
+                        {
+
+                            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            return Json(new
+                            {
+                                message = "Another service request having <b>ID " + service.ServiceRequestId +
+                                " </b>has already been assigned which has time overlap with this service request.You can’t pick this one!"
+                            });
+                        }
+                    }
+                }
+
+
                 TempData["responseid"] = "1";
-                p.SpacceptedDate = DateTime.Now;
-                p.Status = 2;
-                p.ModifiedDate = DateTime.Now;
-                p.ServiceProviderId = userid;
-                p.ModifiedBy = userid;
+                serviceRequest.SpacceptedDate = DateTime.Now;
+                serviceRequest.Status = 2;
+                serviceRequest.ModifiedDate = DateTime.Now;
+                serviceRequest.ServiceProviderId = userid;
+                serviceRequest.ModifiedBy = userid;
                 await _context.SaveChangesAsync();
+
+                var serviceproviderlist = _context.Users.Where(c => c.ZipCode == serviceRequest.ZipCode
+                && c.UserTypeId == 2 && c.UserId != userid).ToList();
+                foreach (User mail in serviceproviderlist)
+                {
+                    string body = "Hi " + mail.FirstName + ", <br/><br/> Service request " + serviceRequest.ServiceRequestId +
+                        ": is no more available now.<br/><br/> Thank you";
+                    string subject = "ServiceRequest in your area.";
+                    SendEmail(mail.Email, body, subject);
+                }
+
+                var user = await _context.Users.Where(c => c.UserId == serviceRequest.UserId).FirstOrDefaultAsync();
+                string cbody = "Hi " + user.FirstName + ", <br/><br/> Service request " + serviceRequest.ServiceRequestId +
+                    ": is accepted by a service provider.<br/><br/> Thank you";
+                string csubject = "ServiceRequest in accepted.";
+                SendEmail(user.Email, cbody, csubject);
                 return View("_AcceptReqResponseModal");
+
             }
             else
             {
+                //show error that request already accepted
                 TempData["responseid"] = "2";
                 return View("_AcceptReqResponseModal");
+
             }
-            //for conflict of time remaining
+        }
+
+        private void SendEmail(string emailAddress, string body, string subject)
+        {
+            using MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", emailAddress);
+            mm.Subject = subject;
+            mm.Body = body;
+
+            mm.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                EnableSsl = true
+            };
+            NetworkCredential NetworkCred = new NetworkCredential("ashish.chauhan93133@gmail.com", "FeelFree@2389");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
         }
         public async Task<IActionResult> ServProvDetailsModal(int id)
         {
@@ -138,7 +242,8 @@ namespace Helperland.Controllers
         }
         public async Task<IActionResult> ServProvServHistory(int pagenumber = 1, int pagesize = 5)
         {
-
+            HttpContext.Session.SetInt32("pagenumber", pagenumber);
+            HttpContext.Session.SetInt32("pagesize", pagesize);
             int excluderecords = (pagenumber * pagesize) - pagesize;
             var userid = (int)HttpContext.Session.GetInt32("UserId");
 
@@ -223,6 +328,12 @@ namespace Helperland.Controllers
             p.Status = 4;
             p.Comments = serviceRequest.Comments;
             await _context.SaveChangesAsync();
+
+            var user = await _context.Users.Where(c => c.UserId == p.UserId).FirstOrDefaultAsync();
+            string cbody = "Hi " + user.FirstName + ", <br/><br/> Service request " + p.ServiceRequestId +
+                ": is cancelled by a service provider.<br/> the reason stated by service provider is as below,<br/> '" + p.Comments + "'<br/><br/> Thank you";
+            string csubject = "ServiceRequest in your area.";
+            SendEmail(user.Email, cbody, csubject);
             return View("ServiceProvider");
         }
         public async Task<IActionResult> Myratings(int pagenumber = 1, int pagesize = 5)
@@ -340,7 +451,6 @@ namespace Helperland.Controllers
 
                 await _context.SaveChangesAsync();
                 //ModelState.Clear();
-
 
                 return View("ServiceProvider");
             }

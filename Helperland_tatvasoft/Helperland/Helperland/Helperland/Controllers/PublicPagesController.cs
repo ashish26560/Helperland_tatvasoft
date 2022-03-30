@@ -8,6 +8,8 @@ using System.Net;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Helperland.Controllers
 {
@@ -37,6 +39,7 @@ namespace Helperland.Controllers
             return View();
         }
 
+
         public IActionResult CheckPostalCode(User user)
         {
             var p = _context.Users.Where(c => c.ZipCode == user.ZipCode && c.UserTypeId == 2).FirstOrDefault();
@@ -57,7 +60,16 @@ namespace Helperland.Controllers
             }
 
         }
+        public IActionResult LoadYourDetails()
+        {
+            var p = HttpContext.Session.GetString("ZipCode");
+            var zipcode = _context.Zipcodes.Where(c => c.ZipcodeValue == p).FirstOrDefault();
+            var city = _context.Cities.Where(c => c.Id == zipcode.CityId).FirstOrDefault();
+            ViewBag.City = city.CityName;
+            ViewBag.zipcode = p;
+            return PartialView("_YourDetails");
 
+        }
         [HttpPost]
         public async Task<IActionResult> YourDetails(UserAddress userAddress)
         {
@@ -79,8 +91,8 @@ namespace Helperland.Controllers
         public IActionResult UserAddress()
         {
             int userid = (int)HttpContext.Session.GetInt32("UserId");
-            ViewBag.zipcode = HttpContext.Session.GetString("ZipCode");
-            var p = _context.UserAddresses.Where(c => c.UserId == userid).ToList();
+            var zipcode = HttpContext.Session.GetString("ZipCode");
+            var p = _context.UserAddresses.Where(c => c.UserId == userid && c.PostalCode == zipcode).ToList();
 
             return PartialView("UserAddress", p);
         }
@@ -89,9 +101,29 @@ namespace Helperland.Controllers
             ViewBag.servicereqid = HttpContext.Session.GetInt32("ServiceRequestId");
             return PartialView("_BookingSuccess");
         }
-
-        public async Task<IActionResult> CompleteBooking(ServiceRequest serviceRequest, ServiceRequestAddress serviceRequestAddress, ServiceRequestExtra serviceRequestExtra)
+        public async Task<IActionResult> LoadFavouritePro()
         {
+
+            int userid = (int)HttpContext.Session.GetInt32("UserId");
+
+            var favouriteproviders = await _context.FavoriteAndBlockeds.Where
+                (c => c.UserId == userid && c.IsFavorite == true).ToListAsync();
+            List<User> users = new List<User>();
+
+            foreach (FavoriteAndBlocked fav in favouriteproviders)
+            {
+                var user = await _context.Users.Where(c => c.UserId == fav.TargetUserId).FirstOrDefaultAsync();
+                users.Add(user);
+            }
+
+            return PartialView("_SelectFavouritePro", users);
+        }
+        public async Task<IActionResult> CompleteBooking(ServiceRequest serviceRequest,
+            ServiceRequestAddress serviceRequestAddress,
+            ServiceRequestExtra serviceRequestExtra)
+        {
+            var zipcode = HttpContext.Session.GetString("ZipCode");
+            var Name = HttpContext.Session.GetString("Name");
 
             var data = HttpContext.Session.GetString("schedule");
             serviceRequest = JsonConvert.DeserializeObject<ServiceRequest>(data);
@@ -105,6 +137,7 @@ namespace Helperland.Controllers
             serviceRequest.PaymentDone = true;
             serviceRequest.PaymentDue = false;
             serviceRequest.Status = 1;
+            serviceRequest.ServiceProviderId = HttpContext.Session.GetInt32("favid");
             await _context.ServiceRequests.AddAsync(serviceRequest);
             await _context.SaveChangesAsync();
 
@@ -129,12 +162,52 @@ namespace Helperland.Controllers
 
             await _context.ServiceRequestExtras.AddAsync(serviceRequestExtra);
             await _context.SaveChangesAsync();
+            //Select(c => c.Email)
+            if (serviceRequest.ServiceProviderId == null)
+            {
+                var serviceproviderlist = _context.Users.Where(c => c.ZipCode == zipcode && c.UserTypeId == 2).ToList();
+                foreach (User mail in serviceproviderlist)
+                {
+                    string body = "Hi " + mail.FirstName + ", <br/> we have got new service request in your area." +
+                        " <br/><br/>Customer Name :" + Name + "<br/>Service Request ID :" + servicereqid +
+                        "<br/><br/>You can accept it by loging in.<br/><br/> Thank you";
 
+                    string subject = "We have got new ServiceRequest in your area.";
+                    SendEmail(mail.Email, body, subject);
+                }
+            }
+            else
+            {
+                var spuser = await _context.Users.Where(c => c.UserId == serviceRequest.ServiceProviderId).FirstOrDefaultAsync();
+                string body = "Hi " + spuser.FirstName + ", <br/> A service Request is directly assigned to you." +
+    " <br/><br/>Customer Name :" + Name + "<br/>Service Request ID :" + servicereqid +
+    ".<br/><br/> Thank you";
+
+                string subject = "We have got new ServiceRequest in your area.";
+                SendEmail(spuser.Email, body, subject);
+            }
             return PartialView("_BookingSuccess", ViewBag.servicereqid);
         }
+        private void SendEmail(string emailAddress, string body, string subject)
+        {
+            using MailMessage mm = new MailMessage("ashish.chauhan93133@gmail.com", emailAddress);
+            mm.Subject = subject;
+            mm.Body = body;
 
+            mm.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                EnableSsl = true
+            };
+            NetworkCredential NetworkCred = new NetworkCredential("ashish.chauhan93133@gmail.com", "FeelFree@2389");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
+        }
         [HttpPost]
-        public IActionResult SendAddress(int radioValue, ServiceRequestAddress serviceRequestAddress)
+        public IActionResult SendAddress(int radioValue, int favid, ServiceRequestAddress serviceRequestAddress)
         {
             //if (radioValue is null)
             //{
@@ -151,7 +224,7 @@ namespace Helperland.Controllers
             serviceRequestAddress.PostalCode = p.PostalCode;
 
 
-
+            HttpContext.Session.SetInt32("favid", favid);
 
             HttpContext.Session.SetString("serviceaddress", JsonConvert.SerializeObject(serviceRequestAddress));
             //await _context.ServiceRequestAddresses.AddAsync(serviceRequestAddress);
@@ -199,6 +272,7 @@ namespace Helperland.Controllers
             string date = booking.StartDate.ToString("yyyy-MM-dd");
             string time = booking.StartTime.ToString("HH:mm:ss");
             DateTime startDateTime = Convert.ToDateTime(date).Add(TimeSpan.Parse(time));
+
 
 
             booking.ServiceStartDate = startDateTime;

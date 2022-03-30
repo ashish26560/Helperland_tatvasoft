@@ -5,6 +5,9 @@
 @using Helperland.Models;
 
 @model cloudscribe.Pagination.Models.PagedResult<ServiceRequest>
+@{
+    int i = 0;
+}
 <div class="row titletext">
     <div class="col-auto">
 
@@ -41,7 +44,7 @@
 
             <tbody>
                 <tr>
-                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)"class="serviceid">@serviceRequest.ServiceRequestId</td>
+                    <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)" class="serviceid">@serviceRequest.ServiceRequestId</td>
                     <td data-id="@serviceRequest.ServiceRequestId" data-prompt="1" onclick="GetServiceDetails(this)">
                         <ul class="servicedate">
                             <li class="date">@startdate</li>
@@ -54,7 +57,40 @@
 
                             <div class="row cap-1">
                                 <div class="col-auto cap-2">
-                                    <img src="~/assets/cap.png" alt="" class="cap-customer-history">
+                                    @if (ViewBag.profilepicture[i] == null)
+                                    {
+                                        <img class="cap-customer-history" src="~/assets/avatar-hat.png" alt="cust1 cust1">
+                                    }
+                                    @if (ViewBag.profilepicture[i] == "1")
+                                    {
+
+                                        <img class="cap-customer-history" src="~/assets/avatar-car.png">
+                                    }
+                                    @if (ViewBag.profilepicture[i] == "2")
+                                    {
+
+                                        <img class="cap-customer-history" src="~/assets/avatar-female.png">
+                                    }
+                                    @if (ViewBag.profilepicture[i] == "3")
+                                    {
+
+                                        <img class="cap-customer-history" src="~/assets/avatar-hat.png">
+                                    }
+                                    @if (ViewBag.profilepicture[i] == "4")
+                                    {
+
+                                        <img class="cap-customer-history" src="~/assets/avatar-iron.png">
+                                    }
+                                    @if (ViewBag.profilepicture[i] == "5")
+                                    {
+
+                                        <img class="cap-customer-history" src="~/assets/avatar-male.png">
+                                    }
+                                    @if (ViewBag.profilepicture[i] == "6")
+                                    {
+
+                                        <img class="cap-customer-history" src="~/assets/avatar-ship.png">
+                                    }
                                 </div>
                                 <div class="col-auto cap-3">
                                     @serviceRequest.ServiceProviderName
@@ -62,7 +98,7 @@
                                     @{
                                         int totalstars = Convert.ToInt32(serviceRequest.ratings);
                                         int stars = 5 - totalstars;
-                                        for (int i = 1; i <= totalstars; i++)
+                                        for (int p = 1; p <= totalstars; p++)
                                         {
                                             <img src="~/assets/yellow-small-star.png" alt="">
                                         }
@@ -144,6 +180,7 @@
 
 
             </tbody>
+            i = i + 1;
         }
     }
 </table>

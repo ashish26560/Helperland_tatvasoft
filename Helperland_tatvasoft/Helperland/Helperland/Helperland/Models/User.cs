@@ -52,6 +52,7 @@ namespace Helperland.Models
         //public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Please enter Mobile number")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         public string Mobile { get; set; }
         public int UserTypeId { get; set; }
         public int? Gender { get; set; }

@@ -443,7 +443,6 @@ D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Help
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\bin\Debug\netcoreapp3.1\cloudscribe.Core.Models.dll
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_CustomerDashboard.cshtml.g.cs
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_AddressModals.cshtml.g.cs
-D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_CustomerFavouritePros.cshtml.g.cs
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_CustomerMysetMyaddress.cshtml.g.cs
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_CustomerMysetMydetails.cshtml.g.cs
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_CustomerMySettings.cshtml.g.cs
@@ -467,3 +466,5 @@ D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Help
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_AdminServReqSearch.cshtml.g.cs
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_AdminUsrManagSearch.cshtml.g.cs
 D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_AdminEditAndReschedule.cshtml.g.cs
+D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_CustomerFavouritePros.cshtml.g.cs
+D:\Portfolio tatvasoft\Helperland_tatvasoft\Helperland_tatvasoft\Helperland\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\PublicPages\_SelectFavouritePro.cshtml.g.cs

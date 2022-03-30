@@ -379,6 +379,11 @@
                 data: { "pagesize": pagesize },
                 success: function (response) {
                     $("#servicehistory").html(response);
+                    $("#hisquantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
                 }
             });
 
@@ -392,6 +397,11 @@
                 data: { "pagesize": pagesize },
                 success: function (response) {
                     $("#loadupcomingservices").html(response);
+                    $("#upcomquantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
                 }
             });
 
@@ -405,6 +415,11 @@
                 data: { "pagesize": pagesize },
                 success: function (response) {
                     $("#newservicerequests").html(response);
+                    $("#newreqquantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
                 }
             });
 
@@ -418,6 +433,12 @@
                 data: { "pagesize": pagesize },
                 success: function (response) {
                     $("#myratings").html(response);
+                    $("#ratequantity option").each(function () {
+                        if ($(this).val() == pagesize) {
+                            $(this).prop("selected", true);
+                        }
+                    });
+
                 }
             });
 
@@ -433,7 +454,19 @@
                     $("#accept-response").html(response);
                     $("#acceptreqresponse").modal("show");
                     loadnewservrequest();
+                },
+                error: function (data) {
+                    debugger
+                    var temp = JSON.parse(data.responseText);
+                    $("#accepterror").html(temp.message);
+
+                    $("#accepterror").show('fade');
+                    $("#accepterror").fadeTo(2000, 1000).slideUp(1000, function () {
+                        $("#accepterror").slideUp(2000);
+                    });
+
                 }
+
             });
 
         }
